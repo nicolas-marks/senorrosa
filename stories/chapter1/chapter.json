@@ -1,33 +1,47 @@
 {
   "chapter": 1,
   "title": "The Shadow in the Jungle",
+  "description": "A mysterious shape moves through the rain-soaked Yucatán jungle.",
+
+  "vocabulary": [
+    {
+      "spanish": "árbol",
+      "english": "tree"
+    },
+    {
+      "spanish": "agua",
+      "english": "water"
+    },
+    {
+      "spanish": "lluvia",
+      "english": "rain"
+    }
+  ],
 
   "pages": [
     {
       "id": 1,
-
-      "background": "jungle-day.jpg",
-
       "narration": "Rain falls over the Yucatán jungle. Something moves behind the trees.",
 
       "hotspots": [
         {
           "id": "tree",
-
           "type": "observe",
+          "label": "Inspect the tree",
 
-          "question": "What is tree in Spanish?",
-
-          "answers": [
-            "agua",
-            "árbol",
-            "pájaro"
-          ],
-
-          "correct": "árbol",
+          "challenge": {
+            "question": "What is tree in Spanish?",
+            "answers": [
+              "agua",
+              "árbol",
+              "pájaro"
+            ],
+            "correct": "árbol"
+          },
 
           "reward": {
-            "word": "árbol",
+            "type": "vocabulary",
+            "spanish": "árbol",
             "english": "tree"
           }
         }

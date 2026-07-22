@@ -117,3 +117,86 @@ button {
 .hud button {
     padding: 10px 18px;
 }
+.hidden {
+    display: none;
+}
+
+.challenge {
+    margin-top: 40px;
+    max-width: 520px;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #eeeeee;
+    border-radius: 10px;
+}
+
+.challenge h3 {
+    margin-top: 0;
+}
+
+.answer-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.answer-button {
+    min-width: 120px;
+}
+
+.challenge-message {
+    min-height: 24px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.hotspot-complete {
+    background: #d8d8d8;
+    cursor: default;
+}
+
+.journal-panel {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 10;
+
+    width: min(500px, 90%);
+    padding: 24px;
+
+    transform: translate(-50%, -50%);
+
+    background: #f4ead7;
+    color: #222;
+
+    border: 5px solid #4a3525;
+    border-radius: 12px;
+}
+
+.journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.journal-header h2 {
+    margin: 0;
+}
+
+.journal-word {
+    margin-top: 20px;
+    padding: 16px;
+
+    background: white;
+    border-left: 6px solid #4a3525;
+    border-radius: 6px;
+}
+
+.journal-word strong {
+    font-size: 1.4rem;
+}
+
+.empty-journal {
+    color: #666;
+}

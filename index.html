@@ -22,7 +22,74 @@
             </button>
         </section>
 
-        <section id="gameScreen" class="screen">
+  <section id="gameScreen" class="screen">
+    <div class="comic-page">
+
+        <div class="comic-panel">
+            <p class="chapter-label">Chapter 1</p>
+
+            <h2>The Shadow in the Jungle</h2>
+
+            <p class="narration">
+                Rain falls over the Yucatán jungle.
+                Something moves behind the trees.
+            </p>
+
+            <button id="treeHotspot" class="hotspot">
+                Inspect the tree
+            </button>
+
+            <div id="vocabChallenge" class="challenge hidden">
+                <h3>Vocabulary Challenge</h3>
+
+                <p>What is “tree” in Spanish?</p>
+
+                <div class="answer-grid">
+                    <button class="answer-button" data-answer="wrong">
+                        agua
+                    </button>
+
+                    <button class="answer-button" data-answer="correct">
+                        árbol
+                    </button>
+
+                    <button class="answer-button" data-answer="wrong">
+                        pájaro
+                    </button>
+                </div>
+
+                <p id="challengeMessage" class="challenge-message"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <nav class="hud">
+        <button id="journalButton">📖 Journal</button>
+
+        <span>
+            🔑 Keys:
+            <strong id="keyCount">0</strong>
+        </span>
+
+        <button>🎒 Backpack</button>
+
+        <span>Chapter 1</span>
+    </nav>
+
+    <div id="journalPanel" class="journal-panel hidden">
+        <div class="journal-header">
+            <h2>Vocabulary Journal</h2>
+            <button id="closeJournalButton">Close</button>
+        </div>
+
+        <div id="journalWords">
+            <p class="empty-journal">
+                You have not discovered any words yet.
+            </p>
+        </div>
+    </div>
+</section>      <section id="gameScreen" class="screen">
             <div class="comic-page">
 
                 <div class="comic-panel">

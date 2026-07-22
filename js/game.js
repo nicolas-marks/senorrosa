@@ -1,9 +1,11 @@
+// HTML elements
 const startButton = document.getElementById("startButton");
 const landingScreen = document.getElementById("landingScreen");
 const gameScreen = document.getElementById("gameScreen");
 
 const treeHotspot = document.getElementById("treeHotspot");
 const vocabChallenge = document.getElementById("vocabChallenge");
+const challengeOverlay = document.getElementById("challengeOverlay");
 const answerButtons = document.querySelectorAll(".answer-button");
 const challengeMessage = document.getElementById("challengeMessage");
 
@@ -14,9 +16,11 @@ const journalPanel = document.getElementById("journalPanel");
 const closeJournalButton = document.getElementById("closeJournalButton");
 const journalWords = document.getElementById("journalWords");
 
+// Game state
 let vocabularyKeys = [];
 let treeCompleted = false;
 
+// Event listeners
 startButton.addEventListener("click", () => {
     landingScreen.classList.remove("active-screen");
     gameScreen.classList.add("active-screen");
@@ -27,8 +31,7 @@ treeHotspot.addEventListener("click", () => {
         return;
     }
 
-    vocabChallenge.classList.remove("hidden");
-    challengeMessage.textContent = "";
+    openChallenge();
 });
 
 answerButtons.forEach((button) => {
@@ -42,15 +45,26 @@ answerButtons.forEach((button) => {
                 "Correct! Árbol has been added to your journal.";
 
             treeCompleted = true;
-            treeHotspot.textContent = "Tree inspected ✓";
+
+            treeHotspot.innerHTML =
+                '<span class="hotspot-marker">✓</span>';
+
             treeHotspot.classList.add("hotspot-complete");
 
             disableAnswerButtons();
+
+            setTimeout(() => {
+                closeChallenge();
+            }, 1400);
         } else {
             challengeMessage.textContent =
                 "Not quite. Look closely at the jungle and try again.";
         }
     });
+});
+
+challengeOverlay.addEventListener("click", () => {
+    closeChallenge();
 });
 
 journalButton.addEventListener("click", () => {
@@ -60,6 +74,18 @@ journalButton.addEventListener("click", () => {
 closeJournalButton.addEventListener("click", () => {
     journalPanel.classList.add("hidden");
 });
+
+// Functions
+function openChallenge() {
+    vocabChallenge.classList.remove("hidden");
+    challengeOverlay.classList.remove("hidden");
+    challengeMessage.textContent = "";
+}
+
+function closeChallenge() {
+    vocabChallenge.classList.add("hidden");
+    challengeOverlay.classList.add("hidden");
+}
 
 function learnWord(spanish, english) {
     const alreadyLearned = vocabularyKeys.some(

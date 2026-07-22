@@ -35,9 +35,13 @@
                 Something moves behind the trees.
             </p>
 
-            <button id="treeHotspot" class="hotspot">
-                Inspect the tree
-            </button>
+            <<button
+    id="treeHotspot"
+    class="story-hotspot tree-hotspot"
+    aria-label="Inspect the tree"
+>
+    <span class="hotspot-marker">+</span>
+</button>
 
             <div id="vocabChallenge" class="challenge hidden">
                 <h3>Vocabulary Challenge</h3>
@@ -115,7 +119,7 @@
                 <button>🎒 Backpack</button>
                 <span>Chapter 1</span>
             </nav>
-        </section>
+        <div id="challengeOverlay" class="challenge-overlay hidden"></div></section>
 
     </main>
 

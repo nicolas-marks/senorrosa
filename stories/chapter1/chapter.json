@@ -1,0 +1,37 @@
+{
+  "chapter": 1,
+  "title": "The Shadow in the Jungle",
+
+  "pages": [
+    {
+      "id": 1,
+
+      "background": "jungle-day.jpg",
+
+      "narration": "Rain falls over the Yucatán jungle. Something moves behind the trees.",
+
+      "hotspots": [
+        {
+          "id": "tree",
+
+          "type": "observe",
+
+          "question": "What is tree in Spanish?",
+
+          "answers": [
+            "agua",
+            "árbol",
+            "pájaro"
+          ],
+
+          "correct": "árbol",
+
+          "reward": {
+            "word": "árbol",
+            "english": "tree"
+          }
+        }
+      ]
+    }
+  ]
+}

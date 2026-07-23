@@ -17,6 +17,7 @@ const closeJournalButton = document.getElementById("closeJournalButton");
 const journalWords = document.getElementById("journalWords");
 const chapterTitle = document.querySelector("#gameScreen .comic-panel h2");
 const narration = document.querySelector("#gameScreen .comic-panel .narration");
+const challengeQuestion = document.querySelector("#vocabChallenge p");
 const fallbackTitle = "The Shadow in the Jungle";
 const fallbackNarration =
     "Rain falls over the Yucatán jungle. Something moves behind the trees.";
@@ -24,6 +25,11 @@ const fallbackNarration =
 // Game state
 let vocabularyKeys = [];
 let treeCompleted = false;
+let chapterData = null;
+let currentHotspot = null;
+let currentChallenge = null;
+let currentReward = null;
+let currentCorrectAnswer = "";
 
 async function loadChapterData() {
     try {
@@ -33,15 +39,53 @@ async function loadChapterData() {
             throw new Error(`Could not load chapter data (${response.status})`);
         }
 
-        const chapter = await response.json();
+        chapterData = await response.json();
 
         if (chapterTitle) {
-            chapterTitle.textContent = chapter.title || fallbackTitle;
+            chapterTitle.textContent = chapterData.title || fallbackTitle;
         }
 
         if (narration) {
-            const firstPage = chapter.pages && chapter.pages[0];
+            const firstPage = chapterData.pages && chapterData.pages[0];
             narration.textContent = firstPage?.narration || fallbackNarration;
+        }
+
+        const firstPage = chapterData.pages && chapterData.pages[0];
+        const firstHotspot = firstPage?.hotspots?.[0];
+
+        if (firstHotspot) {
+            currentHotspot = firstHotspot;
+            currentChallenge = firstHotspot.challenge;
+            currentReward = firstHotspot.reward;
+            currentCorrectAnswer = firstHotspot.challenge?.correct || "";
+
+            if (treeHotspot) {
+                treeHotspot.dataset.hotspotId = firstHotspot.id || "tree";
+                treeHotspot.setAttribute(
+                    "aria-label",
+                    firstHotspot.label || "Inspect the hotspot"
+                );
+            }
+
+            if (challengeQuestion && currentChallenge?.question) {
+                challengeQuestion.textContent = currentChallenge.question;
+            }
+
+            if (currentChallenge?.answers) {
+                answerButtons.forEach((button, index) => {
+                    const answer = currentChallenge.answers[index];
+
+                    if (answer) {
+                        button.textContent = answer;
+                        button.value = answer;
+                    }
+                });
+            }
+
+            if (currentReward?.spanish && currentReward?.english) {
+                treeHotspot.dataset.rewardSpanish = currentReward.spanish;
+                treeHotspot.dataset.rewardEnglish = currentReward.english;
+            }
         }
     } catch (error) {
         console.error(
@@ -77,13 +121,16 @@ treeHotspot.addEventListener("click", () => {
 
 answerButtons.forEach((button) => {
     button.addEventListener("click", () => {
-        const answer = button.dataset.answer;
+        const selectedAnswer = button.value.trim();
 
-        if (answer === "correct") {
-            learnWord("árbol", "tree");
+        if (selectedAnswer === currentCorrectAnswer) {
+            const rewardSpanish = currentReward?.spanish || "árbol";
+            const rewardEnglish = currentReward?.english || "tree";
+
+            learnWord(rewardSpanish, rewardEnglish);
 
             challengeMessage.textContent =
-                "Correct! Árbol has been added to your journal.";
+                `Correct! ${rewardSpanish} has been added to your journal.`;
 
             treeCompleted = true;
 

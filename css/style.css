@@ -122,12 +122,34 @@ button {
 
 .panel-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     min-height: 100%;
+}
+
+.panel-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.panel-image-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2d4a2c, #1a281a);
+    color: #f2f2f2;
+    font-size: 1rem;
+    text-align: center;
+    padding: 24px;
 }
 
 .panel-type {
@@ -141,10 +163,12 @@ button {
 .narration {
     max-width: 500px;
     padding: 18px;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.78);
     font-size: 1.15rem;
     line-height: 1.6;
     border-radius: 8px;
+    position: relative;
+    z-index: 2;
 }
 
 .hud {
@@ -280,6 +304,7 @@ button {
     animation: hotspotPulse 1.8s infinite;
     right: 12%;
     bottom: 18%;
+    z-index: 3;
 }
 
 .hotspot-marker {

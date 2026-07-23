@@ -152,7 +152,28 @@ function renderPanels(panels, hotspot) {
             </div>
         `;
 
+        const contentLayer = panelElement.querySelector(".panel-content");
         const visualLayer = panelElement.querySelector(".panel-visual");
+
+        if (panel.image) {
+            const panelImage = document.createElement("img");
+            panelImage.className = "panel-image";
+            panelImage.src = panel.image;
+            panelImage.alt = panel.alt || panel.type || "Comic panel artwork";
+            panelImage.addEventListener("error", () => {
+                console.warn(
+                    `Señor Rosa could not load panel image: ${panel.image}`
+                );
+                panelImage.remove();
+
+                const fallback = document.createElement("div");
+                fallback.className = "panel-image-fallback";
+                fallback.textContent = "Artwork unavailable";
+                visualLayer.appendChild(fallback);
+            });
+
+            visualLayer.prepend(panelImage);
+        }
 
         if (panel.hotspotId && hotspot && panel.hotspotId === hotspot.id) {
             treeHotspot = document.createElement("button");
@@ -172,7 +193,7 @@ function renderPanels(panels, hotspot) {
                 openChallenge();
             });
 
-            visualLayer.appendChild(treeHotspot);
+            contentLayer.appendChild(treeHotspot);
         }
 
         comicSequence.appendChild(panelElement);

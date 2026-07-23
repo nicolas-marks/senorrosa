@@ -54,7 +54,9 @@
       "id": "establishing",
       "type": "Establishing",
       "narration": "Rain falls over the Yucatán jungle. The canopy stretches wide and green.",
-      "visualClass": "panel-establishing"
+      "visualClass": "panel-establishing",
+      "image": "assets/images/jungle_panl1.png",
+      "alt": "A wide jungle scene with tall trees and mist"
     },
     {
       "id": "interaction",

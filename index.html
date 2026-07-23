@@ -9,120 +9,63 @@
 </head>
 
 <body>
-
     <main id="app">
-
         <section id="landingScreen" class="screen active-screen">
             <h1>🌹 Señor Rosa</h1>
-
             <p>Learn Spanish by living the story.</p>
-
-            <button id="startButton">
-                Start Adventure
-            </button>
+            <button id="startButton" type="button">Start Adventure</button>
         </section>
 
-  <section id="gameScreen" class="screen">
-    <div class="comic-page">
+        <section id="gameScreen" class="screen">
+            <div class="comic-page">
+                <div class="chapter-header">
+                    <p id="chapterLabel" class="chapter-label">Chapter 1</p>
+                    <h2 id="chapterTitle">The Shadow in the Jungle</h2>
+                </div>
 
-        <div class="comic-panel">
-            <p class="chapter-label">Chapter 1</p>
+                <div id="comicSequence" class="comic-sequence"></div>
+            </div>
 
-            <h2>The Shadow in the Jungle</h2>
+            <nav class="hud">
+                <button id="journalButton" type="button">📖 Journal</button>
 
-            <p class="narration">
-                Rain falls over the Yucatán jungle.
-                Something moves behind the trees.
-            </p>
+                <span>
+                    🔑 Keys:
+                    <strong id="keyCount">0</strong>
+                </span>
 
-            <<button
-    id="treeHotspot"
-    class="story-hotspot tree-hotspot"
-    aria-label="Inspect the tree"
->
-    <span class="hotspot-marker">+</span>
-</button>
+                <button type="button">🎒 Backpack</button>
+                <span id="chapterBadge">Chapter 1</span>
+            </nav>
 
             <div id="vocabChallenge" class="challenge hidden">
                 <h3>Vocabulary Challenge</h3>
-
-                <p>What is “tree” in Spanish?</p>
+                <p id="challengeQuestion">What is “tree” in Spanish?</p>
 
                 <div class="answer-grid">
-                    <button class="answer-button" data-answer="wrong">
-                        agua
-                    </button>
-
-                    <button class="answer-button" data-answer="correct">
-                        árbol
-                    </button>
-
-                    <button class="answer-button" data-answer="wrong">
-                        pájaro
-                    </button>
+                    <button class="answer-button" type="button"></button>
+                    <button class="answer-button" type="button"></button>
+                    <button class="answer-button" type="button"></button>
                 </div>
 
                 <p id="challengeMessage" class="challenge-message"></p>
             </div>
-        </div>
 
-    </div>
+            <div id="challengeOverlay" class="challenge-overlay hidden"></div>
 
-    <nav class="hud">
-        <button id="journalButton">📖 Journal</button>
-
-        <span>
-            🔑 Keys:
-            <strong id="keyCount">0</strong>
-        </span>
-
-        <button>🎒 Backpack</button>
-
-        <span>Chapter 1</span>
-    </nav>
-
-    <div id="journalPanel" class="journal-panel hidden">
-        <div class="journal-header">
-            <h2>Vocabulary Journal</h2>
-            <button id="closeJournalButton">Close</button>
-        </div>
-
-        <div id="journalWords">
-            <p class="empty-journal">
-                You have not discovered any words yet.
-            </p>
-        </div>
-    </div>
-</section>      <section id="gameScreen" class="screen">
-            <div class="comic-page">
-
-                <div class="comic-panel">
-                    <p class="chapter-label">Chapter 1</p>
-
-                    <h2>The Shadow in the Jungle</h2>
-
-                    <p class="narration">
-                        Rain falls over the Yucatán jungle.
-                        Something moves behind the trees.
-                    </p>
-
-                    <button id="treeHotspot" class="hotspot">
-                        Inspect the tree
-                    </button>
+            <div id="journalPanel" class="journal-panel hidden">
+                <div class="journal-header">
+                    <h2>Vocabulary Journal</h2>
+                    <button id="closeJournalButton" type="button">Close</button>
                 </div>
 
+                <div id="journalWords">
+                    <p class="empty-journal">You have not discovered any words yet.</p>
+                </div>
             </div>
-
-            <nav class="hud">
-                <button>📖 Journal</button>
-                <span>🔑 Keys: 0</span>
-                <button>🎒 Backpack</button>
-                <span>Chapter 1</span>
-            </nav>
-        <div id="challengeOverlay" class="challenge-overlay hidden"></div></section>
-
+        </section>
     </main>
 
     <script src="js/game.js"></script>
-
 </body>
+</html>

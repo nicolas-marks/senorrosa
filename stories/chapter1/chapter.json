@@ -47,5 +47,27 @@
         }
       ]
     }
+  ],
+
+  "panels": [
+    {
+      "id": "establishing",
+      "type": "Establishing",
+      "narration": "Rain falls over the Yucatán jungle. The canopy stretches wide and green.",
+      "visualClass": "panel-establishing"
+    },
+    {
+      "id": "interaction",
+      "type": "Interaction",
+      "narration": "Vines curl around the trunks. A small shape peeks through the leaves.",
+      "visualClass": "panel-interaction",
+      "hotspotId": "tree"
+    },
+    {
+      "id": "mystery",
+      "type": "Mystery",
+      "narration": "Something shifts deeper in the jungle. The path ahead feels uncertain.",
+      "visualClass": "panel-mystery"
+    }
   ]
 }

@@ -2,11 +2,15 @@
 const startButton = document.getElementById("startButton");
 const landingScreen = document.getElementById("landingScreen");
 const gameScreen = document.getElementById("gameScreen");
+const comicSequence = document.getElementById("comicSequence");
+const chapterTitle = document.getElementById("chapterTitle");
+const chapterLabel = document.getElementById("chapterLabel");
+const chapterBadge = document.getElementById("chapterBadge");
 
-const treeHotspot = document.getElementById("treeHotspot");
 const vocabChallenge = document.getElementById("vocabChallenge");
 const challengeOverlay = document.getElementById("challengeOverlay");
-const answerButtons = document.querySelectorAll(".answer-button");
+const answerButtons = Array.from(document.querySelectorAll(".answer-button"));
+const challengeQuestion = document.getElementById("challengeQuestion");
 const challengeMessage = document.getElementById("challengeMessage");
 
 const keyCount = document.getElementById("keyCount");
@@ -15,9 +19,7 @@ const journalButton = document.getElementById("journalButton");
 const journalPanel = document.getElementById("journalPanel");
 const closeJournalButton = document.getElementById("closeJournalButton");
 const journalWords = document.getElementById("journalWords");
-const chapterTitle = document.querySelector("#gameScreen .comic-panel h2");
-const narration = document.querySelector("#gameScreen .comic-panel .narration");
-const challengeQuestion = document.querySelector("#vocabChallenge p");
+
 const fallbackTitle = "The Shadow in the Jungle";
 const fallbackNarration =
     "Rain falls over the Yucatán jungle. Something moves behind the trees.";
@@ -26,10 +28,10 @@ const fallbackNarration =
 let vocabularyKeys = [];
 let treeCompleted = false;
 let chapterData = null;
-let currentHotspot = null;
 let currentChallenge = null;
 let currentReward = null;
 let currentCorrectAnswer = "";
+let treeHotspot = null;
 
 async function loadChapterData() {
     try {
@@ -40,67 +42,141 @@ async function loadChapterData() {
         }
 
         chapterData = await response.json();
-
-        if (chapterTitle) {
-            chapterTitle.textContent = chapterData.title || fallbackTitle;
-        }
-
-        if (narration) {
-            const firstPage = chapterData.pages && chapterData.pages[0];
-            narration.textContent = firstPage?.narration || fallbackNarration;
-        }
-
-        const firstPage = chapterData.pages && chapterData.pages[0];
-        const firstHotspot = firstPage?.hotspots?.[0];
-
-        if (firstHotspot) {
-            currentHotspot = firstHotspot;
-            currentChallenge = firstHotspot.challenge;
-            currentReward = firstHotspot.reward;
-            currentCorrectAnswer = firstHotspot.challenge?.correct || "";
-
-            if (treeHotspot) {
-                treeHotspot.dataset.hotspotId = firstHotspot.id || "tree";
-                treeHotspot.setAttribute(
-                    "aria-label",
-                    firstHotspot.label || "Inspect the hotspot"
-                );
-            }
-
-            if (challengeQuestion && currentChallenge?.question) {
-                challengeQuestion.textContent = currentChallenge.question;
-            }
-
-            if (currentChallenge?.answers) {
-                answerButtons.forEach((button, index) => {
-                    const answer = currentChallenge.answers[index];
-
-                    if (answer) {
-                        button.textContent = answer;
-                        button.value = answer;
-                    }
-                });
-            }
-
-            if (currentReward?.spanish && currentReward?.english) {
-                treeHotspot.dataset.rewardSpanish = currentReward.spanish;
-                treeHotspot.dataset.rewardEnglish = currentReward.english;
-            }
-        }
+        renderChapter();
     } catch (error) {
         console.error(
             "Señor Rosa could not load chapter.json. Using the built-in fallback text instead.",
             error
         );
 
-        if (chapterTitle) {
-            chapterTitle.textContent = fallbackTitle;
+        renderChapter();
+    }
+}
+
+function renderChapter() {
+    const title = chapterData?.title || fallbackTitle;
+    const chapterNumber = chapterData?.chapter
+        ? `Chapter ${chapterData.chapter}`
+        : "Chapter 1";
+
+    if (chapterTitle) {
+        chapterTitle.textContent = title;
+    }
+
+    if (chapterLabel) {
+        chapterLabel.textContent = chapterNumber;
+    }
+
+    if (chapterBadge) {
+        chapterBadge.textContent = chapterNumber;
+    }
+
+    const firstPage = chapterData?.pages?.[0] || {};
+    const firstHotspot = firstPage.hotspots?.[0] || null;
+
+    currentChallenge = firstHotspot?.challenge || null;
+    currentReward = firstHotspot?.reward || null;
+    currentCorrectAnswer = currentChallenge?.correct || "";
+
+    if (challengeQuestion && currentChallenge?.question) {
+        challengeQuestion.textContent = currentChallenge.question;
+    }
+
+    answerButtons.forEach((button, index) => {
+        button.disabled = false;
+        button.classList.remove("hotspot-complete");
+
+        const answer = currentChallenge?.answers?.[index];
+
+        if (answer) {
+            button.textContent = answer;
+            button.value = answer;
+        } else {
+            button.textContent = "";
+            button.value = "";
+        }
+    });
+
+    if (challengeMessage) {
+        challengeMessage.textContent = "";
+    }
+
+    const panels = chapterData?.panels?.length
+        ? chapterData.panels
+        : getFallbackPanels();
+
+    renderPanels(panels, firstHotspot);
+}
+
+function getFallbackPanels() {
+    return [
+        {
+            id: "establishing",
+            type: "Establishing",
+            narration: fallbackNarration,
+            visualClass: "panel-establishing"
+        },
+        {
+            id: "interaction",
+            type: "Interaction",
+            narration: "Vines curl around the tree trunks. Something is hidden in the leaves.",
+            visualClass: "panel-interaction",
+            hotspotId: "tree"
+        },
+        {
+            id: "mystery",
+            type: "Mystery",
+            narration: "A shadow moves deeper into the jungle. The path ahead feels uncertain.",
+            visualClass: "panel-mystery"
+        }
+    ];
+}
+
+function renderPanels(panels, hotspot) {
+    if (!comicSequence) {
+        return;
+    }
+
+    comicSequence.innerHTML = "";
+
+    panels.forEach((panel) => {
+        const panelElement = document.createElement("section");
+        panelElement.className = `comic-panel ${panel.visualClass || "panel-default"}`;
+        panelElement.dataset.panelId = panel.id || "panel";
+
+        panelElement.innerHTML = `
+            <div class="panel-visual"></div>
+            <div class="panel-content">
+                <p class="panel-type">${panel.type || "Panel"}</p>
+                <p class="narration">${panel.narration || fallbackNarration}</p>
+            </div>
+        `;
+
+        const visualLayer = panelElement.querySelector(".panel-visual");
+
+        if (panel.hotspotId && hotspot && panel.hotspotId === hotspot.id) {
+            treeHotspot = document.createElement("button");
+            treeHotspot.id = "treeHotspot";
+            treeHotspot.className = "story-hotspot";
+            treeHotspot.type = "button";
+            treeHotspot.setAttribute("aria-label", hotspot.label || "Inspect the hotspot");
+            treeHotspot.innerHTML = '<span class="hotspot-marker">+</span>';
+            treeHotspot.dataset.hotspotId = hotspot.id || "tree";
+            treeHotspot.dataset.rewardSpanish = hotspot.reward?.spanish || "árbol";
+            treeHotspot.dataset.rewardEnglish = hotspot.reward?.english || "tree";
+            treeHotspot.addEventListener("click", () => {
+                if (treeCompleted) {
+                    return;
+                }
+
+                openChallenge();
+            });
+
+            visualLayer.appendChild(treeHotspot);
         }
 
-        if (narration) {
-            narration.textContent = fallbackNarration;
-        }
-    }
+        comicSequence.appendChild(panelElement);
+    });
 }
 
 loadChapterData();
@@ -109,14 +185,6 @@ loadChapterData();
 startButton.addEventListener("click", () => {
     landingScreen.classList.remove("active-screen");
     gameScreen.classList.add("active-screen");
-});
-
-treeHotspot.addEventListener("click", () => {
-    if (treeCompleted) {
-        return;
-    }
-
-    openChallenge();
 });
 
 answerButtons.forEach((button) => {
@@ -134,10 +202,10 @@ answerButtons.forEach((button) => {
 
             treeCompleted = true;
 
-            treeHotspot.innerHTML =
-                '<span class="hotspot-marker">✓</span>';
-
-            treeHotspot.classList.add("hotspot-complete");
+            if (treeHotspot) {
+                treeHotspot.innerHTML = '<span class="hotspot-marker">✓</span>';
+                treeHotspot.classList.add("hotspot-complete");
+            }
 
             disableAnswerButtons();
 

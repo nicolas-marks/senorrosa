@@ -28,6 +28,13 @@ const comics = [
       "A true story told with bright colors and imperfect decisions.",
     image: "comics/comictest4.png",
     alt: "Señor Rosa comic four"
+  },
+  {
+    title: "Comic Five",
+    description:
+      "A roadside stop turns into a very awkward memory.",
+    image: "comics/comictest5.png",
+    alt: "Señor Rosa comic five"
   }
 ];
 

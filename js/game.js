@@ -15,10 +15,51 @@ const journalButton = document.getElementById("journalButton");
 const journalPanel = document.getElementById("journalPanel");
 const closeJournalButton = document.getElementById("closeJournalButton");
 const journalWords = document.getElementById("journalWords");
+const chapterTitle = document.querySelector("#gameScreen .comic-panel h2");
+const narration = document.querySelector("#gameScreen .comic-panel .narration");
+const fallbackTitle = "The Shadow in the Jungle";
+const fallbackNarration =
+    "Rain falls over the Yucatán jungle. Something moves behind the trees.";
 
 // Game state
 let vocabularyKeys = [];
 let treeCompleted = false;
+
+async function loadChapterData() {
+    try {
+        const response = await fetch("stories/chapter1/chapter.json");
+
+        if (!response.ok) {
+            throw new Error(`Could not load chapter data (${response.status})`);
+        }
+
+        const chapter = await response.json();
+
+        if (chapterTitle) {
+            chapterTitle.textContent = chapter.title || fallbackTitle;
+        }
+
+        if (narration) {
+            const firstPage = chapter.pages && chapter.pages[0];
+            narration.textContent = firstPage?.narration || fallbackNarration;
+        }
+    } catch (error) {
+        console.error(
+            "Señor Rosa could not load chapter.json. Using the built-in fallback text instead.",
+            error
+        );
+
+        if (chapterTitle) {
+            chapterTitle.textContent = fallbackTitle;
+        }
+
+        if (narration) {
+            narration.textContent = fallbackNarration;
+        }
+    }
+}
+
+loadChapterData();
 
 // Event listeners
 startButton.addEventListener("click", () => {

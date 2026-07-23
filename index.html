@@ -1,47 +1,105 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Señor Rosa — Flashcards</title>
-  <meta name="description" content="Spanish flashcards.">
-  <meta property="og:title" content="Señor Rosa Spanish flashcards">
-  <meta property="og:description" content="Spanish flashcards.">
+
+  <title>Señor Rosa — True Stories in Comics</title>
+  <meta
+    name="description"
+    content="Illustrated true stories from life between Oregon and Mexico."
+  >
+
+  <meta property="og:title" content="Señor Rosa">
+  <meta
+    property="og:description"
+    content="True stories from Oregon and Mexico, told through comics."
+  >
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/senorrosa.png">
-  <link rel="icon" href="assets/senorrosa.png">
-  <link rel="preload" href="assets/words.csv" as="fetch" crossorigin>
+  <meta property="og:image" content="assets/senorrosa2.png">
+
+  <link rel="icon" href="assets/senorrosa2.png">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <main class="container">
-    <div class="hero">
-  <img class="logo" src="assets/senorrosa.png" alt="Señor Rosa">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Señor Rosa home">
+      <img
+        class="brand-logo"
+        src="assets/senorrosa2.png"
+        alt="Señor Rosa and Jake"
+      >
 
-  <aside class="yt-box" aria-label="YouTube links">
-    <h3>🎥 YouTube</h3>
-    <ul class="yt-links">
-      <li><a href="https://youtube.com/shorts/KLOAD7lgsk8" target="_blank" rel="noopener noreferrer">Starwars parade ↗</a></li>
-      <li><a href="https://youtu.be/AU50zXkwFzE" target="_blank" rel="noopener noreferrer">Dzibilchaltún Ruins ↗</a></li>
-<li><a href="https://youtube.com/shorts/FcyMRqCswcs" target="_blank" rel="noopener noreferrer">Pueblo Tekax ↗</a>
-
-</li>
-
-    </ul>
-  </aside>
-</div>
-
-    <h1>Señor Rosa</h1>
-    <p class="lead">Coming in 2027</p>
-    <section class="flashcard" aria-live="polite" aria-atomic="true">
-      <div id="card" class="fade">
-        <h2 class="word" id="word">Cargando…</h2>
-        <div class="translation" id="translation"></div>
+      <div class="brand-text">
+        <span class="brand-name">Señor Rosa</span>
+        <span class="brand-tagline">True stories. Real life.</span>
       </div>
+    </a>
+
+    <div class="future-nav" aria-label="Future site navigation">
+      <span>More coming soon</span>
+    </div>
+  </header>
+
+  <main class="comic-page">
+    <section class="comic-intro">
+      <p class="eyebrow">Illustrated stories from Oregon and Mexico</p>
+      <h1 id="comic-title">Señor Rosa Comics</h1>
+      <p id="comic-description" class="comic-description">
+        True stories, questionable Spanish, and an unusually large Doberman.
+      </p>
     </section>
-    <div class="controls" id="status">Loading deck…</div>
-    <div class="footer">Concierge vaction services in Merida Yucatán</div>
+
+    <nav class="comic-navigation top-navigation" aria-label="Comic navigation">
+      <button id="previous-button" class="nav-button" type="button">
+        ← Previous
+      </button>
+
+      <span id="comic-counter" class="comic-counter">
+        Comic 1 of 4
+      </span>
+
+      <button id="next-button" class="nav-button" type="button">
+        Next →
+      </button>
+    </nav>
+
+    <article class="comic-reader">
+      <img
+        id="comic-image"
+        class="comic-image"
+        src="comics/comictest1.png"
+        alt="Señor Rosa comic"
+      >
+    </article>
+
+    <nav class="comic-navigation bottom-navigation" aria-label="Comic navigation">
+      <button id="previous-button-bottom" class="nav-button" type="button">
+        ← Previous
+      </button>
+
+      <a class="home-button" href="#top">
+        Back to top
+      </a>
+
+      <button id="next-button-bottom" class="nav-button" type="button">
+        Next →
+      </button>
+    </nav>
+
+    <section class="contact-section">
+      <p>
+        Curious people can email
+        <a href="mailto:info@senorrosa.com">info@senorrosa.com</a>.
+      </p>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <p>© <span id="current-year"></span> Señor Rosa</p>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>

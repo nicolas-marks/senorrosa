@@ -1,100 +1,111 @@
+"use strict";
 
-// Señor Rosa — Flashcards app
-const DECK_URL = 'assets/words.csv';
-const ROTATION_MS = 2000; // interval in ms
-const SHUFFLE = true;
-
-let deck = [];
-let idx = 0;
-let timer = null;
-
-const wordEl = document.getElementById('word');
-const trEl = document.getElementById('translation');
-const statusEl = document.getElementById('status');
-
-function parseCSV(text) {
-  const rows = [];
-  let cur = '', row = [], inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i], next = text[i+1];
-    if (c === '"') {
-      if (inQuotes && next === '"') { cur += '"'; i++; }
-      else { inQuotes = !inQuotes; }
-    } else if (c === ',' && !inQuotes) {
-      row.push(cur.trim()); cur='';
-    } else if ((c === '\n' || c === '\r') && !inQuotes) {
-      if (cur.length || row.length) { row.push(cur.trim()); rows.push(row); }
-      cur=''; row=[];
-      if (c === '\r' && next === '\n') i++;
-    } else {
-      cur += c;
-    }
+const comics = [
+  {
+    title: "Comic One",
+    description:
+      "True stories, questionable Spanish, and an unusually large Doberman.",
+    image: "comics/comictest1.png",
+    alt: "Señor Rosa comic one"
+  },
+  {
+    title: "Comic Two",
+    description:
+      "Another true story from life between Oregon and Mexico.",
+    image: "comics/comictest2.png",
+    alt: "Señor Rosa comic two"
+  },
+  {
+    title: "Comic Three",
+    description:
+      "An illustrated adventure featuring Señor Rosa and company.",
+    image: "comics/comictest3.png",
+    alt: "Señor Rosa comic three"
+  },
+  {
+    title: "Comic Four",
+    description:
+      "A true story told with bright colors and imperfect decisions.",
+    image: "comics/comictest4.png",
+    alt: "Señor Rosa comic four"
   }
-  if (cur.length || row.length) { row.push(cur.trim()); rows.push(row); }
-  return rows.filter(r => r.length >= 2 && r[0] && r[1]);
-}
+];
 
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+let currentComicIndex = 0;
+
+const comicTitle = document.querySelector("#comic-title");
+const comicDescription = document.querySelector("#comic-description");
+const comicImage = document.querySelector("#comic-image");
+const comicCounter = document.querySelector("#comic-counter");
+
+const previousButton = document.querySelector("#previous-button");
+const nextButton = document.querySelector("#next-button");
+const previousButtonBottom = document.querySelector("#previous-button-bottom");
+const nextButtonBottom = document.querySelector("#next-button-bottom");
+
+function renderComic({ scrollToTop = false } = {}) {
+  const comic = comics[currentComicIndex];
+
+  comicTitle.textContent = comic.title;
+  comicDescription.textContent = comic.description;
+  comicImage.src = comic.image;
+  comicImage.alt = comic.alt;
+
+  comicCounter.textContent =
+    `Comic ${currentComicIndex + 1} of ${comics.length}`;
+
+  const isFirstComic = currentComicIndex === 0;
+  const isLastComic = currentComicIndex === comics.length - 1;
+
+  previousButton.disabled = isFirstComic;
+  previousButtonBottom.disabled = isFirstComic;
+  nextButton.disabled = isLastComic;
+  nextButtonBottom.disabled = isLastComic;
+
+  document.title = `${comic.title} — Señor Rosa`;
+
+  if (scrollToTop) {
+    document.querySelector(".comic-intro").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   }
-  return arr;
 }
 
-async function loadDeck() {
-  try {
-    const res = await fetch(DECK_URL, {cache: 'no-cache'});
-    const text = await res.text();
-    const rows = parseCSV(text);
-    const looksHeader = rows[0] && rows[0][0].toLowerCase().includes('spanish');
-    const data = looksHeader ? rows.slice(1) : rows;
-    deck = data.map(r => ({ es: r[0], en: r[1] }));
-    if (deck.length === 0) throw new Error('Empty deck');
-    if (SHUFFLE) shuffle(deck);
-    statusEl.textContent = `Loaded ${deck.length} cards • rotating every ${ROTATION_MS/1000}s`;
-    start();
-  } catch (e) {
-    console.error(e);
-    statusEl.textContent = 'Could not load deck. Check assets/words.csv';
-    wordEl.textContent = 'Deck error';
-    trEl.textContent = e.message || '';
+function showPreviousComic() {
+  if (currentComicIndex <= 0) {
+    return;
   }
+
+  currentComicIndex -= 1;
+  renderComic({ scrollToTop: true });
 }
 
-function showCard() {
-  const card = deck[idx % deck.length];
-  wordEl.textContent = card.es;
-  trEl.textContent = card.en;
-  const container = document.getElementById('card');
-  container.classList.remove('fade');
-  void container.offsetWidth; // reflow
-  container.classList.add('fade');
-  idx++;
+function showNextComic() {
+  if (currentComicIndex >= comics.length - 1) {
+    return;
+  }
+
+  currentComicIndex += 1;
+  renderComic({ scrollToTop: true });
 }
 
-function start() {
-  stop();
-  showCard();
-  timer = setInterval(showCard, ROTATION_MS);
-}
+previousButton.addEventListener("click", showPreviousComic);
+previousButtonBottom.addEventListener("click", showPreviousComic);
+nextButton.addEventListener("click", showNextComic);
+nextButtonBottom.addEventListener("click", showNextComic);
 
-function stop() {
-  if (timer) clearInterval(timer);
-  timer = null;
-}
+document.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    showPreviousComic();
+  }
 
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-  if (e.code === 'Space') {
-    if (timer) { stop(); statusEl.textContent += ' • paused'; }
-    else { start(); }
-    e.preventDefault();
-  } else if (e.code === 'ArrowRight') {
-    stop(); showCard();
-  } else if (e.code === 'ArrowLeft') {
-    stop(); idx = (idx - 2 + deck.length) % deck.length; showCard();
+  if (event.key === "ArrowRight") {
+    showNextComic();
   }
 });
 
-loadDeck();
+document.querySelector("#current-year").textContent =
+  new Date().getFullYear();
+
+renderComic();

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Señor Rosa — Flashcards</title>
+  <meta name="description" content="Spanish flashcards.">
+  <meta property="og:title" content="Señor Rosa Spanish flashcards">
+  <meta property="og:description" content="Spanish flashcards.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/senorrosa.png">
+  <link rel="icon" href="assets/senorrosa.png">
+  <link rel="preload" href="assets/words.csv" as="fetch" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <div class="hero">
+  <img class="logo" src="assets/senorrosa.png" alt="Señor Rosa">
+
+  <aside class="yt-box" aria-label="YouTube links">
+    <h3>🎥 YouTube</h3>
+    <ul class="yt-links">
+      <li><a href="https://youtube.com/shorts/KLOAD7lgsk8" target="_blank" rel="noopener noreferrer">Starwars parade ↗</a></li>
+      <li><a href="https://youtu.be/AU50zXkwFzE" target="_blank" rel="noopener noreferrer">Dzibilchaltún Ruins ↗</a></li>
+<li><a href="https://youtube.com/shorts/FcyMRqCswcs" target="_blank" rel="noopener noreferrer">Pueblo Tekax ↗</a>
+
+</li>
+
+    </ul>
+  </aside>
+</div>
+
+    <h1>Señor Rosa</h1>
+    <p class="lead">Coming in 2027</p>
+    <section class="flashcard" aria-live="polite" aria-atomic="true">
+      <div id="card" class="fade">
+        <h2 class="word" id="word">Cargando…</h2>
+        <div class="translation" id="translation"></div>
+      </div>
+    </section>
+    <div class="controls" id="status">Loading deck…</div>
+    <div class="footer">Concierge vaction services in Merida Yucatán</div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

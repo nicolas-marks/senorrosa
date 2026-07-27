@@ -68,7 +68,10 @@ const comics = [
  {
   title: "Otra Novia",
   image: "comics/comictest10.png",
-  description: "At Mercado Lucas de Gálvez, Gina teases Nico about his other girlfriend—the woman who makes his favorite salbutes de relleno."
+  description:
+    "At Mercado Lucas de Gálvez, Gina teases Nico about his other girlfriend—the woman who makes his favorite salbutes de relleno.",
+  alt:
+    "Nico and Gina visit a salbutes vendor inside Mercado Lucas de Gálvez in Mérida."
 }
 ];
 
@@ -148,5 +151,17 @@ document.addEventListener("keydown", (event) => {
 
 document.querySelector("#current-year").textContent =
   new Date().getFullYear();
+
+const navToggle = document.querySelector(".nav-toggle");
+const siteNav = document.querySelector(".site-nav");
+
+if (navToggle && siteNav) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = siteNav.classList.toggle("is-open");
+
+    document.body.classList.toggle("nav-open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+}
 
 renderComic();

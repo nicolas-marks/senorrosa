@@ -1,54 +1,51 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const navToggle = document.querySelector('#mobile-nav-toggle');
-  const siteNav = document.querySelector('#site-nav');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const body = document.body;
+"use strict";
 
+const navToggle = document.querySelector(".nav-toggle");
+const siteNav = document.querySelector(".site-nav");
+const navLinks = document.querySelectorAll(".nav-link");
+
+function closeMobileMenu() {
   if (!navToggle || !siteNav) {
     return;
   }
 
-  console.log('mobile menu clicked');
+  siteNav.classList.remove("is-open");
+  document.body.classList.remove("nav-open");
+  navToggle.setAttribute("aria-expanded", "false");
+}
 
-  function setMenuOpen(isOpen) {
-    siteNav.classList.toggle('is-open', isOpen);
-    navToggle.classList.toggle('is-open', isOpen);
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-    body.classList.toggle('nav-open', isOpen);
-    siteNav.style.display = isOpen ? 'flex' : '';
-    siteNav.style.visibility = isOpen ? 'visible' : 'hidden';
-    siteNav.style.opacity = isOpen ? '1' : '0';
-    siteNav.style.pointerEvents = isOpen ? 'auto' : 'none';
-    siteNav.style.zIndex = isOpen ? '60' : '';
+function toggleMobileMenu() {
+  if (!navToggle || !siteNav) {
+    return;
   }
 
-  navToggle.addEventListener('click', () => {
-    console.log('mobile menu clicked');
-    const isOpen = siteNav.classList.contains('is-open');
-    setMenuOpen(!isOpen);
-  });
+  const isOpen = siteNav.classList.toggle("is-open");
+
+  document.body.classList.toggle("nav-open", isOpen);
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+}
+
+if (navToggle && siteNav) {
+  navToggle.addEventListener("click", toggleMobileMenu);
 
   navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      if (!link.classList.contains('is-disabled')) {
-        setMenuOpen(false);
+    link.addEventListener("click", () => {
+      if (!link.classList.contains("is-disabled")) {
+        closeMobileMenu();
       }
     });
   });
 
-  document.addEventListener('click', (event) => {
-    const clickedInsideHeader = event.target.closest('.site-header');
-    if (!clickedInsideHeader && siteNav.classList.contains('is-open')) {
-      setMenuOpen(false);
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && siteNav.classList.contains('is-open')) {
-      setMenuOpen(false);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
       navToggle.focus();
     }
   });
 
-  setMenuOpen(false);
-});
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 520) {
+      closeMobileMenu();
+    }
+  });
+}

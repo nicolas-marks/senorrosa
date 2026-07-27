@@ -48,7 +48,7 @@ const comics = [
     description:
       "An unused cast iron pan finds a new home rather than being surrendered.",
     image: "comics/comictest7.png",
-    alt: "Nico relocates his cast iron pan from the kitchen table to his home office."
+    alt: "Nico relocates his cast iron pan from the kitchen to a new home."
   },
   {
     title: "The 6 A.M. Negotiator",
@@ -56,6 +56,14 @@ const comics = [
       "A thirty-dollar auto feeder brings peace to a household ruled by a hungry one-eyed cat.",
     image: "comics/comictest8.png",
     alt: "Mylie the one-eyed cat stops slamming the bedroom door after receiving an automatic feeder."
+  },
+  {
+    title: "Core Memory Unlocked",
+    description:
+      "A peaceful Valheim base tour becomes a lovable family panic when Mom falls three floors onto the hearth.",
+    image: "comics/comictest9.png",
+    alt:
+      "Nico, his mother, and his adult cousin Samantha laugh together after Mom falls onto a hearth during a Valheim base tour."
   }
 ];
 

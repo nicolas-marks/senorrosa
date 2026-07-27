@@ -1,39 +1,45 @@
 const navToggle = document.querySelector('.nav-toggle');
 const siteNav = document.querySelector('.site-nav');
-const navItems = document.querySelectorAll('.nav-item');
+const navLinks = document.querySelectorAll('.nav-link');
+const body = document.body;
+
+function setMenuOpen(isOpen) {
+  siteNav.classList.toggle('is-open', isOpen);
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+  body.classList.toggle('nav-open', isOpen);
+}
 
 if (navToggle && siteNav) {
   navToggle.addEventListener('click', () => {
-    const isOpen = siteNav.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
+    const isOpen = siteNav.classList.contains('is-open');
+    setMenuOpen(!isOpen);
   });
-}
 
-navItems.forEach((item) => {
-  const trigger = item.querySelector('.nav-trigger');
+  document.addEventListener('click', (event) => {
+    const clickedInsideHeader = event.target.closest('.site-header');
+    if (!clickedInsideHeader && siteNav.classList.contains('is-open')) {
+      setMenuOpen(false);
+    }
+  });
 
-  if (!trigger) {
-    return;
-  }
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && siteNav.classList.contains('is-open')) {
+      setMenuOpen(false);
+      navToggle.focus();
+    }
+  });
 
-  trigger.addEventListener('click', () => {
-    const isOpen = item.classList.toggle('is-open');
-    trigger.setAttribute('aria-expanded', String(isOpen));
-
-    navItems.forEach((otherItem) => {
-      if (otherItem !== item) {
-        otherItem.classList.remove('is-open');
-        const otherTrigger = otherItem.querySelector('.nav-trigger');
-        if (otherTrigger) {
-          otherTrigger.setAttribute('aria-expanded', 'false');
-        }
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (!link.classList.contains('is-disabled')) {
+        setMenuOpen(false);
       }
     });
   });
-});
 
-document.querySelectorAll('.dropdown-link.is-disabled').forEach((link) => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
+  siteNav.addEventListener('click', (event) => {
+    if (event.target.classList.contains('nav-link') && !event.target.classList.contains('is-disabled')) {
+      setMenuOpen(false);
+    }
   });
-});
+}

@@ -64,7 +64,12 @@ const comics = [
     image: "comics/comictest9.png",
     alt:
       "Nico, his mother, and his adult cousin Samantha laugh together after Mom falls onto a hearth during a Valheim base tour."
-  }
+  },
+ {
+  title: "Otra Novia",
+  image: "comics/comictest10.png",
+  description: "At Mercado Lucas de Gálvez, Gina teases Nico about his other girlfriend—the woman who makes his favorite salbutes de relleno."
+}
 ];
 
 let currentComicIndex = comics.length - 1;

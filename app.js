@@ -35,10 +35,31 @@ const comics = [
       "A roadside stop turns into a very awkward memory.",
     image: "comics/comictest5.png",
     alt: "Señor Rosa comic five"
+  },
+  {
+    title: "Morning Surprise",
+    description:
+      "A sunny Oregon morning walk brings Jake an unexpected new friend.",
+    image: "comics/comictest6.png",
+    alt: "Nico, Brian, Jake, and Max meet during a sunny Oregon morning walk."
+  },
+  {
+    title: "Seasoned and Stubborn",
+    description:
+      "An unused cast iron pan finds a new home rather than being surrendered.",
+    image: "comics/comictest7.png",
+    alt: "Nico relocates his cast iron pan from the kitchen table to his home office."
+  },
+  {
+    title: "The 6 A.M. Negotiator",
+    description:
+      "A thirty-dollar auto feeder brings peace to a household ruled by a hungry one-eyed cat.",
+    image: "comics/comictest8.png",
+    alt: "Mylie the one-eyed cat stops slamming the bedroom door after receiving an automatic feeder."
   }
 ];
 
-let currentComicIndex = 0;
+let currentComicIndex = comics.length - 1;
 
 const comicTitle = document.querySelector("#comic-title");
 const comicDescription = document.querySelector("#comic-description");

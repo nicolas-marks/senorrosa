@@ -1,18 +1,39 @@
-const navToggle = document.querySelector('.nav-toggle');
-const siteNav = document.querySelector('.site-nav');
-const navLinks = document.querySelectorAll('.nav-link');
-const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.querySelector('#mobile-nav-toggle');
+  const siteNav = document.querySelector('#site-nav');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const body = document.body;
 
-function setMenuOpen(isOpen) {
-  siteNav.classList.toggle('is-open', isOpen);
-  navToggle.setAttribute('aria-expanded', String(isOpen));
-  body.classList.toggle('nav-open', isOpen);
-}
+  if (!navToggle || !siteNav) {
+    return;
+  }
 
-if (navToggle && siteNav) {
+  console.log('mobile menu clicked');
+
+  function setMenuOpen(isOpen) {
+    siteNav.classList.toggle('is-open', isOpen);
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    body.classList.toggle('nav-open', isOpen);
+    siteNav.style.display = isOpen ? 'flex' : '';
+    siteNav.style.visibility = isOpen ? 'visible' : 'hidden';
+    siteNav.style.opacity = isOpen ? '1' : '0';
+    siteNav.style.pointerEvents = isOpen ? 'auto' : 'none';
+    siteNav.style.zIndex = isOpen ? '60' : '';
+  }
+
   navToggle.addEventListener('click', () => {
+    console.log('mobile menu clicked');
     const isOpen = siteNav.classList.contains('is-open');
     setMenuOpen(!isOpen);
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (!link.classList.contains('is-disabled')) {
+        setMenuOpen(false);
+      }
+    });
   });
 
   document.addEventListener('click', (event) => {
@@ -29,17 +50,5 @@ if (navToggle && siteNav) {
     }
   });
 
-  navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      if (!link.classList.contains('is-disabled')) {
-        setMenuOpen(false);
-      }
-    });
-  });
-
-  siteNav.addEventListener('click', (event) => {
-    if (event.target.classList.contains('nav-link') && !event.target.classList.contains('is-disabled')) {
-      setMenuOpen(false);
-    }
-  });
-}
+  setMenuOpen(false);
+});

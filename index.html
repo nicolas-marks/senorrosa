@@ -22,9 +22,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body id="top">
   <header class="site-header">
-    <a class="brand" href="/" aria-label="Señor Rosa home">
+    <a class="brand" href="index.html" aria-label="Señor Rosa home">
       <img
         class="brand-logo"
         src="assets/senorrosa2.png"
@@ -37,9 +37,33 @@
       </div>
     </a>
 
-    <div class="future-nav" aria-label="Future site navigation">
-      <span>More coming soon</span>
-    </div>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Toggle navigation"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Site navigation">
+      <ul class="nav-list">
+        <li class="nav-item is-active">
+          <a class="nav-link" href="index.html" aria-current="page">Comics</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link is-disabled" href="#" aria-disabled="true">Contact</a>
+        </li>
+      </ul>
+    </nav>
   </header>
 
   <main class="comic-page">

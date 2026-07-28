@@ -40,14 +40,14 @@ const comics = [
     title: "Morning Surprise",
     description:
       "A sunny Oregon morning walk brings Jake an unexpected new friend.",
-    image: "comics/comictest6.png",
+    image: "comics/comictest7.png",
     alt: "Nico, Brian, Jake, and Max meet during a sunny Oregon morning walk."
   },
   {
     title: "Seasoned and Stubborn",
     description:
       "An unused cast iron pan finds a new home rather than being surrendered.",
-    image: "comics/comictest7.png",
+    image: "comics/comictest6.png",
     alt: "Nico relocates his cast iron pan from the kitchen to a new home."
   },
   {
@@ -72,6 +72,14 @@ const comics = [
     "At Mercado Lucas de Gálvez, Gina teases Nico about his other girlfriend—the woman who makes his favorite salbutes de relleno.",
   alt:
     "Nico and Gina visit a salbutes vendor inside Mercado Lucas de Gálvez in Mérida."
+},
+{
+  title: "La Biciruta",
+  image: "comics/comictest11.png",
+  description:
+    "What started as a perfect Sunday riding La Biciruta with Jake ended with selfies, an angry cyclist, and one comeback Nico probably shouldn't have made.",
+  alt:
+    "Nico and Gina ride bicycles with Jake trotting beside them during La Biciruta in Mérida."
 }
 ];
 

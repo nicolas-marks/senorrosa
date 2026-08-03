@@ -11,7 +11,7 @@
     "summary": "A friendly police officer notices Jake’s red dog boots, forcing Nico’s baby Spanish into action.",
     "published": true,
     "featured": true,
-    "story_type": "anecdote",
+    "story_type": "",
     "characters": [
       "Nico",
       "Gina",
@@ -25,7 +25,7 @@
       "travel",
       "dog"
     ],
-    "body": "One evening in Mérida, Gina, Leyslie, Jake, and I walked from our casa through the barrio to pick up a Little Caesars pizza.\n\nOn our way home, a police truck pulled beside us. The officer leaned out and said:\n\n“Buenas noches, ese es un perro enorme.”\n\nGina and Leyslie stayed silent, waiting for my baby Spanish to come out.\n\n“Buenas noches, claro que sí.”\n\nThe officer continued, amused by Jake’s boots:\n\n“Tu perro trae zapatos. Nunca había visto un perro con zapatos. ¡Qué chistoso!”\n\nMy brain buffered.\n\n“Zapatos rojos.”\n\nThe officer smiled, waved, and drove away. We all started laughing while Jake side-eyed the pizza box.\n\nA warm little Yucatán moment."
+    "body": "One evening in Mérida, Gina, Leyslie, Jake, and I walked from our casa through the barrio to pick up a Little Caesars pizza.\r\n\r\nOn our way home, a police truck pulled beside us. The officer leaned out and said:\r\n\r\n“Buenas noches, ese es un perro enorme.”\r\n\r\nGina and Leyslie stayed silent, waiting for my baby Spanish to come out.\r\n\r\n“Buenas noches, claro que sí.”\r\n\r\nThe officer continued, amused by Jake’s boots:\r\n\r\n“Tu perro trae zapatos. Nunca había visto un perro con zapatos. ¡Qué chistoso!”\r\n\r\nMy brain buffered.\r\n\r\n“Zapatos rojos.”\r\n\r\nThe officer smiled, waved, and drove away. We all started laughing while Jake side-eyed the pizza box.\r\n\r\nA warm little Yucatán moment."
   },
   {
     "id": 2,
@@ -39,7 +39,7 @@
     "summary": "Gina learns the hard way that every road trip with Nico comes with at least one spectacularly terrible dad joke.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "",
     "characters": [
       "Nico",
       "Gina"
@@ -51,7 +51,7 @@
       "dad-joke",
       "cows"
     ],
-    "body": "# Cow Joke\n\nDriving through the Oregon countryside with Gina, we passed a field full of cows.\n\nLike any mature adult, I immediately announced:\n\n\"Did you know starting in 2027 they can't make round hay bales anymore?\"\n\nShe sighed.\n\n\"Are you serious? Why?\"\n\nI pointed toward the cows.\n\n\"Well... the cows were complaining about not getting...\"\n\nI paused for dramatic effect.\n\n\"...three square meals a day.\"\n\nShe buried her face in her hands.\n\n\"I hate you.\"\n\nTotally worth it."
+    "body": "# Cow Joke\r\n\r\nDriving through the Oregon countryside with Gina, we passed a field full of cows.\r\n\r\nLike any mature adult, I immediately announced:\r\n\r\n\"Did you know starting in 2027 they can't make round hay bales anymore?\"\r\n\r\nShe sighed.\r\n\r\n\"Are you serious? Why?\"\r\n\r\nI pointed toward the cows.\r\n\r\n\"Well... the cows were complaining about not getting...\"\r\n\r\nI paused for dramatic effect.\r\n\r\n\"...three square meals a day.\"\r\n\r\nShe buried her face in her hands.\r\n\r\n\"I hate you.\"\r\n\r\nTotally worth it."
   },
   {
     "id": 3,
@@ -65,7 +65,7 @@
     "summary": "A comic from the Señor Rosa collection about a Mexican Uber moment.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina",
@@ -76,7 +76,7 @@
       "travel",
       "humor"
     ],
-    "body": "Gina's iPhone gets crushed by oncoming traffic"
+    "body": ""
   },
   {
     "id": 4,
@@ -90,7 +90,7 @@
     "summary": "A comic from the Señor Rosa collection about an unexpected doctor visit.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina",
@@ -102,7 +102,7 @@
       "doctor",
       "sick"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 5,
@@ -116,7 +116,7 @@
     "summary": "A comic from the Señor Rosa collection about a border-related travel moment.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -127,7 +127,7 @@
       "travel",
       "paperwork"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 6,
@@ -141,7 +141,7 @@
     "summary": "A comic from the Señor Rosa collection about a police-related misadventure.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -151,7 +151,7 @@
       "police",
       "travel"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 7,
@@ -165,7 +165,7 @@
     "summary": "A comic from the Señor Rosa collection about an old kitchen object with a new story.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -175,7 +175,7 @@
       "humor",
       "home"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 8,
@@ -189,7 +189,7 @@
     "summary": "A comic from the Señor Rosa collection about a walk with Max.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -199,7 +199,7 @@
       "dog",
       "humor"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 9,
@@ -213,7 +213,7 @@
     "summary": "A comic from the Señor Rosa collection about a breakfast-time cat problem.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -223,7 +223,7 @@
       "home",
       "humor"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 10,
@@ -237,7 +237,7 @@
     "summary": "A comic from the Señor Rosa collection about a Valheim-related mishap.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -247,7 +247,7 @@
       "family",
       "humor"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 11,
@@ -261,7 +261,7 @@
     "summary": "A comic from the Señor Rosa collection about a market visit and a playful rivalry.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -272,7 +272,7 @@
       "market",
       "humor"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 12,
@@ -286,7 +286,7 @@
     "summary": "A comic from the Señor Rosa collection about a bike ride and an unexpected moment.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -297,21 +297,21 @@
       "bike",
       "humor"
     ],
-    "body": "Story goes here..."
+    "body": ""
   },
   {
     "id": 13,
     "slug": "family-reunion",
     "title": "Family Reunion",
     "version": 1,
-    "date": "TBD",
-    "location": "TBD",
+    "date": "2026-08-01",
+    "location": "Oregon",
     "image": "comics/013_family_reunion/comic.png",
     "alt": "Comic illustration for Family Reunion.",
     "summary": "A comic from the Señor Rosa collection about a family gathering.",
     "published": true,
     "featured": false,
-    "story_type": "anecdote",
+    "story_type": "true-story",
     "characters": [
       "Nico",
       "Gina"
@@ -321,6 +321,28 @@
       "humor",
       "travel"
     ],
-    "body": "Story goes here..."
+    "body": ""
+  },
+  {
+    "id": 14,
+    "slug": "uxmal",
+    "title": "Uxmal Ruins",
+    "version": 1,
+    "date": "2025-12-01",
+    "location": "Uxmal, Yucatán, México",
+    "image": "comics/014-uxmal/comic.png",
+    "alt": "Comic illustration for A day in the Uxmal Ruins.",
+    "summary": "A comic from the Señor Rosa collection about a day trip to Uxmal",
+    "published": true,
+    "featured": false,
+    "story_type": "true-story",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "humor"
+    ],
+    "body": ""
   }
 ]

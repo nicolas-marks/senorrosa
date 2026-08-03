@@ -149,8 +149,26 @@ a:hover {
   cursor: pointer;
 }
 
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+}
+
 .nav-trigger:hover,
 .nav-link:hover,
+.social-link:hover,
 .nav-item.is-open .nav-trigger,
 .nav-item.is-active .nav-link {
   background: rgba(255, 10, 120, 0.08);

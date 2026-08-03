@@ -1,0 +1,326 @@
+[
+  {
+    "id": 1,
+    "slug": "red-shoes",
+    "title": "Red Shoes",
+    "version": 1,
+    "date": "2025-10-01",
+    "location": "Mérida, Yucatán, México",
+    "image": "comics/001_Red_Shoes/comic.png",
+    "alt": "Nico, Gina, Leyslie, and Jake encounter a friendly police officer during an evening pizza walk in Mérida.",
+    "summary": "A friendly police officer notices Jake’s red dog boots, forcing Nico’s baby Spanish into action.",
+    "published": true,
+    "featured": true,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina",
+      "Leyslie",
+      "Jake"
+    ],
+    "tags": [
+      "mexico",
+      "merida",
+      "spanish",
+      "travel",
+      "dog"
+    ],
+    "body": "One evening in Mérida, Gina, Leyslie, Jake, and I walked from our casa through the barrio to pick up a Little Caesars pizza.\n\nOn our way home, a police truck pulled beside us. The officer leaned out and said:\n\n“Buenas noches, ese es un perro enorme.”\n\nGina and Leyslie stayed silent, waiting for my baby Spanish to come out.\n\n“Buenas noches, claro que sí.”\n\nThe officer continued, amused by Jake’s boots:\n\n“Tu perro trae zapatos. Nunca había visto un perro con zapatos. ¡Qué chistoso!”\n\nMy brain buffered.\n\n“Zapatos rojos.”\n\nThe officer smiled, waved, and drove away. We all started laughing while Jake side-eyed the pizza box.\n\nA warm little Yucatán moment."
+  },
+  {
+    "id": 2,
+    "slug": "cow-joke",
+    "title": "Cow Joke",
+    "version": 1,
+    "date": "2025-09-28",
+    "location": "Oregon Coast, USA",
+    "image": "comics/002_Cow_Joke/comic.png",
+    "alt": "Nico tells Gina a terrible cow joke while driving through the Oregon countryside.",
+    "summary": "Gina learns the hard way that every road trip with Nico comes with at least one spectacularly terrible dad joke.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "oregon",
+      "roadtrip",
+      "humor",
+      "dad-joke",
+      "cows"
+    ],
+    "body": "# Cow Joke\n\nDriving through the Oregon countryside with Gina, we passed a field full of cows.\n\nLike any mature adult, I immediately announced:\n\n\"Did you know starting in 2027 they can't make round hay bales anymore?\"\n\nShe sighed.\n\n\"Are you serious? Why?\"\n\nI pointed toward the cows.\n\n\"Well... the cows were complaining about not getting...\"\n\nI paused for dramatic effect.\n\n\"...three square meals a day.\"\n\nShe buried her face in her hands.\n\n\"I hate you.\"\n\nTotally worth it."
+  },
+  {
+    "id": 3,
+    "slug": "mexican-uber",
+    "title": "Mexican Uber",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/003_Mexican_Uber/comic.png",
+    "alt": "Comic illustration for Mexican Uber.",
+    "summary": "A comic from the Señor Rosa collection about a Mexican Uber moment.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina",
+      "Leyslie"
+    ],
+    "tags": [
+      "mexico",
+      "travel",
+      "humor"
+    ],
+    "body": "Gina's iPhone gets crushed by oncoming traffic"
+  },
+  {
+    "id": 4,
+    "slug": "consultorio",
+    "title": "Consultorio",
+    "version": 1,
+    "date": "TBD",
+    "location": "Mérida, Yucatán, México",
+    "image": "comics/004_Consultorio/comic.png",
+    "alt": "Comic illustration for Consultorio.",
+    "summary": "A comic from the Señor Rosa collection about an unexpected doctor visit.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina",
+      "Doctor"
+    ],
+    "tags": [
+      "mexico",
+      "merida",
+      "doctor",
+      "sick"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 5,
+    "slug": "border-permit",
+    "title": "Border Permit",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/005_Border_Permit/comic.png",
+    "alt": "Comic illustration for Border Permit.",
+    "summary": "A comic from the Señor Rosa collection about a border-related travel moment.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "mexico",
+      "border",
+      "travel",
+      "paperwork"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 6,
+    "slug": "police-coke",
+    "title": "Police Coke",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/006_Police_Coke/comic.png",
+    "alt": "Comic illustration for Police Coke.",
+    "summary": "A comic from the Señor Rosa collection about a police-related misadventure.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "humor",
+      "police",
+      "travel"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 7,
+    "slug": "cast-iron",
+    "title": "Cast Iron",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/007_Cast_Iron/comic.png",
+    "alt": "Comic illustration for Cast Iron.",
+    "summary": "A comic from the Señor Rosa collection about an old kitchen object with a new story.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "kitchen",
+      "humor",
+      "home"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 8,
+    "slug": "max-walk",
+    "title": "Max Walk",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/008_Max_Walk/comic.png",
+    "alt": "Comic illustration for Max Walk.",
+    "summary": "A comic from the Señor Rosa collection about a walk with Max.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "walk",
+      "dog",
+      "humor"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 9,
+    "slug": "cat-breakfast",
+    "title": "Cat Breakfast",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/009_cat_breakfast/comic.png",
+    "alt": "Comic illustration for Cat Breakfast.",
+    "summary": "A comic from the Señor Rosa collection about a breakfast-time cat problem.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "cat",
+      "home",
+      "humor"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 10,
+    "slug": "valhiem-fire",
+    "title": "Valhiem Fire",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/010_valhiem_fire/comic.png",
+    "alt": "Comic illustration for Valhiem Fire.",
+    "summary": "A comic from the Señor Rosa collection about a Valheim-related mishap.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "valheim",
+      "family",
+      "humor"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 11,
+    "slug": "otro-novia",
+    "title": "Otro Novia",
+    "version": 1,
+    "date": "TBD",
+    "location": "Mérida, Yucatán, México",
+    "image": "comics/011_otro_novia/comic.png",
+    "alt": "Comic illustration for Otro Novia.",
+    "summary": "A comic from the Señor Rosa collection about a market visit and a playful rivalry.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "mexico",
+      "merida",
+      "market",
+      "humor"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 12,
+    "slug": "centro-bikes",
+    "title": "Centro Bikes",
+    "version": 1,
+    "date": "TBD",
+    "location": "Mérida, Yucatán, México",
+    "image": "comics/012_centro_bikes/comic.png",
+    "alt": "Comic illustration for Centro Bikes.",
+    "summary": "A comic from the Señor Rosa collection about a bike ride and an unexpected moment.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "mexico",
+      "merida",
+      "bike",
+      "humor"
+    ],
+    "body": "Story goes here..."
+  },
+  {
+    "id": 13,
+    "slug": "family-reunion",
+    "title": "Family Reunion",
+    "version": 1,
+    "date": "TBD",
+    "location": "TBD",
+    "image": "comics/013_family_reunion/comic.png",
+    "alt": "Comic illustration for Family Reunion.",
+    "summary": "A comic from the Señor Rosa collection about a family gathering.",
+    "published": true,
+    "featured": false,
+    "story_type": "anecdote",
+    "characters": [
+      "Nico",
+      "Gina"
+    ],
+    "tags": [
+      "family",
+      "humor",
+      "travel"
+    ],
+    "body": "Story goes here..."
+  }
+]

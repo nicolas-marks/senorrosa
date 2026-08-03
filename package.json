@@ -1,0 +1,8 @@
+{
+  "name": "senor-rosa",
+  "private": true,
+  "scripts": {
+    "build-comics": "node scripts/build-comics.js",
+    "watch-comics": "node scripts/build-comics.js --watch"
+  }
+}

@@ -1,89 +1,7 @@
 "use strict";
 
-const comics = [
-  {
-    title: "Comic One",
-    description:
-      "True stories, questionable Spanish, and an unusually large Doberman.",
-    image: "comics/comictest1.png",
-    alt: "Señor Rosa comic one"
-  },
-  {
-    title: "Comic Two",
-    description:
-      "Another true story from life between Oregon and Mexico.",
-    image: "comics/comictest2.png",
-    alt: "Señor Rosa comic two"
-  },
-  {
-    title: "Comic Three",
-    description:
-      "An illustrated adventure featuring Señor Rosa and company.",
-    image: "comics/comictest3.png",
-    alt: "Señor Rosa comic three"
-  },
-  {
-    title: "Comic Four",
-    description:
-      "A true story told with bright colors and imperfect decisions.",
-    image: "comics/comictest4.png",
-    alt: "Señor Rosa comic four"
-  },
-  {
-    title: "Comic Five",
-    description:
-      "A roadside stop turns into a very awkward memory.",
-    image: "comics/comictest5.png",
-    alt: "Señor Rosa comic five"
-  },
-  {
-    title: "Morning Surprise",
-    description:
-      "A sunny Oregon morning walk brings Jake an unexpected new friend.",
-    image: "comics/comictest7.png",
-    alt: "Nico, Brian, Jake, and Max meet during a sunny Oregon morning walk."
-  },
-  {
-    title: "Seasoned and Stubborn",
-    description:
-      "An unused cast iron pan finds a new home rather than being surrendered.",
-    image: "comics/comictest6.png",
-    alt: "Nico relocates his cast iron pan from the kitchen to a new home."
-  },
-  {
-    title: "The 6 A.M. Negotiator",
-    description:
-      "A thirty-dollar auto feeder brings peace to a household ruled by a hungry one-eyed cat.",
-    image: "comics/comictest8.png",
-    alt: "Mylie the one-eyed cat stops slamming the bedroom door after receiving an automatic feeder."
-  },
-  {
-    title: "Core Memory Unlocked",
-    description:
-      "A peaceful Valheim base tour becomes a lovable family panic when Mom falls three floors onto the hearth.",
-    image: "comics/comictest9.png",
-    alt:
-      "Nico, his mother, and his adult cousin Samantha laugh together after Mom falls onto a hearth during a Valheim base tour."
-  },
- {
-  title: "Otra Novia",
-  image: "comics/comictest10.png",
-  description:
-    "At Mercado Lucas de Gálvez, Gina teases Nico about his other girlfriend—the woman who makes his favorite salbutes de relleno.",
-  alt:
-    "Nico and Gina visit a salbutes vendor inside Mercado Lucas de Gálvez in Mérida."
-},
-{
-  title: "La Biciruta",
-  image: "comics/comictest11.png",
-  description:
-    "What started as a perfect Sunday riding La Biciruta with Jake ended with selfies, an angry cyclist, and one comeback Nico probably shouldn't have made.",
-  alt:
-    "Nico and Gina ride bicycles with Jake trotting beside them during La Biciruta in Mérida."
-}
-];
-
-let currentComicIndex = comics.length - 1;
+let comics = [];
+let currentComicIndex = 0;
 
 const comicTitle = document.querySelector("#comic-title");
 const comicDescription = document.querySelector("#comic-description");
@@ -96,25 +14,43 @@ const previousButtonBottom = document.querySelector("#previous-button-bottom");
 const nextButtonBottom = document.querySelector("#next-button-bottom");
 
 function renderComic({ scrollToTop = false } = {}) {
+  if (!comics.length) {
+    return;
+  }
+
   const comic = comics[currentComicIndex];
 
   comicTitle.textContent = comic.title;
-  comicDescription.textContent = comic.description;
+  comicDescription.textContent = comic.summary || comic.alt || "A Señor Rosa comic.";
   comicImage.src = comic.image;
-  comicImage.alt = comic.alt;
+  comicImage.alt = comic.alt || comic.title;
 
-  comicCounter.textContent =
-    `Comic ${currentComicIndex + 1} of ${comics.length}`;
+  comicCounter.textContent = `Comic ${currentComicIndex + 1} of ${comics.length}`;
 
   const isFirstComic = currentComicIndex === 0;
   const isLastComic = currentComicIndex === comics.length - 1;
 
-  previousButton.disabled = isFirstComic;
-  previousButtonBottom.disabled = isFirstComic;
-  nextButton.disabled = isLastComic;
-  nextButtonBottom.disabled = isLastComic;
+  if (previousButton) {
+    previousButton.disabled = isFirstComic;
+  }
+
+  if (previousButtonBottom) {
+    previousButtonBottom.disabled = isFirstComic;
+  }
+
+  if (nextButton) {
+    nextButton.disabled = isLastComic;
+  }
+
+  if (nextButtonBottom) {
+    nextButtonBottom.disabled = isLastComic;
+  }
 
   document.title = `${comic.title} — Señor Rosa`;
+
+  const url = new URL(window.location.href);
+  url.searchParams.set("comic", comic.slug);
+  window.history.replaceState({}, "", `${url.pathname}${url.search}`);
 
   if (scrollToTop) {
     document.querySelector(".comic-intro").scrollIntoView({
@@ -125,7 +61,7 @@ function renderComic({ scrollToTop = false } = {}) {
 }
 
 function showPreviousComic() {
-  if (currentComicIndex <= 0) {
+  if (!comics.length || currentComicIndex <= 0) {
     return;
   }
 
@@ -134,7 +70,7 @@ function showPreviousComic() {
 }
 
 function showNextComic() {
-  if (currentComicIndex >= comics.length - 1) {
+  if (!comics.length || currentComicIndex >= comics.length - 1) {
     return;
   }
 
@@ -142,10 +78,64 @@ function showNextComic() {
   renderComic({ scrollToTop: true });
 }
 
-previousButton.addEventListener("click", showPreviousComic);
-previousButtonBottom.addEventListener("click", showPreviousComic);
-nextButton.addEventListener("click", showNextComic);
-nextButtonBottom.addEventListener("click", showNextComic);
+async function loadComics() {
+  try {
+    const response = await fetch("./comics/comics.json", { cache: "no-store" });
+
+    if (!response.ok) {
+      throw new Error(`Unable to load comics manifest (${response.status})`);
+    }
+
+    const manifest = await response.json();
+    comics = Array.isArray(manifest) ? manifest : [];
+
+    if (!comics.length) {
+      comicTitle.textContent = "No published comics yet";
+      comicDescription.textContent = "Add a numbered comic folder with comic.md and comic.png, then run npm run build-comics.";
+      comicImage.removeAttribute("src");
+      comicImage.alt = "No comics available";
+      comicCounter.textContent = "No comics";
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedSlug = params.get("comic");
+
+    if (requestedSlug) {
+      const requestedIndex = comics.findIndex((comic) => comic.slug === requestedSlug);
+      if (requestedIndex >= 0) {
+        currentComicIndex = requestedIndex;
+      }
+    } else {
+      currentComicIndex = comics.length - 1;
+    }
+
+    renderComic();
+  } catch (error) {
+    console.error("Unable to load comic manifest:", error);
+    comicTitle.textContent = "Unable to load comics";
+    comicDescription.textContent = "Run npm run build-comics to generate the manifest.";
+    comicImage.removeAttribute("src");
+    comicImage.alt = "Unable to load comics";
+    comicCounter.textContent = "No comics";
+  }
+}
+
+if (previousButton) {
+  previousButton.addEventListener("click", showPreviousComic);
+}
+
+if (previousButtonBottom) {
+  previousButtonBottom.addEventListener("click", showPreviousComic);
+}
+
+if (nextButton) {
+  nextButton.addEventListener("click", showNextComic);
+}
+
+if (nextButtonBottom) {
+  nextButtonBottom.addEventListener("click", showNextComic);
+}
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
@@ -172,4 +162,4 @@ if (navToggle && siteNav) {
   });
 }
 
-renderComic();
+loadComics();

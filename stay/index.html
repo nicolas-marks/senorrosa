@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Guest Guide — Señor Rosa</title>
+  <meta
+    name="description"
+    content="A polished prototype for a future guest house guide on Señor Rosa."
+  >
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="googlebot" content="noindex,nofollow">
+
+  <link rel="icon" href="../assets/senorrosa2.png">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body id="top">
+  <!-- Intentionally unlisted: this page is a public prototype and is not a secure or private guest area. -->
+  <header class="site-header">
+    <a class="brand" href="../index.html" aria-label="Señor Rosa home">
+      <img
+        class="brand-logo"
+        src="../assets/senorrosa2.png"
+        alt="Señor Rosa and Jake"
+      >
+
+      <div class="brand-text">
+        <span class="brand-name">Señor Rosa</span>
+        <span class="brand-tagline">True stories. Real life.</span>
+      </div>
+    </a>
+
+    <button
+      id="mobile-nav-toggle"
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Toggle navigation"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Site navigation">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Comics</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../about.html">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link is-disabled" href="#" aria-disabled="true">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="guest-guide-page">
+    <section class="guest-hero">
+      <div class="guest-copy">
+        <p class="eyebrow">Unlisted prototype</p>
+        <h1>Welcome to the Señor Rosa Guest Guide</h1>
+        <p>
+          Guests can pick a room or household feature to see simple instructions for the space. This version is meant to feel like a native part of the site while staying easy to expand later.
+        </p>
+        <a class="home-button" href="#guide-selector">Explore the guide</a>
+      </div>
+
+      <div class="guest-photo-frame" aria-label="Property photo placeholder">
+        <svg viewBox="0 0 640 480" role="img" aria-label="Placeholder property illustration">
+          <rect x="40" y="40" width="560" height="400" rx="28" fill="#fffdf9" stroke="#ded5d9" stroke-width="2" />
+          <rect x="94" y="120" width="180" height="170" rx="20" fill="#ffe4ed" stroke="#ff0a78" stroke-width="2" />
+          <rect x="330" y="120" width="214" height="124" rx="20" fill="#fff0d5" stroke="#cc005a" stroke-width="2" />
+          <rect x="118" y="330" width="146" height="72" rx="18" fill="#f7f0ec" stroke="#ded5d9" stroke-width="2" />
+          <rect x="330" y="296" width="170" height="104" rx="18" fill="#f7f0ec" stroke="#ded5d9" stroke-width="2" />
+          <path d="M94 120 L274 120" stroke="#ff0a78" stroke-width="2" stroke-dasharray="6 6" />
+          <path d="M330 120 L544 120" stroke="#cc005a" stroke-width="2" stroke-dasharray="6 6" />
+          <path d="M118 330 L264 330" stroke="#746c72" stroke-width="2" stroke-dasharray="6 6" />
+          <path d="M330 296 L500 296" stroke="#746c72" stroke-width="2" stroke-dasharray="6 6" />
+          <text x="120" y="102" fill="#161316" font-size="24" font-family="Segoe UI, sans-serif">Property photo</text>
+          <text x="118" y="156" fill="#161316" font-size="18" font-family="Segoe UI, sans-serif">Floor plan placeholder</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="guide-section" id="guide-selector" aria-labelledby="guide-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Interactive house guide</p>
+        <h2 id="guide-heading">Pick a room or feature</h2>
+        <p>
+          The layout below is a simple prototype for showing helpful instructions in a visual way.
+        </p>
+      </div>
+
+      <div class="guide-shell">
+        <div class="guide-map-card">
+          <div class="guide-map" aria-label="Floor plan map">
+            <div class="guide-map-image-wrap">
+              <img
+                class="guide-map-image"
+                src="assets/heatmap1.png"
+                alt="House floor plan"
+              >
+            </div>
+            <div class="guide-hotspot-layer" id="guide-hotspot-layer" aria-label="Interactive room hotspots"></div>
+          </div>
+        </div>
+
+        <div class="guide-list-card" aria-label="Selectable room cards">
+          <div class="guide-card-list" role="list"></div>
+
+          <aside class="guide-panel" aria-live="polite">
+            <div class="guide-panel-header">
+              <p class="eyebrow">Selected detail</p>
+              <h3 id="detail-title">Entry &amp; smart lock</h3>
+              <p id="detail-summary" class="guide-panel-summary">Use the smart lock and keypad to enter the home.</p>
+            </div>
+            <div id="detail-content" class="guide-panel-content"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-info-section" aria-labelledby="quick-info-heading">
+      <div class="section-heading">
+        <p class="eyebrow">Quick info</p>
+        <h2 id="quick-info-heading">Useful reminders</h2>
+      </div>
+
+      <div class="quick-info-grid">
+        <article class="quick-info-card">
+          <h3>Check-in</h3>
+          <p>Placeholder: arrival instructions will appear here later.</p>
+        </article>
+        <article class="quick-info-card">
+          <h3>Checkout</h3>
+          <p>Placeholder: departure timing and key return details go here.</p>
+        </article>
+        <article class="quick-info-card">
+          <h3>Parking</h3>
+          <p>Placeholder: parking instructions and permit notes will be shared soon.</p>
+        </article>
+        <article class="quick-info-card">
+          <h3>Quiet hours</h3>
+          <p>Placeholder: quiet times and noise expectations will be added.</p>
+        </article>
+        <article class="quick-info-card">
+          <h3>Emergency information</h3>
+          <p>Placeholder: emergency contacts and local guidance will live here.</p>
+        </article>
+        <article class="quick-info-card">
+          <h3>Contact the host</h3>
+          <p>Placeholder: host messaging instructions and preferred contact method.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="current-year"></span> Señor Rosa</p>
+  </footer>
+
+  <script src="../site.js"></script>
+  <script src="stay.js"></script>
+</body>
+</html>

@@ -74,6 +74,10 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="spanish/">Spanish</a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="about.html">About</a>
         </li>
 
@@ -98,9 +102,15 @@
         ← Previous
       </button>
 
-      <span id="comic-counter" class="comic-counter">
-        Comic 1 of 4
-      </span>
+      <div class="comic-counter-nav" aria-label="Quick comic navigation">
+        <button id="first-comic-button" class="comic-counter-link" type="button" aria-label="First comic">&lt;&lt;</button>
+        <button id="previous-comic-mini" class="comic-counter-link" type="button" aria-label="Previous comic">&lt;</button>
+        <span id="comic-counter" class="comic-counter">
+          Comic 1 of 4
+        </span>
+        <button id="next-comic-mini" class="comic-counter-link" type="button" aria-label="Next comic">&gt;</button>
+        <button id="latest-comic-button" class="comic-counter-link" type="button" aria-label="Most recent comic">&gt;&gt;</button>
+      </div>
 
       <button id="next-button" class="nav-button" type="button">
         Next →

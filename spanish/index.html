@@ -1,0 +1,1588 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Spanish Practice — Señor Rosa</title><meta name="description" content="A practical Mexican Spanish verb chart with 100 common verbs and present-tense conjugations."><link rel="icon" href="../assets/senorrosa2.png"><link rel="stylesheet" href="../styles.css">
+<style>
+  .verb-game-section {
+    padding: 34px 0 18px;
+  }
+
+
+  .game-level-switch {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .game-level-button {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .game-level-button:hover,
+  .game-level-button.is-active {
+    border-color: var(--pink);
+    background: rgba(255, 10, 120, 0.08);
+    color: var(--pink-dark);
+  }
+
+  .game-level-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .verb-game-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 16px 40px rgba(44, 24, 34, 0.07);
+  }
+
+  .verb-game-hud {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    border-bottom: 1px solid var(--border);
+    background: var(--border);
+  }
+
+  .game-stat {
+    padding: 14px 16px;
+    background: #fffaf6;
+    text-align: center;
+  }
+
+  .game-stat-label {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .game-stat strong {
+    font-size: 1.05rem;
+  }
+
+  #game-lives {
+    color: var(--pink-dark);
+    letter-spacing: 0.08em;
+  }
+
+  .verb-game-field {
+    position: relative;
+    height: min(58vh, 520px);
+    min-height: 390px;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(255, 10, 120, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 10, 120, 0.035) 1px, transparent 1px),
+      linear-gradient(180deg, #fffefd, #fff8f4);
+    background-size: 34px 34px, 34px 34px, auto;
+    outline: none;
+  }
+
+  .verb-game-field:focus-visible {
+    box-shadow: inset 0 0 0 3px rgba(255, 10, 120, 0.35);
+  }
+
+  .game-finish-line {
+    position: absolute;
+    right: 0;
+    bottom: 34px;
+    left: 0;
+    border-top: 3px dashed rgba(204, 0, 90, 0.35);
+  }
+
+  .falling-word {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    z-index: 3;
+    min-width: 110px;
+    padding: 10px 18px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: white;
+    color: var(--ink);
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    text-align: center;
+    box-shadow: 0 10px 24px rgba(44, 24, 34, 0.12);
+    transform: translate(-50%, 0);
+    will-change: transform;
+  }
+
+  .falling-word.is-hit {
+    border-color: var(--pink);
+    background: rgba(255, 10, 120, 0.08);
+    color: var(--pink-dark);
+  }
+
+  .falling-word.is-missed {
+    border-color: #a33;
+    background: #fff2f2;
+    color: #8b2222;
+  }
+
+  .game-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    display: grid;
+    place-items: center;
+    padding: 22px;
+    background: rgba(255, 250, 246, 0.82);
+    backdrop-filter: blur(5px);
+  }
+
+  .game-overlay[hidden] {
+    display: none;
+  }
+
+  .game-overlay-card {
+    width: min(100%, 480px);
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    background: white;
+    box-shadow: 0 20px 50px rgba(44, 24, 34, 0.14);
+    text-align: center;
+  }
+
+  .game-overlay-card h3 {
+    margin: 8px 0 10px;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    letter-spacing: -0.04em;
+  }
+
+  .game-overlay-card p {
+    margin: 0 auto 20px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .game-start-button {
+    min-width: 150px;
+  }
+
+  .typing-console {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    min-height: 60px;
+    padding: 16px 18px;
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+
+  .typing-console-label {
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .typed-buffer {
+    min-width: 0;
+    color: var(--pink-dark);
+    font-size: 1.15rem;
+    word-break: break-all;
+  }
+
+  .typed-buffer.is-wrong {
+    color: #9a2727;
+  }
+
+  .game-help {
+    margin: 0;
+    padding: 0 18px 18px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 640px) {
+    .verb-game-hud {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .verb-game-field {
+      height: 440px;
+      min-height: 440px;
+    }
+
+    .game-overlay-card {
+      padding: 22px 18px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .falling-word {
+      transition: none !important;
+    }
+  }
+
+  .mobile-choice-panel {
+    display: none;
+    gap: 10px;
+    padding: 14px;
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+
+  .mobile-choice-button {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #fffaf6;
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 850;
+    line-height: 1.25;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .mobile-choice-button:active,
+  .mobile-choice-button.is-correct {
+    border-color: var(--pink);
+    background: rgba(255, 10, 120, 0.10);
+    color: var(--pink-dark);
+  }
+
+  .mobile-choice-button.is-wrong {
+    border-color: #a33;
+    background: #fff2f2;
+    color: #8b2222;
+  }
+
+  .mobile-choice-button:disabled {
+    cursor: default;
+  }
+
+  .mobile-game-input {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    opacity: 0.01;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .verb-table-shell {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .verb-table-shell::after {
+    content: "Swipe sideways to see all conjugations →";
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .spanish-page {
+      width: min(calc(100% - 20px), 1180px);
+      padding-top: 24px;
+    }
+
+    .spanish-hero {
+      padding-bottom: 20px;
+    }
+
+    .spanish-hero h1 {
+      font-size: clamp(1.85rem, 9vw, 2.55rem);
+    }
+
+    .spanish-lede {
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .game-level-switch {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .game-level-button {
+      width: 100%;
+      min-height: 46px;
+    }
+
+    .verb-game-card {
+      border-radius: 18px;
+    }
+
+    .verb-game-hud {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .game-stat {
+      padding: 10px 8px;
+    }
+
+    .verb-game-field {
+      height: 360px;
+      min-height: 360px;
+    }
+
+    body.mobile-keyboard-open .verb-game-field {
+      height: 260px;
+      min-height: 260px;
+    }
+
+    .falling-word {
+      max-width: calc(100% - 28px);
+      min-width: 100px;
+      padding: 9px 14px;
+      font-size: 1.15rem;
+      white-space: nowrap;
+    }
+
+    .game-overlay {
+      padding: 14px;
+    }
+
+    .game-overlay-card {
+      padding: 18px 16px;
+      border-radius: 18px;
+    }
+
+    .game-overlay-card h3 {
+      font-size: 1.55rem;
+    }
+
+    .game-overlay-card p {
+      margin-bottom: 16px;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .game-start-button {
+      width: 100%;
+      min-height: 48px;
+    }
+
+    .typing-console {
+      display: none;
+    }
+
+    .mobile-choice-panel {
+      display: grid;
+      grid-template-columns: 1fr;
+      position: sticky;
+      bottom: 0;
+      z-index: 4;
+    }
+
+    .game-help {
+      padding: 10px 14px 14px;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .spanish-section-heading {
+      gap: 12px;
+    }
+
+    .verb-table-shell {
+      position: relative;
+      border-radius: 16px;
+    }
+
+    .verb-table-shell::after {
+      content: "Swipe sideways to see all conjugations →";
+      position: sticky;
+      left: 12px;
+      display: inline-block;
+      margin: 10px 12px 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 10, 120, 0.08);
+      color: var(--pink-dark);
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .verb-table {
+      min-width: 850px;
+    }
+
+    .verb-table th,
+    .verb-table td {
+      padding: 11px 12px;
+      font-size: 0.9rem;
+    }
+
+    .spanish-practice {
+      padding-top: 24px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .verb-game-field {
+      height: 330px;
+      min-height: 330px;
+    }
+
+    body.mobile-keyboard-open .verb-game-field {
+      height: 230px;
+      min-height: 230px;
+    }
+
+    .game-stat-label {
+      font-size: 0.64rem;
+    }
+
+    .game-stat strong {
+      font-size: 0.95rem;
+    }
+  }
+
+
+  .falling-word.is-sentence {
+    width: max-content;
+    max-width: min(760px, calc(100% - 48px));
+    white-space: normal;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .game-vocabulary-section {
+    padding: 30px 0 18px;
+  }
+
+  .vocabulary-table {
+    min-width: 560px;
+  }
+
+  .vocabulary-table th:nth-child(2) {
+    width: 34%;
+  }
+
+  @media (max-width: 640px) {
+    .falling-word.is-sentence {
+      width: calc(100% - 32px);
+      max-width: calc(100% - 32px);
+      white-space: normal;
+      font-size: 1.02rem;
+      overflow-wrap: anywhere;
+    }
+
+    .vocabulary-table {
+      min-width: 520px;
+    }
+  }
+
+
+  .reference-collapse {
+    margin: 26px 0;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 12px 30px rgba(44, 24, 34, 0.05);
+    overflow: hidden;
+  }
+
+  .reference-collapse summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 20px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .reference-collapse summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .reference-collapse summary:hover {
+    background: rgba(255, 10, 120, 0.045);
+  }
+
+  .reference-collapse summary > span:first-child {
+    display: grid;
+    gap: 3px;
+  }
+
+  .reference-collapse summary strong {
+    color: var(--ink);
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    letter-spacing: -0.025em;
+  }
+
+  .reference-collapse-kicker {
+    color: var(--pink-dark);
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .reference-collapse-action {
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    border: 1px solid rgba(255, 10, 120, 0.22);
+    border-radius: 999px;
+    color: var(--pink-dark);
+    font-size: 0.78rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .reference-collapse[open] .reference-collapse-action::before {
+    content: "Hide";
+    font-size: 0;
+  }
+
+  .reference-collapse[open] .reference-collapse-action {
+    font-size: 0;
+  }
+
+  .reference-collapse[open] .reference-collapse-action::after {
+    content: "Hide";
+    font-size: 0.78rem;
+  }
+
+  .reference-collapse-body {
+    padding: 0 20px 22px;
+    border-top: 1px solid var(--border);
+  }
+
+  .reference-collapse-body .spanish-hero {
+    padding-top: 24px;
+  }
+
+  .reference-collapse-body .game-vocabulary-section {
+    padding-top: 24px;
+  }
+
+  @media (max-width: 640px) {
+    .reference-collapse {
+      margin: 18px 0;
+      border-radius: 16px;
+    }
+
+    .reference-collapse summary {
+      padding: 15px 14px;
+      gap: 10px;
+    }
+
+    .reference-collapse-action {
+      padding: 6px 9px;
+      font-size: 0.72rem;
+    }
+
+    .reference-collapse[open] .reference-collapse-action::after {
+      font-size: 0.72rem;
+    }
+
+    .reference-collapse-body {
+      padding: 0 12px 16px;
+    }
+  }
+
+</style>
+
+</head><body id="top">
+<header class="site-header"><a class="brand" href="../index.html" aria-label="Señor Rosa home"><img class="brand-logo" src="../assets/senorrosa2.png" alt="Señor Rosa and Jake"><div class="brand-text"><span class="brand-name">Señor Rosa</span><span class="brand-tagline">True stories. Real life.</span></div></a><button id="mobile-nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation"><span></span><span></span><span></span></button><nav class="site-nav" id="site-nav" aria-label="Site navigation"><ul class="nav-list"><li class="nav-item">
+          <a
+            class="nav-link social-link"
+            href="https://instagram.com/senorrosa_comics"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+              <circle cx="12" cy="12" r="4.25"></circle>
+              <circle cx="17.5" cy="6.5" r="1.1"></circle>
+            </svg>
+          </a>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" href="../index.html">Comics</a></li><li class="nav-item is-active"><a class="nav-link" href="./" aria-current="page">Spanish</a></li><li class="nav-item"><a class="nav-link" href="../about.html">About</a></li><li class="nav-item"><a class="nav-link is-disabled" href="#" aria-disabled="true">Contact</a></li></ul></nav></header>
+<main class="spanish-page">
+
+<section class="verb-game-section" aria-labelledby="verb-rain-title">
+  <div class="section-heading">
+    <p class="eyebrow">Spanish typing game</p>
+    <h2 id="verb-rain-title">Verb Rain</h2>
+    <p id="game-mode-description">
+      Level 1: type the Spanish verb before it reaches the bottom.
+      <strong>Accents are optional</strong> — a normal English keyboard is completely fine.
+    </p>
+    <div class="game-level-switch" aria-label="Verb Rain level">
+      <button id="level-one-button" class="game-level-button is-active" type="button" aria-pressed="true">Level 1 · Verbs</button>
+      <button id="level-two-button" class="game-level-button" type="button" aria-pressed="false">Level 2 · Conjugations</button>
+      <button id="level-three-button" class="game-level-button" type="button" aria-pressed="false">Level 3 · Sentences</button>
+    </div>
+  </div>
+
+  <div class="verb-game-card">
+    <div class="verb-game-hud" aria-label="Game status">
+      <div class="game-stat">
+        <span class="game-stat-label">Time</span>
+        <strong id="game-time">1:30</strong>
+      </div>
+      <div class="game-stat">
+        <span class="game-stat-label">Score</span>
+        <strong id="game-score">0</strong>
+      </div>
+      <div class="game-stat">
+        <span class="game-stat-label">Lives</span>
+        <strong id="game-lives" aria-label="3 lives">♥ ♥ ♥</strong>
+      </div>
+      <div class="game-stat">
+        <span class="game-stat-label">Pace</span>
+        <strong id="game-pace">Easy</strong>
+      </div>
+    </div>
+
+    <div id="verb-game-field" class="verb-game-field" tabindex="0" aria-label="Verb Rain game area">
+      <div class="game-finish-line" aria-hidden="true"></div>
+      <div id="falling-word" class="falling-word" aria-live="polite"></div>
+
+      <div id="game-overlay" class="game-overlay">
+        <div class="game-overlay-card">
+          <span id="game-level-label" class="practice-label">Level 1</span>
+          <h3 id="game-overlay-title">Verb Rain</h3>
+          <p id="game-overlay-copy">
+            Type each falling Spanish verb. You do not need accent marks in this level.
+            The words speed up for 90 seconds.
+          </p>
+          <button id="game-start" class="nav-button game-start-button" type="button">Start game</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-choice-panel" class="mobile-choice-panel" aria-label="Choose the correct answer" aria-live="polite">
+      <button class="mobile-choice-button" type="button" data-choice-index="0"></button>
+      <button class="mobile-choice-button" type="button" data-choice-index="1"></button>
+      <button class="mobile-choice-button" type="button" data-choice-index="2"></button>
+    </div>
+
+    <div class="typing-console" aria-live="polite">
+      <span class="typing-console-label">Typing</span>
+      <strong id="typed-buffer" class="typed-buffer">Start the game, then just type.</strong>
+    </div>
+
+    <input
+      id="mobile-game-input"
+      class="mobile-game-input"
+      type="text"
+      inputmode="text"
+      autocomplete="off"
+      autocapitalize="none"
+      autocorrect="off"
+      spellcheck="false"
+      aria-label="Type the falling Spanish prompt"
+    >
+
+
+    <p class="game-help">
+      Desktop: type the answer. Mobile: tap one of three choices.
+      Three missed prompts ends the run. Press Play Again when you want another try.
+    </p>
+  </div>
+</section>
+
+
+<details class="reference-collapse verb-reference-collapse">
+  <summary>
+    <span>
+      <span class="reference-collapse-kicker">Reference</span>
+      <strong>100 Common Mexican Spanish Verbs</strong>
+    </span>
+    <span class="reference-collapse-action" aria-hidden="true">Show chart</span>
+  </summary>
+  <div class="reference-collapse-body">
+<section class="spanish-hero"><p class="eyebrow">Spanish I actually use</p><h1>100 Common Mexican Spanish Verbs</h1><p class="spanish-lede">A quick-reference chart for everyday conversation. These are present-tense forms focused on yo, tú, él/ella/usted, nosotros, and ellos/ellas/ustedes.</p><div class="spanish-note"><strong>Mexico note:</strong> This chart uses <em>ustedes</em> for plural “you.” <em>Vosotros</em> is intentionally left out.</div></section>
+
+
+<section class="verb-section" aria-labelledby="verb-chart-title"><div class="section-heading spanish-section-heading"><div><h2 id="verb-chart-title">Present tense verb chart</h2><p>Search by Spanish verb or English meaning.</p></div><label class="verb-search"><span class="sr-only">Search verbs</span><input id="verb-filter" type="search" placeholder="Search: querer, eat, work…" autocomplete="off"></label></div><div class="verb-table-shell"><table class="verb-table"><thead><tr><th>#</th><th>Verb</th><th>Yo</th><th>Tú</th><th>Él / Ella / Usted</th><th>Nosotros</th><th>Ellos / Ellas / Ustedes</th></tr></thead><tbody id="verb-table-body"><tr data-verb="ser" data-meaning="to be"><td class="verb-rank">1</td><th scope="row"><span class="verb-name">ser</span><span class="verb-meaning">to be</span></th><td>soy</td><td>eres</td><td>es</td><td>somos</td><td>son</td></tr>
+<tr data-verb="estar" data-meaning="to be / be located"><td class="verb-rank">2</td><th scope="row"><span class="verb-name">estar</span><span class="verb-meaning">to be / be located</span></th><td>estoy</td><td>estás</td><td>está</td><td>estamos</td><td>están</td></tr>
+<tr data-verb="tener" data-meaning="to have"><td class="verb-rank">3</td><th scope="row"><span class="verb-name">tener</span><span class="verb-meaning">to have</span></th><td>tengo</td><td>tienes</td><td>tiene</td><td>tenemos</td><td>tienen</td></tr>
+<tr data-verb="hacer" data-meaning="to do / make"><td class="verb-rank">4</td><th scope="row"><span class="verb-name">hacer</span><span class="verb-meaning">to do / make</span></th><td>hago</td><td>haces</td><td>hace</td><td>hacemos</td><td>hacen</td></tr>
+<tr data-verb="poder" data-meaning="to be able to / can"><td class="verb-rank">5</td><th scope="row"><span class="verb-name">poder</span><span class="verb-meaning">to be able to / can</span></th><td>puedo</td><td>puedes</td><td>puede</td><td>podemos</td><td>pueden</td></tr>
+<tr data-verb="decir" data-meaning="to say / tell"><td class="verb-rank">6</td><th scope="row"><span class="verb-name">decir</span><span class="verb-meaning">to say / tell</span></th><td>digo</td><td>dices</td><td>dice</td><td>decimos</td><td>dicen</td></tr>
+<tr data-verb="ir" data-meaning="to go"><td class="verb-rank">7</td><th scope="row"><span class="verb-name">ir</span><span class="verb-meaning">to go</span></th><td>voy</td><td>vas</td><td>va</td><td>vamos</td><td>van</td></tr>
+<tr data-verb="ver" data-meaning="to see"><td class="verb-rank">8</td><th scope="row"><span class="verb-name">ver</span><span class="verb-meaning">to see</span></th><td>veo</td><td>ves</td><td>ve</td><td>vemos</td><td>ven</td></tr>
+<tr data-verb="dar" data-meaning="to give"><td class="verb-rank">9</td><th scope="row"><span class="verb-name">dar</span><span class="verb-meaning">to give</span></th><td>doy</td><td>das</td><td>da</td><td>damos</td><td>dan</td></tr>
+<tr data-verb="saber" data-meaning="to know"><td class="verb-rank">10</td><th scope="row"><span class="verb-name">saber</span><span class="verb-meaning">to know</span></th><td>sé</td><td>sabes</td><td>sabe</td><td>sabemos</td><td>saben</td></tr>
+<tr data-verb="querer" data-meaning="to want / love"><td class="verb-rank">11</td><th scope="row"><span class="verb-name">querer</span><span class="verb-meaning">to want / love</span></th><td>quiero</td><td>quieres</td><td>quiere</td><td>queremos</td><td>quieren</td></tr>
+<tr data-verb="llegar" data-meaning="to arrive"><td class="verb-rank">12</td><th scope="row"><span class="verb-name">llegar</span><span class="verb-meaning">to arrive</span></th><td>llego</td><td>llegas</td><td>llega</td><td>llegamos</td><td>llegan</td></tr>
+<tr data-verb="pasar" data-meaning="to happen / pass / spend time"><td class="verb-rank">13</td><th scope="row"><span class="verb-name">pasar</span><span class="verb-meaning">to happen / pass / spend time</span></th><td>paso</td><td>pasas</td><td>pasa</td><td>pasamos</td><td>pasan</td></tr>
+<tr data-verb="deber" data-meaning="to owe / should"><td class="verb-rank">14</td><th scope="row"><span class="verb-name">deber</span><span class="verb-meaning">to owe / should</span></th><td>debo</td><td>debes</td><td>debe</td><td>debemos</td><td>deben</td></tr>
+<tr data-verb="poner" data-meaning="to put / place"><td class="verb-rank">15</td><th scope="row"><span class="verb-name">poner</span><span class="verb-meaning">to put / place</span></th><td>pongo</td><td>pones</td><td>pone</td><td>ponemos</td><td>ponen</td></tr>
+<tr data-verb="parecer" data-meaning="to seem"><td class="verb-rank">16</td><th scope="row"><span class="verb-name">parecer</span><span class="verb-meaning">to seem</span></th><td>parezco</td><td>pareces</td><td>parece</td><td>parecemos</td><td>parecen</td></tr>
+<tr data-verb="quedar" data-meaning="to remain / meet up / fit"><td class="verb-rank">17</td><th scope="row"><span class="verb-name">quedar</span><span class="verb-meaning">to remain / meet up / fit</span></th><td>quedo</td><td>quedas</td><td>queda</td><td>quedamos</td><td>quedan</td></tr>
+<tr data-verb="creer" data-meaning="to believe"><td class="verb-rank">18</td><th scope="row"><span class="verb-name">creer</span><span class="verb-meaning">to believe</span></th><td>creo</td><td>crees</td><td>cree</td><td>creemos</td><td>creen</td></tr>
+<tr data-verb="hablar" data-meaning="to speak / talk"><td class="verb-rank">19</td><th scope="row"><span class="verb-name">hablar</span><span class="verb-meaning">to speak / talk</span></th><td>hablo</td><td>hablas</td><td>habla</td><td>hablamos</td><td>hablan</td></tr>
+<tr data-verb="llevar" data-meaning="to carry / wear / take"><td class="verb-rank">20</td><th scope="row"><span class="verb-name">llevar</span><span class="verb-meaning">to carry / wear / take</span></th><td>llevo</td><td>llevas</td><td>lleva</td><td>llevamos</td><td>llevan</td></tr>
+<tr data-verb="dejar" data-meaning="to leave / let"><td class="verb-rank">21</td><th scope="row"><span class="verb-name">dejar</span><span class="verb-meaning">to leave / let</span></th><td>dejo</td><td>dejas</td><td>deja</td><td>dejamos</td><td>dejan</td></tr>
+<tr data-verb="seguir" data-meaning="to follow / continue"><td class="verb-rank">22</td><th scope="row"><span class="verb-name">seguir</span><span class="verb-meaning">to follow / continue</span></th><td>sigo</td><td>sigues</td><td>sigue</td><td>seguimos</td><td>siguen</td></tr>
+<tr data-verb="encontrar" data-meaning="to find"><td class="verb-rank">23</td><th scope="row"><span class="verb-name">encontrar</span><span class="verb-meaning">to find</span></th><td>encuentro</td><td>encuentras</td><td>encuentra</td><td>encontramos</td><td>encuentran</td></tr>
+<tr data-verb="llamar" data-meaning="to call"><td class="verb-rank">24</td><th scope="row"><span class="verb-name">llamar</span><span class="verb-meaning">to call</span></th><td>llamo</td><td>llamas</td><td>llama</td><td>llamamos</td><td>llaman</td></tr>
+<tr data-verb="venir" data-meaning="to come"><td class="verb-rank">25</td><th scope="row"><span class="verb-name">venir</span><span class="verb-meaning">to come</span></th><td>vengo</td><td>vienes</td><td>viene</td><td>venimos</td><td>vienen</td></tr>
+<tr data-verb="pensar" data-meaning="to think"><td class="verb-rank">26</td><th scope="row"><span class="verb-name">pensar</span><span class="verb-meaning">to think</span></th><td>pienso</td><td>piensas</td><td>piensa</td><td>pensamos</td><td>piensan</td></tr>
+<tr data-verb="salir" data-meaning="to leave / go out"><td class="verb-rank">27</td><th scope="row"><span class="verb-name">salir</span><span class="verb-meaning">to leave / go out</span></th><td>salgo</td><td>sales</td><td>sale</td><td>salimos</td><td>salen</td></tr>
+<tr data-verb="volver" data-meaning="to return / come back"><td class="verb-rank">28</td><th scope="row"><span class="verb-name">volver</span><span class="verb-meaning">to return / come back</span></th><td>vuelvo</td><td>vuelves</td><td>vuelve</td><td>volvemos</td><td>vuelven</td></tr>
+<tr data-verb="tomar" data-meaning="to take / drink"><td class="verb-rank">29</td><th scope="row"><span class="verb-name">tomar</span><span class="verb-meaning">to take / drink</span></th><td>tomo</td><td>tomas</td><td>toma</td><td>tomamos</td><td>toman</td></tr>
+<tr data-verb="conocer" data-meaning="to know / meet"><td class="verb-rank">30</td><th scope="row"><span class="verb-name">conocer</span><span class="verb-meaning">to know / meet</span></th><td>conozco</td><td>conoces</td><td>conoce</td><td>conocemos</td><td>conocen</td></tr>
+<tr data-verb="vivir" data-meaning="to live"><td class="verb-rank">31</td><th scope="row"><span class="verb-name">vivir</span><span class="verb-meaning">to live</span></th><td>vivo</td><td>vives</td><td>vive</td><td>vivimos</td><td>viven</td></tr>
+<tr data-verb="sentir" data-meaning="to feel"><td class="verb-rank">32</td><th scope="row"><span class="verb-name">sentir</span><span class="verb-meaning">to feel</span></th><td>siento</td><td>sientes</td><td>siente</td><td>sentimos</td><td>sienten</td></tr>
+<tr data-verb="tratar" data-meaning="to try / treat"><td class="verb-rank">33</td><th scope="row"><span class="verb-name">tratar</span><span class="verb-meaning">to try / treat</span></th><td>trato</td><td>tratas</td><td>trata</td><td>tratamos</td><td>tratan</td></tr>
+<tr data-verb="mirar" data-meaning="to look / watch"><td class="verb-rank">34</td><th scope="row"><span class="verb-name">mirar</span><span class="verb-meaning">to look / watch</span></th><td>miro</td><td>miras</td><td>mira</td><td>miramos</td><td>miran</td></tr>
+<tr data-verb="contar" data-meaning="to count / tell"><td class="verb-rank">35</td><th scope="row"><span class="verb-name">contar</span><span class="verb-meaning">to count / tell</span></th><td>cuento</td><td>cuentas</td><td>cuenta</td><td>contamos</td><td>cuentan</td></tr>
+<tr data-verb="empezar" data-meaning="to begin / start"><td class="verb-rank">36</td><th scope="row"><span class="verb-name">empezar</span><span class="verb-meaning">to begin / start</span></th><td>empiezo</td><td>empiezas</td><td>empieza</td><td>empezamos</td><td>empiezan</td></tr>
+<tr data-verb="esperar" data-meaning="to wait / hope / expect"><td class="verb-rank">37</td><th scope="row"><span class="verb-name">esperar</span><span class="verb-meaning">to wait / hope / expect</span></th><td>espero</td><td>esperas</td><td>espera</td><td>esperamos</td><td>esperan</td></tr>
+<tr data-verb="buscar" data-meaning="to look for"><td class="verb-rank">38</td><th scope="row"><span class="verb-name">buscar</span><span class="verb-meaning">to look for</span></th><td>busco</td><td>buscas</td><td>busca</td><td>buscamos</td><td>buscan</td></tr>
+<tr data-verb="entrar" data-meaning="to enter / go in"><td class="verb-rank">39</td><th scope="row"><span class="verb-name">entrar</span><span class="verb-meaning">to enter / go in</span></th><td>entro</td><td>entras</td><td>entra</td><td>entramos</td><td>entran</td></tr>
+<tr data-verb="trabajar" data-meaning="to work"><td class="verb-rank">40</td><th scope="row"><span class="verb-name">trabajar</span><span class="verb-meaning">to work</span></th><td>trabajo</td><td>trabajas</td><td>trabaja</td><td>trabajamos</td><td>trabajan</td></tr>
+<tr data-verb="escribir" data-meaning="to write"><td class="verb-rank">41</td><th scope="row"><span class="verb-name">escribir</span><span class="verb-meaning">to write</span></th><td>escribo</td><td>escribes</td><td>escribe</td><td>escribimos</td><td>escriben</td></tr>
+<tr data-verb="perder" data-meaning="to lose / miss"><td class="verb-rank">42</td><th scope="row"><span class="verb-name">perder</span><span class="verb-meaning">to lose / miss</span></th><td>pierdo</td><td>pierdes</td><td>pierde</td><td>perdemos</td><td>pierden</td></tr>
+<tr data-verb="entender" data-meaning="to understand"><td class="verb-rank">43</td><th scope="row"><span class="verb-name">entender</span><span class="verb-meaning">to understand</span></th><td>entiendo</td><td>entiendes</td><td>entiende</td><td>entendemos</td><td>entienden</td></tr>
+<tr data-verb="pedir" data-meaning="to ask for / order"><td class="verb-rank">44</td><th scope="row"><span class="verb-name">pedir</span><span class="verb-meaning">to ask for / order</span></th><td>pido</td><td>pides</td><td>pide</td><td>pedimos</td><td>piden</td></tr>
+<tr data-verb="recibir" data-meaning="to receive"><td class="verb-rank">45</td><th scope="row"><span class="verb-name">recibir</span><span class="verb-meaning">to receive</span></th><td>recibo</td><td>recibes</td><td>recibe</td><td>recibimos</td><td>reciben</td></tr>
+<tr data-verb="recordar" data-meaning="to remember"><td class="verb-rank">46</td><th scope="row"><span class="verb-name">recordar</span><span class="verb-meaning">to remember</span></th><td>recuerdo</td><td>recuerdas</td><td>recuerda</td><td>recordamos</td><td>recuerdan</td></tr>
+<tr data-verb="terminar" data-meaning="to finish"><td class="verb-rank">47</td><th scope="row"><span class="verb-name">terminar</span><span class="verb-meaning">to finish</span></th><td>termino</td><td>terminas</td><td>termina</td><td>terminamos</td><td>terminan</td></tr>
+<tr data-verb="permitir" data-meaning="to allow"><td class="verb-rank">48</td><th scope="row"><span class="verb-name">permitir</span><span class="verb-meaning">to allow</span></th><td>permito</td><td>permites</td><td>permite</td><td>permitimos</td><td>permiten</td></tr>
+<tr data-verb="comer" data-meaning="to eat"><td class="verb-rank">49</td><th scope="row"><span class="verb-name">comer</span><span class="verb-meaning">to eat</span></th><td>como</td><td>comes</td><td>come</td><td>comemos</td><td>comen</td></tr>
+<tr data-verb="dormir" data-meaning="to sleep"><td class="verb-rank">50</td><th scope="row"><span class="verb-name">dormir</span><span class="verb-meaning">to sleep</span></th><td>duermo</td><td>duermes</td><td>duerme</td><td>dormimos</td><td>duermen</td></tr>
+<tr data-verb="usar" data-meaning="to use"><td class="verb-rank">51</td><th scope="row"><span class="verb-name">usar</span><span class="verb-meaning">to use</span></th><td>uso</td><td>usas</td><td>usa</td><td>usamos</td><td>usan</td></tr>
+<tr data-verb="abrir" data-meaning="to open"><td class="verb-rank">52</td><th scope="row"><span class="verb-name">abrir</span><span class="verb-meaning">to open</span></th><td>abro</td><td>abres</td><td>abre</td><td>abrimos</td><td>abren</td></tr>
+<tr data-verb="cerrar" data-meaning="to close"><td class="verb-rank">53</td><th scope="row"><span class="verb-name">cerrar</span><span class="verb-meaning">to close</span></th><td>cierro</td><td>cierras</td><td>cierra</td><td>cerramos</td><td>cierran</td></tr>
+<tr data-verb="comprar" data-meaning="to buy"><td class="verb-rank">54</td><th scope="row"><span class="verb-name">comprar</span><span class="verb-meaning">to buy</span></th><td>compro</td><td>compras</td><td>compra</td><td>compramos</td><td>compran</td></tr>
+<tr data-verb="vender" data-meaning="to sell"><td class="verb-rank">55</td><th scope="row"><span class="verb-name">vender</span><span class="verb-meaning">to sell</span></th><td>vendo</td><td>vendes</td><td>vende</td><td>vendemos</td><td>venden</td></tr>
+<tr data-verb="pagar" data-meaning="to pay"><td class="verb-rank">56</td><th scope="row"><span class="verb-name">pagar</span><span class="verb-meaning">to pay</span></th><td>pago</td><td>pagas</td><td>paga</td><td>pagamos</td><td>pagan</td></tr>
+<tr data-verb="ayudar" data-meaning="to help"><td class="verb-rank">57</td><th scope="row"><span class="verb-name">ayudar</span><span class="verb-meaning">to help</span></th><td>ayudo</td><td>ayudas</td><td>ayuda</td><td>ayudamos</td><td>ayudan</td></tr>
+<tr data-verb="gustar" data-meaning="to like / be pleasing"><td class="verb-rank">58</td><th scope="row"><span class="verb-name">gustar</span><span class="verb-meaning">to like / be pleasing</span></th><td>gusto</td><td>gustas</td><td>gusta</td><td>gustamos</td><td>gustan</td></tr>
+<tr data-verb="necesitar" data-meaning="to need"><td class="verb-rank">59</td><th scope="row"><span class="verb-name">necesitar</span><span class="verb-meaning">to need</span></th><td>necesito</td><td>necesitas</td><td>necesita</td><td>necesitamos</td><td>necesitan</td></tr>
+<tr data-verb="preguntar" data-meaning="to ask"><td class="verb-rank">60</td><th scope="row"><span class="verb-name">preguntar</span><span class="verb-meaning">to ask</span></th><td>pregunto</td><td>preguntas</td><td>pregunta</td><td>preguntamos</td><td>preguntan</td></tr>
+<tr data-verb="responder" data-meaning="to answer"><td class="verb-rank">61</td><th scope="row"><span class="verb-name">responder</span><span class="verb-meaning">to answer</span></th><td>respondo</td><td>respondes</td><td>responde</td><td>respondemos</td><td>responden</td></tr>
+<tr data-verb="caminar" data-meaning="to walk"><td class="verb-rank">62</td><th scope="row"><span class="verb-name">caminar</span><span class="verb-meaning">to walk</span></th><td>camino</td><td>caminas</td><td>camina</td><td>caminamos</td><td>caminan</td></tr>
+<tr data-verb="correr" data-meaning="to run"><td class="verb-rank">63</td><th scope="row"><span class="verb-name">correr</span><span class="verb-meaning">to run</span></th><td>corro</td><td>corres</td><td>corre</td><td>corremos</td><td>corren</td></tr>
+<tr data-verb="viajar" data-meaning="to travel"><td class="verb-rank">64</td><th scope="row"><span class="verb-name">viajar</span><span class="verb-meaning">to travel</span></th><td>viajo</td><td>viajas</td><td>viaja</td><td>viajamos</td><td>viajan</td></tr>
+<tr data-verb="manejar" data-meaning="to drive"><td class="verb-rank">65</td><th scope="row"><span class="verb-name">manejar</span><span class="verb-meaning">to drive</span></th><td>manejo</td><td>manejas</td><td>maneja</td><td>manejamos</td><td>manejan</td></tr>
+<tr data-verb="cocinar" data-meaning="to cook"><td class="verb-rank">66</td><th scope="row"><span class="verb-name">cocinar</span><span class="verb-meaning">to cook</span></th><td>cocino</td><td>cocinas</td><td>cocina</td><td>cocinamos</td><td>cocinan</td></tr>
+<tr data-verb="limpiar" data-meaning="to clean"><td class="verb-rank">67</td><th scope="row"><span class="verb-name">limpiar</span><span class="verb-meaning">to clean</span></th><td>limpio</td><td>limpias</td><td>limpia</td><td>limpiamos</td><td>limpian</td></tr>
+<tr data-verb="lavar" data-meaning="to wash"><td class="verb-rank">68</td><th scope="row"><span class="verb-name">lavar</span><span class="verb-meaning">to wash</span></th><td>lavo</td><td>lavas</td><td>lava</td><td>lavamos</td><td>lavan</td></tr>
+<tr data-verb="leer" data-meaning="to read"><td class="verb-rank">69</td><th scope="row"><span class="verb-name">leer</span><span class="verb-meaning">to read</span></th><td>leo</td><td>lees</td><td>lee</td><td>leemos</td><td>leen</td></tr>
+<tr data-verb="aprender" data-meaning="to learn"><td class="verb-rank">70</td><th scope="row"><span class="verb-name">aprender</span><span class="verb-meaning">to learn</span></th><td>aprendo</td><td>aprendes</td><td>aprende</td><td>aprendemos</td><td>aprenden</td></tr>
+<tr data-verb="enseñar" data-meaning="to teach / show"><td class="verb-rank">71</td><th scope="row"><span class="verb-name">enseñar</span><span class="verb-meaning">to teach / show</span></th><td>enseño</td><td>enseñas</td><td>enseña</td><td>enseñamos</td><td>enseñan</td></tr>
+<tr data-verb="jugar" data-meaning="to play"><td class="verb-rank">72</td><th scope="row"><span class="verb-name">jugar</span><span class="verb-meaning">to play</span></th><td>juego</td><td>juegas</td><td>juega</td><td>jugamos</td><td>juegan</td></tr>
+<tr data-verb="escuchar" data-meaning="to listen"><td class="verb-rank">73</td><th scope="row"><span class="verb-name">escuchar</span><span class="verb-meaning">to listen</span></th><td>escucho</td><td>escuchas</td><td>escucha</td><td>escuchamos</td><td>escuchan</td></tr>
+<tr data-verb="oír" data-meaning="to hear"><td class="verb-rank">74</td><th scope="row"><span class="verb-name">oír</span><span class="verb-meaning">to hear</span></th><td>oigo</td><td>oyes</td><td>oye</td><td>oímos</td><td>oyen</td></tr>
+<tr data-verb="tocar" data-meaning="to touch / play an instrument"><td class="verb-rank">75</td><th scope="row"><span class="verb-name">tocar</span><span class="verb-meaning">to touch / play an instrument</span></th><td>toco</td><td>tocas</td><td>toca</td><td>tocamos</td><td>tocan</td></tr>
+<tr data-verb="cambiar" data-meaning="to change"><td class="verb-rank">76</td><th scope="row"><span class="verb-name">cambiar</span><span class="verb-meaning">to change</span></th><td>cambio</td><td>cambias</td><td>cambia</td><td>cambiamos</td><td>cambian</td></tr>
+<tr data-verb="mandar" data-meaning="to send / order"><td class="verb-rank">77</td><th scope="row"><span class="verb-name">mandar</span><span class="verb-meaning">to send / order</span></th><td>mando</td><td>mandas</td><td>manda</td><td>mandamos</td><td>mandan</td></tr>
+<tr data-verb="enviar" data-meaning="to send"><td class="verb-rank">78</td><th scope="row"><span class="verb-name">enviar</span><span class="verb-meaning">to send</span></th><td>envío</td><td>envías</td><td>envía</td><td>enviamos</td><td>envían</td></tr>
+<tr data-verb="mostrar" data-meaning="to show"><td class="verb-rank">79</td><th scope="row"><span class="verb-name">mostrar</span><span class="verb-meaning">to show</span></th><td>muestro</td><td>muestras</td><td>muestra</td><td>mostramos</td><td>muestran</td></tr>
+<tr data-verb="traer" data-meaning="to bring"><td class="verb-rank">80</td><th scope="row"><span class="verb-name">traer</span><span class="verb-meaning">to bring</span></th><td>traigo</td><td>traes</td><td>trae</td><td>traemos</td><td>traen</td></tr>
+<tr data-verb="subir" data-meaning="to go up / upload"><td class="verb-rank">81</td><th scope="row"><span class="verb-name">subir</span><span class="verb-meaning">to go up / upload</span></th><td>subo</td><td>subes</td><td>sube</td><td>subimos</td><td>suben</td></tr>
+<tr data-verb="bajar" data-meaning="to go down / download"><td class="verb-rank">82</td><th scope="row"><span class="verb-name">bajar</span><span class="verb-meaning">to go down / download</span></th><td>bajo</td><td>bajas</td><td>baja</td><td>bajamos</td><td>bajan</td></tr>
+<tr data-verb="ganar" data-meaning="to win / earn"><td class="verb-rank">83</td><th scope="row"><span class="verb-name">ganar</span><span class="verb-meaning">to win / earn</span></th><td>gano</td><td>ganas</td><td>gana</td><td>ganamos</td><td>ganan</td></tr>
+<tr data-verb="perdonar" data-meaning="to forgive"><td class="verb-rank">84</td><th scope="row"><span class="verb-name">perdonar</span><span class="verb-meaning">to forgive</span></th><td>perdono</td><td>perdonas</td><td>perdona</td><td>perdonamos</td><td>perdonan</td></tr>
+<tr data-verb="olvidar" data-meaning="to forget"><td class="verb-rank">85</td><th scope="row"><span class="verb-name">olvidar</span><span class="verb-meaning">to forget</span></th><td>olvido</td><td>olvidas</td><td>olvida</td><td>olvidamos</td><td>olvidan</td></tr>
+<tr data-verb="decidir" data-meaning="to decide"><td class="verb-rank">86</td><th scope="row"><span class="verb-name">decidir</span><span class="verb-meaning">to decide</span></th><td>decido</td><td>decides</td><td>decide</td><td>decidimos</td><td>deciden</td></tr>
+<tr data-verb="elegir" data-meaning="to choose"><td class="verb-rank">87</td><th scope="row"><span class="verb-name">elegir</span><span class="verb-meaning">to choose</span></th><td>elijo</td><td>eliges</td><td>elige</td><td>elegimos</td><td>eligen</td></tr>
+<tr data-verb="probar" data-meaning="to try / taste"><td class="verb-rank">88</td><th scope="row"><span class="verb-name">probar</span><span class="verb-meaning">to try / taste</span></th><td>pruebo</td><td>pruebas</td><td>prueba</td><td>probamos</td><td>prueban</td></tr>
+<tr data-verb="cuidar" data-meaning="to take care of"><td class="verb-rank">89</td><th scope="row"><span class="verb-name">cuidar</span><span class="verb-meaning">to take care of</span></th><td>cuido</td><td>cuidas</td><td>cuida</td><td>cuidamos</td><td>cuidan</td></tr>
+<tr data-verb="visitar" data-meaning="to visit"><td class="verb-rank">90</td><th scope="row"><span class="verb-name">visitar</span><span class="verb-meaning">to visit</span></th><td>visito</td><td>visitas</td><td>visita</td><td>visitamos</td><td>visitan</td></tr>
+<tr data-verb="conseguir" data-meaning="to get / obtain"><td class="verb-rank">91</td><th scope="row"><span class="verb-name">conseguir</span><span class="verb-meaning">to get / obtain</span></th><td>consigo</td><td>consigues</td><td>consigue</td><td>conseguimos</td><td>consiguen</td></tr>
+<tr data-verb="servir" data-meaning="to serve"><td class="verb-rank">92</td><th scope="row"><span class="verb-name">servir</span><span class="verb-meaning">to serve</span></th><td>sirvo</td><td>sirves</td><td>sirve</td><td>servimos</td><td>sirven</td></tr>
+<tr data-verb="quitar" data-meaning="to remove / take away"><td class="verb-rank">93</td><th scope="row"><span class="verb-name">quitar</span><span class="verb-meaning">to remove / take away</span></th><td>quito</td><td>quitas</td><td>quita</td><td>quitamos</td><td>quitan</td></tr>
+<tr data-verb="sentarse" data-meaning="to sit down"><td class="verb-rank">94</td><th scope="row"><span class="verb-name">sentarse</span><span class="verb-meaning">to sit down</span></th><td>me siento</td><td>te sientas</td><td>se sienta</td><td>nos sentamos</td><td>se sientan</td></tr>
+<tr data-verb="levantarse" data-meaning="to get up"><td class="verb-rank">95</td><th scope="row"><span class="verb-name">levantarse</span><span class="verb-meaning">to get up</span></th><td>me levanto</td><td>te levantas</td><td>se levanta</td><td>nos levantamos</td><td>se levantan</td></tr>
+<tr data-verb="acordarse" data-meaning="to remember"><td class="verb-rank">96</td><th scope="row"><span class="verb-name">acordarse</span><span class="verb-meaning">to remember</span></th><td>me acuerdo</td><td>te acuerdas</td><td>se acuerda</td><td>nos acordamos</td><td>se acuerdan</td></tr>
+<tr data-verb="quedarse" data-meaning="to stay"><td class="verb-rank">97</td><th scope="row"><span class="verb-name">quedarse</span><span class="verb-meaning">to stay</span></th><td>me quedo</td><td>te quedas</td><td>se queda</td><td>nos quedamos</td><td>se quedan</td></tr>
+<tr data-verb="mover" data-meaning="to move"><td class="verb-rank">98</td><th scope="row"><span class="verb-name">mover</span><span class="verb-meaning">to move</span></th><td>muevo</td><td>mueves</td><td>mueve</td><td>movemos</td><td>mueven</td></tr>
+<tr data-verb="romper" data-meaning="to break"><td class="verb-rank">99</td><th scope="row"><span class="verb-name">romper</span><span class="verb-meaning">to break</span></th><td>rompo</td><td>rompes</td><td>rompe</td><td>rompemos</td><td>rompen</td></tr>
+<tr data-verb="preparar" data-meaning="to prepare"><td class="verb-rank">100</td><th scope="row"><span class="verb-name">preparar</span><span class="verb-meaning">to prepare</span></th><td>preparo</td><td>preparas</td><td>prepara</td><td>preparamos</td><td>preparan</td></tr></tbody></table></div><p id="verb-empty" class="verb-empty" hidden>No verbs matched that search.</p></section>
+  </div>
+</details>
+
+
+
+
+
+
+<details class="reference-collapse vocabulary-reference-collapse">
+  <summary>
+    <span>
+      <span class="reference-collapse-kicker">Level 3 reference</span>
+      <strong>Game Vocabulary</strong>
+    </span>
+    <span class="reference-collapse-action" aria-hidden="true">Show vocabulary</span>
+  </summary>
+  <div class="reference-collapse-body">
+<section class="game-vocabulary-section" aria-labelledby="game-vocabulary-title">
+  <div class="section-heading spanish-section-heading">
+    <div>
+      <p class="eyebrow">Level 3 reference</p>
+      <h2 id="game-vocabulary-title">Game Vocabulary</h2>
+      <p>Every exact word or word-form used by Level 3 is defined here. Level 1 and Level 2 verbs remain covered by the verb chart above.</p>
+    </div>
+    <label class="verb-search">
+      <span class="sr-only">Search game vocabulary</span>
+      <input id="vocab-filter" type="search" placeholder="Search: gato, fast, paid…" autocomplete="off">
+    </label>
+  </div>
+  <div class="verb-table-shell vocabulary-table-shell">
+    <table class="verb-table vocabulary-table">
+      <thead><tr><th>#</th><th>Spanish</th><th>English</th></tr></thead>
+      <tbody id="game-vocabulary-body">
+        <tr><td class="verb-rank">1</td><th scope="row"><span class="verb-name">a</span></th><td>to / at</td></tr><tr><td class="verb-rank">2</td><th scope="row"><span class="verb-name">abrí</span></th><td>I opened (past of abrir)</td></tr><tr><td class="verb-rank">3</td><th scope="row"><span class="verb-name">agua</span></th><td>water</td></tr><tr><td class="verb-rank">4</td><th scope="row"><span class="verb-name">al</span></th><td>to the (a + el)</td></tr><tr><td class="verb-rank">5</td><th scope="row"><span class="verb-name">aprendí</span></th><td>I learned (past of aprender)</td></tr><tr><td class="verb-rank">6</td><th scope="row"><span class="verb-name">ayudar</span></th><td>to help</td></tr><tr><td class="verb-rank">7</td><th scope="row"><span class="verb-name">bien</span></th><td>well</td></tr><tr><td class="verb-rank">8</td><th scope="row"><span class="verb-name">café</span></th><td>coffee</td></tr><tr><td class="verb-rank">9</td><th scope="row"><span class="verb-name">caminé</span></th><td>I walked (past of caminar)</td></tr><tr><td class="verb-rank">10</td><th scope="row"><span class="verb-name">casa</span></th><td>house / home</td></tr><tr><td class="verb-rank">11</td><th scope="row"><span class="verb-name">cena</span></th><td>dinner</td></tr><tr><td class="verb-rank">12</td><th scope="row"><span class="verb-name">centro</span></th><td>downtown / center</td></tr><tr><td class="verb-rank">13</td><th scope="row"><span class="verb-name">ciudad</span></th><td>city</td></tr><tr><td class="verb-rank">14</td><th scope="row"><span class="verb-name">comida</span></th><td>food / meal</td></tr><tr><td class="verb-rank">15</td><th scope="row"><span class="verb-name">comieron</span></th><td>they ate (past of comer)</td></tr><tr><td class="verb-rank">16</td><th scope="row"><span class="verb-name">comimos</span></th><td>we ate (past of comer)</td></tr><tr><td class="verb-rank">17</td><th scope="row"><span class="verb-name">compré</span></th><td>I bought (past of comprar)</td></tr><tr><td class="verb-rank">18</td><th scope="row"><span class="verb-name">compró</span></th><td>she/he bought (past of comprar)</td></tr><tr><td class="verb-rank">19</td><th scope="row"><span class="verb-name">comí</span></th><td>I ate (past of comer)</td></tr><tr><td class="verb-rank">20</td><th scope="row"><span class="verb-name">con</span></th><td>with</td></tr><tr><td class="verb-rank">21</td><th scope="row"><span class="verb-name">corrieron</span></th><td>they ran (past of correr)</td></tr><tr><td class="verb-rank">22</td><th scope="row"><span class="verb-name">corrí</span></th><td>I ran (past of correr)</td></tr><tr><td class="verb-rank">23</td><th scope="row"><span class="verb-name">descansar</span></th><td>to rest</td></tr><tr><td class="verb-rank">24</td><th scope="row"><span class="verb-name">desde</span></th><td>from / since</td></tr><tr><td class="verb-rank">25</td><th scope="row"><span class="verb-name">despacio</span></th><td>slowly</td></tr><tr><td class="verb-rank">26</td><th scope="row"><span class="verb-name">dije</span></th><td>I said / told (past of decir)</td></tr><tr><td class="verb-rank">27</td><th scope="row"><span class="verb-name">dormí</span></th><td>I slept (past of dormir)</td></tr><tr><td class="verb-rank">28</td><th scope="row"><span class="verb-name">el</span></th><td>the (masculine singular)</td></tr><tr><td class="verb-rank">29</td><th scope="row"><span class="verb-name">ella</span></th><td>she</td></tr><tr><td class="verb-rank">30</td><th scope="row"><span class="verb-name">ellos</span></th><td>they</td></tr><tr><td class="verb-rank">31</td><th scope="row"><span class="verb-name">encontré</span></th><td>I found (past of encontrar)</td></tr><tr><td class="verb-rank">32</td><th scope="row"><span class="verb-name">escribiste</span></th><td>you wrote (past of escribir)</td></tr><tr><td class="verb-rank">33</td><th scope="row"><span class="verb-name">escribí</span></th><td>I wrote (past of escribir)</td></tr><tr><td class="verb-rank">34</td><th scope="row"><span class="verb-name">escuché</span></th><td>I listened (past of escuchar)</td></tr><tr><td class="verb-rank">35</td><th scope="row"><span class="verb-name">español</span></th><td>Spanish</td></tr><tr><td class="verb-rank">36</td><th scope="row"><span class="verb-name">familia</span></th><td>family</td></tr><tr><td class="verb-rank">37</td><th scope="row"><span class="verb-name">fui</span></th><td>I went / I was (past of ir / ser)</td></tr><tr><td class="verb-rank">38</td><th scope="row"><span class="verb-name">fuimos</span></th><td>we went / we were (past of ir / ser)</td></tr><tr><td class="verb-rank">39</td><th scope="row"><span class="verb-name">gato</span></th><td>cat</td></tr><tr><td class="verb-rank">40</td><th scope="row"><span class="verb-name">gina</span></th><td>Gina</td></tr><tr><td class="verb-rank">41</td><th scope="row"><span class="verb-name">hablamos</span></th><td>we speak / we spoke</td></tr><tr><td class="verb-rank">42</td><th scope="row"><span class="verb-name">hablaste</span></th><td>you spoke (past of hablar)</td></tr><tr><td class="verb-rank">43</td><th scope="row"><span class="verb-name">hablé</span></th><td>I spoke (past of hablar)</td></tr><tr><td class="verb-rank">44</td><th scope="row"><span class="verb-name">hice</span></th><td>I did / made (past of hacer)</td></tr><tr><td class="verb-rank">45</td><th scope="row"><span class="verb-name">juntos</span></th><td>together (masculine / mixed group)</td></tr><tr><td class="verb-rank">46</td><th scope="row"><span class="verb-name">la</span></th><td>the (feminine singular)</td></tr><tr><td class="verb-rank">47</td><th scope="row"><span class="verb-name">leí</span></th><td>I read (past of leer)</td></tr><tr><td class="verb-rank">48</td><th scope="row"><span class="verb-name">llamé</span></th><td>I called (past of llamar)</td></tr><tr><td class="verb-rank">49</td><th scope="row"><span class="verb-name">llaves</span></th><td>keys</td></tr><tr><td class="verb-rank">50</td><th scope="row"><span class="verb-name">llegaron</span></th><td>they arrived (past of llegar)</td></tr><tr><td class="verb-rank">51</td><th scope="row"><span class="verb-name">llegaste</span></th><td>you arrived (past of llegar)</td></tr><tr><td class="verb-rank">52</td><th scope="row"><span class="verb-name">llegué</span></th><td>I arrived (past of llegar)</td></tr><tr><td class="verb-rank">53</td><th scope="row"><span class="verb-name">llegó</span></th><td>she/he arrived (past of llegar)</td></tr><tr><td class="verb-rank">54</td><th scope="row"><span class="verb-name">manejé</span></th><td>I drove (past of manejar)</td></tr><tr><td class="verb-rank">55</td><th scope="row"><span class="verb-name">mensaje</span></th><td>message</td></tr><tr><td class="verb-rank">56</td><th scope="row"><span class="verb-name">menú</span></th><td>menu</td></tr><tr><td class="verb-rank">57</td><th scope="row"><span class="verb-name">mi</span></th><td>my</td></tr><tr><td class="verb-rank">58</td><th scope="row"><span class="verb-name">mis</span></th><td>my (plural)</td></tr><tr><td class="verb-rank">59</td><th scope="row"><span class="verb-name">mucho</span></th><td>a lot / much</td></tr><tr><td class="verb-rank">60</td><th scope="row"><span class="verb-name">música</span></th><td>music</td></tr><tr><td class="verb-rank">61</td><th scope="row"><span class="verb-name">nosotros</span></th><td>we</td></tr><tr><td class="verb-rank">62</td><th scope="row"><span class="verb-name">pagaste</span></th><td>you paid (past of pagar)</td></tr><tr><td class="verb-rank">63</td><th scope="row"><span class="verb-name">pagué</span></th><td>I paid (past of pagar)</td></tr><tr><td class="verb-rank">64</td><th scope="row"><span class="verb-name">pan</span></th><td>bread</td></tr><tr><td class="verb-rank">65</td><th scope="row"><span class="verb-name">parque</span></th><td>park</td></tr><tr><td class="verb-rank">66</td><th scope="row"><span class="verb-name">pedí</span></th><td>I asked for / ordered (past of pedir)</td></tr><tr><td class="verb-rank">67</td><th scope="row"><span class="verb-name">perdí</span></th><td>I lost (past of perder)</td></tr><tr><td class="verb-rank">68</td><th scope="row"><span class="verb-name">perro</span></th><td>dog</td></tr><tr><td class="verb-rank">69</td><th scope="row"><span class="verb-name">pude</span></th><td>I could / was able to (past of poder)</td></tr><tr><td class="verb-rank">70</td><th scope="row"><span class="verb-name">puerta</span></th><td>door</td></tr><tr><td class="verb-rank">71</td><th scope="row"><span class="verb-name">quise</span></th><td>I wanted / tried (past of querer)</td></tr><tr><td class="verb-rank">72</td><th scope="row"><span class="verb-name">rápido</span></th><td>fast / quickly</td></tr><tr><td class="verb-rank">73</td><th scope="row"><span class="verb-name">salí</span></th><td>I left / went out (past of salir)</td></tr><tr><td class="verb-rank">74</td><th scope="row"><span class="verb-name">tacos</span></th><td>tacos</td></tr><tr><td class="verb-rank">75</td><th scope="row"><span class="verb-name">tarde</span></th><td>late</td></tr><tr><td class="verb-rank">76</td><th scope="row"><span class="verb-name">tarjeta</span></th><td>card</td></tr><tr><td class="verb-rank">77</td><th scope="row"><span class="verb-name">teléfono</span></th><td>phone / telephone</td></tr><tr><td class="verb-rank">78</td><th scope="row"><span class="verb-name">temprano</span></th><td>early</td></tr><tr><td class="verb-rank">79</td><th scope="row"><span class="verb-name">tiempo</span></th><td>time</td></tr><tr><td class="verb-rank">80</td><th scope="row"><span class="verb-name">tomé</span></th><td>I took / drank (past of tomar)</td></tr><tr><td class="verb-rank">81</td><th scope="row"><span class="verb-name">tomó</span></th><td>she/he took or drank (past of tomar)</td></tr><tr><td class="verb-rank">82</td><th scope="row"><span class="verb-name">trabajaron</span></th><td>they worked (past of trabajar)</td></tr><tr><td class="verb-rank">83</td><th scope="row"><span class="verb-name">trabajo</span></th><td>work / job</td></tr><tr><td class="verb-rank">84</td><th scope="row"><span class="verb-name">trabajé</span></th><td>I worked (past of trabajar)</td></tr><tr><td class="verb-rank">85</td><th scope="row"><span class="verb-name">traje</span></th><td>I brought (past of traer)</td></tr><tr><td class="verb-rank">86</td><th scope="row"><span class="verb-name">tuve</span></th><td>I had (past of tener)</td></tr><tr><td class="verb-rank">87</td><th scope="row"><span class="verb-name">tú</span></th><td>you (informal singular)</td></tr><tr><td class="verb-rank">88</td><th scope="row"><span class="verb-name">un</span></th><td>a / an (masculine)</td></tr><tr><td class="verb-rank">89</td><th scope="row"><span class="verb-name">verdad</span></th><td>truth</td></tr><tr><td class="verb-rank">90</td><th scope="row"><span class="verb-name">vi</span></th><td>I saw (past of ver)</td></tr><tr><td class="verb-rank">91</td><th scope="row"><span class="verb-name">vimos</span></th><td>we saw (past of ver)</td></tr><tr><td class="verb-rank">92</td><th scope="row"><span class="verb-name">vio</span></th><td>she/he saw (past of ver)</td></tr><tr><td class="verb-rank">93</td><th scope="row"><span class="verb-name">volví</span></th><td>I returned / came back (past of volver)</td></tr><tr><td class="verb-rank">94</td><th scope="row"><span class="verb-name">yo</span></th><td>I</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p id="vocab-empty" class="verb-empty" hidden>No vocabulary matched that search.</p>
+</section>
+  </div>
+</details>
+
+
+
+<nav class="spanish-footer-nav"><a class="home-button" href="../index.html">← Back to the comics</a><a class="home-button" href="#top">Back to top</a></nav></main><footer class="site-footer"><p>© <span id="current-year"></span> Señor Rosa</p></footer><script src="../site.js"></script><script>const verbFilter=document.getElementById("verb-filter"),verbRows=Array.from(document.querySelectorAll("#verb-table-body tr")),emptyState=document.getElementById("verb-empty");verbFilter.addEventListener("input",()=>{const q=verbFilter.value.trim().toLowerCase();let visible=0;verbRows.forEach(row=>{const h=`${row.dataset.verb} ${row.dataset.meaning}`.toLowerCase(),m=h.includes(q);row.hidden=!m;if(m)visible++});emptyState.hidden=visible!==0});</script>
+
+<script>
+const vocabFilter = document.getElementById("vocab-filter");
+const vocabRows = Array.from(document.querySelectorAll("#game-vocabulary-body tr"));
+const vocabEmpty = document.getElementById("vocab-empty");
+
+if (vocabFilter) {
+  vocabFilter.addEventListener("input", () => {
+    const query = vocabFilter.value.trim().toLowerCase();
+    let visible = 0;
+
+    vocabRows.forEach((row) => {
+      const match = row.textContent.toLowerCase().includes(query);
+      row.hidden = !match;
+      if (match) visible += 1;
+    });
+
+    vocabEmpty.hidden = visible !== 0;
+  });
+}
+</script>
+
+<script>
+(() => {
+  "use strict";
+
+  const field = document.getElementById("verb-game-field");
+  const wordEl = document.getElementById("falling-word");
+  const overlay = document.getElementById("game-overlay");
+  const overlayTitle = document.getElementById("game-overlay-title");
+  const overlayCopy = document.getElementById("game-overlay-copy");
+  const startButton = document.getElementById("game-start");
+  const timeEl = document.getElementById("game-time");
+  const scoreEl = document.getElementById("game-score");
+  const livesEl = document.getElementById("game-lives");
+  const paceEl = document.getElementById("game-pace");
+  const typedEl = document.getElementById("typed-buffer");
+  const mobileInput = document.getElementById("mobile-game-input");
+  const mobileChoicePanel = document.getElementById("mobile-choice-panel");
+  const mobileChoiceButtons = Array.from(document.querySelectorAll(".mobile-choice-button"));
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
+  const isMobileGame = window.matchMedia("(max-width: 640px)").matches && isTouchDevice;
+
+
+  const levelOneButton = document.getElementById("level-one-button");
+  const levelTwoButton = document.getElementById("level-two-button");
+  const levelThreeButton = document.getElementById("level-three-button");
+  const levelLabel = document.getElementById("game-level-label");
+  const modeDescription = document.getElementById("game-mode-description");
+
+  function setGameLevel(level) {
+    if (running) return;
+    gameLevel = level;
+    lastWord = "";
+
+    const isLevelOne = gameLevel === 1;
+    const isLevelTwo = gameLevel === 2;
+    const isLevelThree = gameLevel === 3;
+
+    levelOneButton.classList.toggle("is-active", isLevelOne);
+    levelTwoButton.classList.toggle("is-active", isLevelTwo);
+    levelThreeButton.classList.toggle("is-active", isLevelThree);
+
+    levelOneButton.setAttribute("aria-pressed", String(isLevelOne));
+    levelTwoButton.setAttribute("aria-pressed", String(isLevelTwo));
+    levelThreeButton.setAttribute("aria-pressed", String(isLevelThree));
+    levelLabel.textContent = `Level ${gameLevel}`;
+
+    if (isLevelThree) {
+      modeDescription.innerHTML = isMobileGame
+        ? 'Level 3: read the English sentence and tap the correct Spanish past-tense sentence.'
+        : 'Level 3: type complete Spanish sentences, with a strong focus on <strong>yo</strong> and everyday past-tense speech. Accents and punctuation are optional.';
+      overlayTitle.textContent = "Verb Rain · Level 3";
+      overlayCopy.textContent = isMobileGame
+        ? "Tap the correct Spanish sentence from three choices before the prompt reaches the bottom."
+        : "Type the complete falling sentence. Accents and punctuation are optional. Most prompts focus on talking about your own life.";
+    } else if (isLevelTwo) {
+      modeDescription.innerHTML = isMobileGame
+        ? 'Level 2: read the pronoun + English meaning and tap the correct present-tense Spanish conjugation.'
+        : 'Level 2: type a pronoun plus the correct present-tense conjugation, like <strong>ella ve</strong>, <strong>tú sabes</strong>, or <strong>nosotros hacemos</strong>. Accents are optional.';
+      overlayTitle.textContent = "Verb Rain · Level 2";
+      overlayCopy.textContent = isMobileGame
+        ? "Tap the correct conjugation from three choices. The pace builds for 90 seconds."
+        : "Type both falling words: pronoun plus the correct conjugated verb. Accents are optional. The pace builds for 90 seconds.";
+    } else {
+      modeDescription.innerHTML = isMobileGame
+        ? 'Level 1: read the English meaning and tap the correct Spanish verb.'
+        : 'Level 1: type the Spanish verb before it reaches the bottom. <strong>Accents are optional</strong> — a normal English keyboard is completely fine.';
+      overlayTitle.textContent = "Verb Rain";
+      overlayCopy.textContent = isMobileGame
+        ? "Tap the correct Spanish verb from three choices before the prompt reaches the bottom."
+        : "Type each falling Spanish verb. You do not need accent marks in this level. The words speed up for 90 seconds.";
+    }
+  }
+
+  function focusMobileKeyboard() {
+    if (isMobileGame || !isTouchDevice || !mobileInput) return;
+
+    mobileInput.value = typed;
+    mobileInput.style.zIndex = "30";
+    mobileInput.style.pointerEvents = "auto";
+
+    requestAnimationFrame(() => {
+      try {
+        mobileInput.focus({ preventScroll: true });
+        mobileInput.setSelectionRange(mobileInput.value.length, mobileInput.value.length);
+      } catch (_) {
+        mobileInput.focus();
+      }
+    });
+  }
+
+  function blurMobileKeyboard() {
+    if (!mobileInput) return;
+    mobileInput.blur();
+    mobileInput.style.zIndex = "-1";
+    mobileInput.style.pointerEvents = "none";
+    document.body.classList.remove("mobile-keyboard-open");
+  }
+
+  function updateTypedState(value) {
+    typed = value.toLowerCase();
+    typedEl.textContent = typed || " ";
+
+    const expected = normalizeSpanish(currentWord);
+    const actual = normalizeSpanish(typed);
+
+    if (actual === expected) {
+      hitWord(performance.now());
+      return;
+    }
+
+    typedEl.classList.toggle("is-wrong", !expected.startsWith(actual));
+  }
+
+  const GAME_MS = 90000;
+  const START_WORD_MS = 5000;
+  const END_WORD_MS = 800;
+  const livesGlyphs = ["♡ ♡ ♡", "♥ ♡ ♡", "♥ ♥ ♡", "♥ ♥ ♥"];
+
+  let verbs = [];
+  let verbItems = [];
+  let conjugationPairs = [];
+  let conjugationItems = [];
+  const levelThreeSentences = [
+    {"spanish": 'Yo corrí rápido.', "english": 'I ran fast.'},
+    {"spanish": 'Yo vi un gato.', "english": 'I saw a cat.'},
+    {"spanish": 'Yo comí tacos.', "english": 'I ate tacos.'},
+    {"spanish": 'Yo fui al centro.', "english": 'I went downtown.'},
+    {"spanish": 'Yo hablé con Gina.', "english": 'I spoke with Gina.'},
+    {"spanish": 'Yo trabajé desde casa.', "english": 'I worked from home.'},
+    {"spanish": 'Yo compré café.', "english": 'I bought coffee.'},
+    {"spanish": 'Yo tomé agua.', "english": 'I drank water.'},
+    {"spanish": 'Yo dormí bien.', "english": 'I slept well.'},
+    {"spanish": 'Yo llegué temprano.', "english": 'I arrived early.'},
+    {"spanish": 'Yo salí tarde.', "english": 'I left late.'},
+    {"spanish": 'Yo caminé al parque.', "english": 'I walked to the park.'},
+    {"spanish": 'Yo aprendí español.', "english": 'I learned Spanish.'},
+    {"spanish": 'Yo escribí un mensaje.', "english": 'I wrote a message.'},
+    {"spanish": 'Yo leí el menú.', "english": 'I read the menu.'},
+    {"spanish": 'Yo pagué con tarjeta.', "english": 'I paid with a card.'},
+    {"spanish": 'Yo pedí comida.', "english": 'I ordered food.'},
+    {"spanish": 'Yo encontré mi teléfono.', "english": 'I found my phone.'},
+    {"spanish": 'Yo perdí mis llaves.', "english": 'I lost my keys.'},
+    {"spanish": 'Yo hice la cena.', "english": 'I made dinner.'},
+    {"spanish": 'Yo tuve tiempo.', "english": 'I had time.'},
+    {"spanish": 'Yo dije la verdad.', "english": 'I told the truth.'},
+    {"spanish": 'Yo pude ayudar.', "english": 'I was able to help.'},
+    {"spanish": 'Yo quise descansar.', "english": 'I wanted to rest.'},
+    {"spanish": 'Yo volví a casa.', "english": 'I returned home.'},
+    {"spanish": 'Yo traje comida.', "english": 'I brought food.'},
+    {"spanish": 'Yo manejé al trabajo.', "english": 'I drove to work.'},
+    {"spanish": 'Yo escuché música.', "english": 'I listened to music.'},
+    {"spanish": 'Yo llamé a mi familia.', "english": 'I called my family.'},
+    {"spanish": 'Yo abrí la puerta.', "english": 'I opened the door.'},
+    {"spanish": 'Ellos corrieron juntos.', "english": 'They ran together.'},
+    {"spanish": 'Ellos llegaron temprano.', "english": 'They arrived early.'},
+    {"spanish": 'Ellos trabajaron mucho.', "english": 'They worked a lot.'},
+    {"spanish": 'Ellos comieron tacos.', "english": 'They ate tacos.'},
+    {"spanish": 'Nosotros comimos juntos.', "english": 'We ate together.'},
+    {"spanish": 'Nosotros fuimos al parque.', "english": 'We went to the park.'},
+    {"spanish": 'Nosotros vimos la ciudad.', "english": 'We saw the city.'},
+    {"spanish": 'Nosotros hablamos español.', "english": 'We spoke Spanish.'},
+    {"spanish": 'Ella vio un perro.', "english": 'She saw a dog.'},
+    {"spanish": 'Ella tomó café.', "english": 'She drank coffee.'},
+    {"spanish": 'Ella compró pan.', "english": 'She bought bread.'},
+    {"spanish": 'Ella llegó tarde.', "english": 'She arrived late.'},
+    {"spanish": 'Tú hablaste despacio.', "english": 'You spoke slowly.'},
+    {"spanish": 'Tú escribiste un mensaje.', "english": 'You wrote a message.'},
+    {"spanish": 'Tú llegaste temprano.', "english": 'You arrived early.'},
+    {"spanish": 'Tú pagaste con tarjeta.', "english": 'You paid with a card.'}
+  ];
+  let gameLevel = 1;
+  let running = false;
+  let startTime = 0;
+  let wordStart = 0;
+  let currentWord = "";
+  let currentDeadline = START_WORD_MS;
+  let typed = "";
+  let score = 0;
+  let lives = 3;
+  let frameId = 0;
+  let lastWord = "";
+  let wordResolving = false;
+
+  function normalizeSpanish(value) {
+    return value
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[¿?¡!.,;:]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function loadVerbsFromTable() {
+    const rows = Array.from(document.querySelectorAll("#verb-table-body tr"));
+    verbItems = rows.map((row) => ({
+      spanish: row.dataset.verb,
+      english: row.dataset.meaning || row.dataset.verb
+    })).filter((item) => item.spanish);
+    verbs = verbItems.map((item) => item.spanish);
+
+    const subjects = [
+      { label: "yo", english: "I", column: 2 },
+      { label: "tú", english: "you", column: 3 },
+      { label: "ella", english: "she", column: 4 },
+      { label: "nosotros", english: "we", column: 5 },
+      { label: "ellos", english: "they", column: 6 }
+    ];
+
+    conjugationPairs = [];
+    conjugationItems = [];
+    rows.forEach((row) => {
+      subjects.forEach((subject) => {
+        const form = row.children[subject.column]?.textContent.trim();
+        if (form) {
+          const answer = `${subject.label} ${form}`;
+          conjugationPairs.push(answer);
+          conjugationItems.push({
+            answer,
+            subject: subject.label,
+            subjectEnglish: subject.english,
+            english: row.dataset.meaning || row.dataset.verb,
+            verb: row.dataset.verb
+          });
+        }
+      });
+    });
+  }
+
+  function formatTime(ms) {
+    const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  }
+
+  function speedProgress(elapsed) {
+    return Math.min(1, Math.max(0, elapsed / GAME_MS));
+  }
+
+  function deadlineForElapsed(elapsed) {
+    const p = speedProgress(elapsed);
+    const baseDeadline = START_WORD_MS * Math.pow(END_WORD_MS / START_WORD_MS, p);
+
+    if (gameLevel === 3) return baseDeadline * 4.0;
+    if (gameLevel === 2) return baseDeadline * 1.50;
+    return baseDeadline * 1.25;
+  }
+
+  function paceLabel(elapsed) {
+    const ms = deadlineForElapsed(elapsed);
+    const perMinute = Math.round(60000 / ms);
+
+    if (gameLevel === 3) {
+      if (perMinute < 6) return "Easy";
+      return `${perMinute} sentences/min`;
+    }
+
+    if (perMinute < 20) return "Easy";
+    if (perMinute < 70) return `${perMinute} wpm`;
+    return `${perMinute} wpm 🔥`;
+  }
+
+  function chooseWord() {
+    let pool;
+    if (gameLevel === 3) {
+      pool = levelThreeSentences.map((item) => item.spanish);
+    } else if (gameLevel === 2) {
+      pool = conjugationPairs;
+    } else {
+      pool = verbs;
+    }
+
+    if (!pool.length) return "";
+
+    let candidate = pool[Math.floor(Math.random() * pool.length)];
+    if (pool.length > 1 && candidate === lastWord) {
+      candidate = pool[(pool.indexOf(candidate) + 1 + Math.floor(Math.random() * (pool.length - 1))) % pool.length];
+    }
+
+    lastWord = candidate;
+    return candidate;
+  }
+
+  function sampleChoices(pool, target, count = 3) {
+    const unique = Array.from(new Set(pool.filter(Boolean)));
+    const distractors = unique.filter((item) => item !== target);
+    for (let i = distractors.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [distractors[i], distractors[j]] = [distractors[j], distractors[i]];
+    }
+    const choices = [target, ...distractors.slice(0, Math.max(0, count - 1))];
+    for (let i = choices.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [choices[i], choices[j]] = [choices[j], choices[i]];
+    }
+    return choices;
+  }
+
+  function mobilePromptForCurrentWord() {
+    if (gameLevel === 3) {
+      return levelThreeSentences.find((item) => item.spanish === currentWord)?.english || currentWord;
+    }
+
+    if (gameLevel === 2) {
+      const item = conjugationItems.find((entry) => entry.answer === currentWord);
+      if (!item) return currentWord;
+      return `${item.subjectEnglish} · ${item.english}`;
+    }
+
+    return verbItems.find((item) => item.spanish === currentWord)?.english || currentWord;
+  }
+
+  function mobileChoicePool() {
+    if (gameLevel === 3) return levelThreeSentences.map((item) => item.spanish);
+    if (gameLevel === 2) {
+      const targetItem = conjugationItems.find((item) => item.answer === currentWord);
+      const sameSubject = conjugationItems
+        .filter((item) => !targetItem || item.subject === targetItem.subject)
+        .map((item) => item.answer);
+      return sameSubject.length >= 3 ? sameSubject : conjugationPairs;
+    }
+    return verbs;
+  }
+
+  function renderMobileChoices() {
+    if (!isMobileGame || !mobileChoiceButtons.length) return;
+    const choices = sampleChoices(mobileChoicePool(), currentWord, 3);
+    mobileChoiceButtons.forEach((button, index) => {
+      button.textContent = choices[index] || "";
+      button.dataset.answer = choices[index] || "";
+      button.disabled = !choices[index];
+      button.classList.remove("is-correct", "is-wrong");
+    });
+  }
+
+  function resetWordPosition() {
+    // Full sentences need predictable room so they never clip off-screen.
+    if (gameLevel === 3) {
+      wordEl.style.left = "50%";
+      wordEl.style.transform = "translate(-50%, 0)";
+      return;
+    }
+
+    const safeWidth = Math.max(160, field.clientWidth - 150);
+    const x = 75 + Math.random() * safeWidth;
+    wordEl.style.left = `${x}px`;
+    wordEl.style.transform = "translate(-50%, 0)";
+  }
+
+  function spawnWord(now) {
+    wordResolving = false;
+    currentWord = chooseWord();
+    typed = "";
+    typedEl.textContent = "";
+    typedEl.classList.remove("is-wrong");
+    if (mobileInput) mobileInput.value = "";
+    wordEl.textContent = isMobileGame ? mobilePromptForCurrentWord() : currentWord;
+    wordEl.classList.remove("is-hit", "is-missed", "is-sentence");
+    wordEl.classList.toggle("is-sentence", gameLevel === 3 || isMobileGame);
+    renderMobileChoices();
+    currentDeadline = deadlineForElapsed(now - startTime);
+    wordStart = now;
+    resetWordPosition();
+  }
+
+  function updateLives() {
+    livesEl.textContent = livesGlyphs[lives];
+    livesEl.setAttribute("aria-label", `${lives} ${lives === 1 ? "life" : "lives"}`);
+  }
+
+  function stopAnimation() {
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = 0;
+  }
+
+  function showOverlay(title, copy, buttonText) {
+    overlayTitle.textContent = title;
+    overlayCopy.textContent = copy;
+    startButton.textContent = buttonText;
+    overlay.hidden = false;
+  }
+
+  function winGame() {
+    running = false;
+    stopAnimation();
+    blurMobileKeyboard();
+    levelOneButton.disabled = false;
+    levelTwoButton.disabled = false;
+    levelThreeButton.disabled = false;
+    timeEl.textContent = "0:00";
+    paceEl.textContent =
+      gameLevel === 3 ? "19 sentences/min" :
+      gameLevel === 2 ? "50 wpm" :
+      "60 wpm";
+    typedEl.textContent = "You made it.";
+    showOverlay(
+      "¡Ganaste!",
+      gameLevel === 3
+        ? `You survived all 90 seconds and cleared ${score} complete Spanish sentences. Level 3 complete.`
+        : `You survived all 90 seconds and cleared ${score} ${gameLevel === 2 ? "conjugation pairs" : "Spanish verbs"}. Level ${gameLevel} complete.`,
+      "Play again"
+    );
+  }
+
+  function gameOver() {
+    running = false;
+    stopAnimation();
+    blurMobileKeyboard();
+    levelOneButton.disabled = false;
+    levelTwoButton.disabled = false;
+    levelThreeButton.disabled = false;
+    wordEl.classList.add("is-missed");
+    typedEl.textContent = "Game over.";
+    showOverlay(
+      "Game Over",
+      `Three prompts got past you. You cleared ${score} ${gameLevel === 3 ? "complete sentences" : gameLevel === 2 ? "conjugation pairs" : "Spanish verbs"}. Hit Play Again when you want another run.`,
+      "Play again"
+    );
+  }
+
+  function missWord(now) {
+    if (wordResolving) return;
+    wordResolving = true;
+    lives -= 1;
+    updateLives();
+    wordEl.classList.add("is-missed");
+
+    if (lives <= 0) {
+      gameOver();
+      return;
+    }
+
+    setTimeout(() => {
+      if (running) spawnWord(performance.now());
+    }, 160);
+  }
+
+  function hitWord(now) {
+    if (wordResolving) return;
+    wordResolving = true;
+    score += 1;
+    scoreEl.textContent = String(score);
+    wordEl.classList.add("is-hit");
+    typedEl.textContent = isMobileGame ? currentWord : typed;
+
+    setTimeout(() => {
+      if (running) spawnWord(performance.now());
+    }, 80);
+  }
+
+  function tick(now) {
+    if (!running) return;
+
+    const elapsed = now - startTime;
+    if (elapsed >= GAME_MS) {
+      winGame();
+      return;
+    }
+
+    const remaining = GAME_MS - elapsed;
+    timeEl.textContent = formatTime(remaining);
+    paceEl.textContent = paceLabel(elapsed);
+
+    if (!wordResolving) {
+      const wordElapsed = now - wordStart;
+      const progress = Math.min(1, wordElapsed / currentDeadline);
+      const travel = Math.max(0, field.clientHeight - 105);
+      wordEl.style.transform = `translate(-50%, ${progress * travel}px)`;
+
+      if (progress >= 1) {
+        missWord(now);
+      }
+    }
+
+    frameId = requestAnimationFrame(tick);
+  }
+
+  function startGame() {
+    loadVerbsFromTable();
+    if (!verbs.length) {
+      showOverlay("Game unavailable", "I could not find the verb table on this page.", "Try again");
+      return;
+    }
+
+    stopAnimation();
+    running = true;
+    levelOneButton.disabled = true;
+    levelTwoButton.disabled = true;
+    levelThreeButton.disabled = true;
+    startTime = performance.now();
+    score = 0;
+    lives = 3;
+    typed = "";
+    wordResolving = false;
+    scoreEl.textContent = "0";
+    timeEl.textContent = "1:30";
+    paceEl.textContent = "Easy";
+    updateLives();
+    overlay.hidden = true;
+    typedEl.textContent = "";
+    field.focus({ preventScroll: true });
+    spawnWord(startTime);
+    if (!isMobileGame) focusMobileKeyboard();
+    frameId = requestAnimationFrame(tick);
+  }
+
+  function acceptKey(event) {
+    if (!running || isMobileGame) return;
+    if (document.activeElement === mobileInput) return;
+
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+    if (event.key === "Backspace") {
+      event.preventDefault();
+      typed = typed.slice(0, -1);
+      typedEl.textContent = typed || " ";
+      const expected = normalizeSpanish(currentWord);
+      typedEl.classList.toggle("is-wrong", !expected.startsWith(normalizeSpanish(typed)));
+      return;
+    }
+
+    if (event.key === "Escape") {
+      running = false;
+      stopAnimation();
+      blurMobileKeyboard();
+      levelOneButton.disabled = false;
+      levelTwoButton.disabled = false;
+      showOverlay("Paused", "Your run is paused. Start again whenever you are ready.", "Restart");
+      return;
+    }
+
+    const isLetter = event.key.length === 1 && /[\p{L}]/u.test(event.key);
+    const isSpace = event.key === " " && gameLevel >= 2;
+    if (!isLetter && !isSpace) return;
+
+    event.preventDefault();
+
+    if (isSpace) {
+      if (!typed || typed.endsWith(" ")) return;
+      typed += " ";
+    } else {
+      typed += event.key.toLowerCase();
+    }
+
+    typedEl.textContent = typed;
+
+    const expected = normalizeSpanish(currentWord);
+    const actual = normalizeSpanish(typed);
+
+    if (actual === expected) {
+      hitWord(performance.now());
+      return;
+    }
+
+    // If the typed string can no longer become the target, flash it but let Backspace recover.
+    typedEl.classList.toggle("is-wrong", !expected.startsWith(actual));
+  }
+
+
+  field.addEventListener("pointerdown", () => {
+    if (running && isTouchDevice && !isMobileGame) {
+      focusMobileKeyboard();
+    }
+  });
+
+  startButton.addEventListener("click", () => {
+    startGame();
+    if (!isMobileGame && isTouchDevice && mobileInput) {
+      mobileInput.style.zIndex = "30";
+      mobileInput.style.pointerEvents = "auto";
+      mobileInput.focus({ preventScroll: true });
+    }
+  });
+  levelOneButton.addEventListener("click", () => setGameLevel(1));
+  levelTwoButton.addEventListener("click", () => setGameLevel(2));
+  levelThreeButton.addEventListener("click", () => setGameLevel(3));
+
+
+  mobileChoiceButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!isMobileGame || !running || wordResolving) return;
+      const answer = button.dataset.answer || "";
+
+      mobileChoiceButtons.forEach((choiceButton) => {
+        choiceButton.disabled = true;
+      });
+
+      if (normalizeSpanish(answer) === normalizeSpanish(currentWord)) {
+        button.classList.add("is-correct");
+        hitWord(performance.now());
+      } else {
+        button.classList.add("is-wrong");
+        const correctButton = mobileChoiceButtons.find(
+          (choiceButton) => normalizeSpanish(choiceButton.dataset.answer || "") === normalizeSpanish(currentWord)
+        );
+        if (correctButton) correctButton.classList.add("is-correct");
+        missWord(performance.now());
+      }
+    });
+  });
+
+  if (mobileInput) {
+    mobileInput.addEventListener("focus", () => {
+      if (running && !isMobileGame) document.body.classList.add("mobile-keyboard-open");
+    });
+
+    mobileInput.addEventListener("blur", () => {
+      document.body.classList.remove("mobile-keyboard-open");
+    });
+
+    mobileInput.addEventListener("input", () => {
+      if (!running || isMobileGame) return;
+
+      let value = mobileInput.value;
+
+      if (gameLevel === 1) {
+        value = value.replace(/\s+/g, "");
+      } else {
+        value = value.replace(/\s+/g, " ").replace(/^\s+/, "");
+      }
+
+      mobileInput.value = value;
+      updateTypedState(value);
+    });
+
+    mobileInput.addEventListener("keydown", (event) => {
+      if (!running) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        running = false;
+        stopAnimation();
+        blurMobileKeyboard();
+        levelOneButton.disabled = false;
+        levelTwoButton.disabled = false;
+        showOverlay("Paused", "Your run is paused. Start again whenever you are ready.", "Restart");
+      }
+    });
+  }
+
+  if (window.visualViewport) {
+    const handleViewport = () => {
+      if (!isTouchDevice || !running || isMobileGame) return;
+      const keyboardLikelyOpen = window.innerHeight - window.visualViewport.height > 120;
+      document.body.classList.toggle("mobile-keyboard-open", keyboardLikelyOpen);
+    };
+
+    window.visualViewport.addEventListener("resize", handleViewport);
+    window.visualViewport.addEventListener("scroll", handleViewport);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    const tag = document.activeElement?.tagName;
+    const isSearchField = document.activeElement?.id === "verb-filter";
+    if (isSearchField || tag === "TEXTAREA" || tag === "SELECT") return;
+    acceptKey(event);
+  });
+
+  loadVerbsFromTable();
+  setGameLevel(1);
+  updateLives();
+})();
+</script>
+
+
+<script>
+(() => {
+  const collapses = Array.from(document.querySelectorAll(".reference-collapse"));
+
+  collapses.forEach((details, index) => {
+    const key = `senorrosa-spanish-reference-${index}`;
+    const saved = sessionStorage.getItem(key);
+
+    if (saved === "open") details.open = true;
+    if (saved === "closed") details.open = false;
+
+    const action = details.querySelector(".reference-collapse-action");
+    const updateLabel = () => {
+      if (!action) return;
+      if (details.classList.contains("verb-reference-collapse")) {
+        action.textContent = details.open ? "Hide chart" : "Show chart";
+      } else {
+        action.textContent = details.open ? "Hide vocabulary" : "Show vocabulary";
+      }
+    };
+
+    details.addEventListener("toggle", () => {
+      sessionStorage.setItem(key, details.open ? "open" : "closed");
+      updateLabel();
+    });
+
+    updateLabel();
+  });
+})();
+</script>
+
+</body></html>

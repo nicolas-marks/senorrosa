@@ -7,6 +7,10 @@ const comicTitle = document.querySelector("#comic-title");
 const comicDescription = document.querySelector("#comic-description");
 const comicImage = document.querySelector("#comic-image");
 const comicCounter = document.querySelector("#comic-counter");
+const firstComicButton = document.querySelector("#first-comic-button");
+const previousComicMini = document.querySelector("#previous-comic-mini");
+const nextComicMini = document.querySelector("#next-comic-mini");
+const latestComicButton = document.querySelector("#latest-comic-button");
 
 const previousButton = document.querySelector("#previous-button");
 const nextButton = document.querySelector("#next-button");
@@ -46,6 +50,22 @@ function renderComic({ scrollToTop = false } = {}) {
     nextButtonBottom.disabled = isLastComic;
   }
 
+  if (firstComicButton) {
+    firstComicButton.disabled = isFirstComic;
+  }
+
+  if (previousComicMini) {
+    previousComicMini.disabled = isFirstComic;
+  }
+
+  if (nextComicMini) {
+    nextComicMini.disabled = isLastComic;
+  }
+
+  if (latestComicButton) {
+    latestComicButton.disabled = isLastComic;
+  }
+
   document.title = `${comic.title} — Señor Rosa`;
 
   const url = new URL(window.location.href);
@@ -75,6 +95,18 @@ function showNextComic() {
   }
 
   currentComicIndex += 1;
+  renderComic({ scrollToTop: true });
+}
+
+function showFirstComic() {
+  if (!comics.length || currentComicIndex === 0) return;
+  currentComicIndex = 0;
+  renderComic({ scrollToTop: true });
+}
+
+function showLatestComic() {
+  if (!comics.length || currentComicIndex === comics.length - 1) return;
+  currentComicIndex = comics.length - 1;
   renderComic({ scrollToTop: true });
 }
 
@@ -119,6 +151,19 @@ async function loadComics() {
     comicImage.alt = "Unable to load comics";
     comicCounter.textContent = "No comics";
   }
+}
+
+if (firstComicButton) {
+  firstComicButton.addEventListener("click", showFirstComic);
+}
+if (previousComicMini) {
+  previousComicMini.addEventListener("click", showPreviousComic);
+}
+if (nextComicMini) {
+  nextComicMini.addEventListener("click", showNextComic);
+}
+if (latestComicButton) {
+  latestComicButton.addEventListener("click", showLatestComic);
 }
 
 if (previousButton) {

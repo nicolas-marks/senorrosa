@@ -232,6 +232,7 @@
     }
   }
 
+<<<<<<< HEAD
   .mobile-choice-panel {
     display: none;
     gap: 10px;
@@ -273,6 +274,8 @@
     cursor: default;
   }
 
+=======
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
   .mobile-game-input {
     position: fixed;
     left: 50%;
@@ -382,6 +385,7 @@
     }
 
     .typing-console {
+<<<<<<< HEAD
       display: none;
     }
 
@@ -397,6 +401,22 @@
       padding: 10px 14px 14px;
       font-size: 0.82rem;
       text-align: center;
+=======
+      position: sticky;
+      bottom: 0;
+      z-index: 4;
+      min-height: 54px;
+      padding: 12px 14px;
+    }
+
+    .typed-buffer {
+      font-size: 1rem;
+    }
+
+    .game-help {
+      padding: 0 14px 14px;
+      font-size: 0.82rem;
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     }
 
     .spanish-section-heading {
@@ -677,12 +697,15 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <div id="mobile-choice-panel" class="mobile-choice-panel" aria-label="Choose the correct answer" aria-live="polite">
       <button class="mobile-choice-button" type="button" data-choice-index="0"></button>
       <button class="mobile-choice-button" type="button" data-choice-index="1"></button>
       <button class="mobile-choice-button" type="button" data-choice-index="2"></button>
     </div>
 
+=======
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     <div class="typing-console" aria-live="polite">
       <span class="typing-console-label">Typing</span>
       <strong id="typed-buffer" class="typed-buffer">Start the game, then just type.</strong>
@@ -702,7 +725,11 @@
 
 
     <p class="game-help">
+<<<<<<< HEAD
       Desktop: type the answer. Mobile: tap one of three choices.
+=======
+      No clicking between words. Once the game starts, just keep typing.
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
       Three missed prompts ends the run. Press Play Again when you want another try.
     </p>
   </div>
@@ -904,10 +931,14 @@ if (vocabFilter) {
   const paceEl = document.getElementById("game-pace");
   const typedEl = document.getElementById("typed-buffer");
   const mobileInput = document.getElementById("mobile-game-input");
+<<<<<<< HEAD
   const mobileChoicePanel = document.getElementById("mobile-choice-panel");
   const mobileChoiceButtons = Array.from(document.querySelectorAll(".mobile-choice-button"));
   const isTouchDevice = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
   const isMobileGame = window.matchMedia("(max-width: 640px)").matches && isTouchDevice;
+=======
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
 
 
   const levelOneButton = document.getElementById("level-one-button");
@@ -935,6 +966,7 @@ if (vocabFilter) {
     levelLabel.textContent = `Level ${gameLevel}`;
 
     if (isLevelThree) {
+<<<<<<< HEAD
       modeDescription.innerHTML = isMobileGame
         ? 'Level 3: read the English sentence and tap the correct Spanish past-tense sentence.'
         : 'Level 3: type complete Spanish sentences, with a strong focus on <strong>yo</strong> and everyday past-tense speech. Accents and punctuation are optional.';
@@ -958,11 +990,28 @@ if (vocabFilter) {
       overlayCopy.textContent = isMobileGame
         ? "Tap the correct Spanish verb from three choices before the prompt reaches the bottom."
         : "Type each falling Spanish verb. You do not need accent marks in this level. The words speed up for 90 seconds.";
+=======
+      modeDescription.innerHTML = 'Level 3: type complete Spanish sentences, with a strong focus on <strong>yo</strong> and everyday past-tense speech. Accents and punctuation are optional.';
+      overlayTitle.textContent = "Verb Rain · Level 3";
+      overlayCopy.textContent = "Type the complete falling sentence. Accents and punctuation are optional. Most prompts focus on talking about your own life.";
+    } else if (isLevelTwo) {
+      modeDescription.innerHTML = 'Level 2: type a pronoun plus the correct present-tense conjugation, like <strong>ella ve</strong>, <strong>tú sabes</strong>, or <strong>nosotros hacemos</strong>. Accents are optional.';
+      overlayTitle.textContent = "Verb Rain · Level 2";
+      overlayCopy.textContent = "Type both falling words: pronoun plus the correct conjugated verb. Accents are optional. The pace builds for 90 seconds.";
+    } else {
+      modeDescription.innerHTML = 'Level 1: type the Spanish verb before it reaches the bottom. <strong>Accents are optional</strong> — a normal English keyboard is completely fine.';
+      overlayTitle.textContent = "Verb Rain";
+      overlayCopy.textContent = "Type each falling Spanish verb. You do not need accent marks in this level. The words speed up for 90 seconds.";
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     }
   }
 
   function focusMobileKeyboard() {
+<<<<<<< HEAD
     if (isMobileGame || !isTouchDevice || !mobileInput) return;
+=======
+    if (!isTouchDevice || !mobileInput) return;
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
 
     mobileInput.value = typed;
     mobileInput.style.zIndex = "30";
@@ -1007,9 +1056,13 @@ if (vocabFilter) {
   const livesGlyphs = ["♡ ♡ ♡", "♥ ♡ ♡", "♥ ♥ ♡", "♥ ♥ ♥"];
 
   let verbs = [];
+<<<<<<< HEAD
   let verbItems = [];
   let conjugationPairs = [];
   let conjugationItems = [];
+=======
+  let conjugationPairs = [];
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
   const levelThreeSentences = [
     {"spanish": 'Yo corrí rápido.', "english": 'I ran fast.'},
     {"spanish": 'Yo vi un gato.', "english": 'I saw a cat.'},
@@ -1083,6 +1136,7 @@ if (vocabFilter) {
 
   function loadVerbsFromTable() {
     const rows = Array.from(document.querySelectorAll("#verb-table-body tr"));
+<<<<<<< HEAD
     verbItems = rows.map((row) => ({
       spanish: row.dataset.verb,
       english: row.dataset.meaning || row.dataset.verb
@@ -1099,10 +1153,24 @@ if (vocabFilter) {
 
     conjugationPairs = [];
     conjugationItems = [];
+=======
+    verbs = rows.map((row) => row.dataset.verb).filter(Boolean);
+
+    const subjects = [
+      { label: "yo", column: 2 },
+      { label: "tú", column: 3 },
+      { label: "ella", column: 4 },
+      { label: "nosotros", column: 5 },
+      { label: "ellos", column: 6 }
+    ];
+
+    conjugationPairs = [];
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     rows.forEach((row) => {
       subjects.forEach((subject) => {
         const form = row.children[subject.column]?.textContent.trim();
         if (form) {
+<<<<<<< HEAD
           const answer = `${subject.label} ${form}`;
           conjugationPairs.push(answer);
           conjugationItems.push({
@@ -1112,6 +1180,9 @@ if (vocabFilter) {
             english: row.dataset.meaning || row.dataset.verb,
             verb: row.dataset.verb
           });
+=======
+          conjugationPairs.push(`${subject.label} ${form}`);
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
         }
       });
     });
@@ -1172,6 +1243,7 @@ if (vocabFilter) {
     return candidate;
   }
 
+<<<<<<< HEAD
   function sampleChoices(pool, target, count = 3) {
     const unique = Array.from(new Set(pool.filter(Boolean)));
     const distractors = unique.filter((item) => item !== target);
@@ -1224,6 +1296,8 @@ if (vocabFilter) {
     });
   }
 
+=======
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
   function resetWordPosition() {
     // Full sentences need predictable room so they never clip off-screen.
     if (gameLevel === 3) {
@@ -1245,10 +1319,16 @@ if (vocabFilter) {
     typedEl.textContent = "";
     typedEl.classList.remove("is-wrong");
     if (mobileInput) mobileInput.value = "";
+<<<<<<< HEAD
     wordEl.textContent = isMobileGame ? mobilePromptForCurrentWord() : currentWord;
     wordEl.classList.remove("is-hit", "is-missed", "is-sentence");
     wordEl.classList.toggle("is-sentence", gameLevel === 3 || isMobileGame);
     renderMobileChoices();
+=======
+    wordEl.textContent = currentWord;
+    wordEl.classList.remove("is-hit", "is-missed", "is-sentence");
+    wordEl.classList.toggle("is-sentence", gameLevel === 3);
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     currentDeadline = deadlineForElapsed(now - startTime);
     wordStart = now;
     resetWordPosition();
@@ -1332,7 +1412,11 @@ if (vocabFilter) {
     score += 1;
     scoreEl.textContent = String(score);
     wordEl.classList.add("is-hit");
+<<<<<<< HEAD
     typedEl.textContent = isMobileGame ? currentWord : typed;
+=======
+    typedEl.textContent = typed;
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
 
     setTimeout(() => {
       if (running) spawnWord(performance.now());
@@ -1391,12 +1475,20 @@ if (vocabFilter) {
     typedEl.textContent = "";
     field.focus({ preventScroll: true });
     spawnWord(startTime);
+<<<<<<< HEAD
     if (!isMobileGame) focusMobileKeyboard();
+=======
+    focusMobileKeyboard();
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     frameId = requestAnimationFrame(tick);
   }
 
   function acceptKey(event) {
+<<<<<<< HEAD
     if (!running || isMobileGame) return;
+=======
+    if (!running) return;
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     if (document.activeElement === mobileInput) return;
 
     if (event.ctrlKey || event.metaKey || event.altKey) return;
@@ -1449,14 +1541,22 @@ if (vocabFilter) {
 
 
   field.addEventListener("pointerdown", () => {
+<<<<<<< HEAD
     if (running && isTouchDevice && !isMobileGame) {
+=======
+    if (running && isTouchDevice) {
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
       focusMobileKeyboard();
     }
   });
 
   startButton.addEventListener("click", () => {
     startGame();
+<<<<<<< HEAD
     if (!isMobileGame && isTouchDevice && mobileInput) {
+=======
+    if (isTouchDevice && mobileInput) {
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
       mobileInput.style.zIndex = "30";
       mobileInput.style.pointerEvents = "auto";
       mobileInput.focus({ preventScroll: true });
@@ -1467,6 +1567,7 @@ if (vocabFilter) {
   levelThreeButton.addEventListener("click", () => setGameLevel(3));
 
 
+<<<<<<< HEAD
   mobileChoiceButtons.forEach((button) => {
     button.addEventListener("click", () => {
       if (!isMobileGame || !running || wordResolving) return;
@@ -1493,6 +1594,11 @@ if (vocabFilter) {
   if (mobileInput) {
     mobileInput.addEventListener("focus", () => {
       if (running && !isMobileGame) document.body.classList.add("mobile-keyboard-open");
+=======
+  if (mobileInput) {
+    mobileInput.addEventListener("focus", () => {
+      if (running) document.body.classList.add("mobile-keyboard-open");
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
     });
 
     mobileInput.addEventListener("blur", () => {
@@ -1500,7 +1606,11 @@ if (vocabFilter) {
     });
 
     mobileInput.addEventListener("input", () => {
+<<<<<<< HEAD
       if (!running || isMobileGame) return;
+=======
+      if (!running) return;
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
 
       let value = mobileInput.value;
 
@@ -1531,7 +1641,11 @@ if (vocabFilter) {
 
   if (window.visualViewport) {
     const handleViewport = () => {
+<<<<<<< HEAD
       if (!isTouchDevice || !running || isMobileGame) return;
+=======
+      if (!isTouchDevice || !running) return;
+>>>>>>> 3626a52ce6abf04dd441bfcd8b95461efd63e66f
       const keyboardLikelyOpen = window.innerHeight - window.visualViewport.height > 120;
       document.body.classList.toggle("mobile-keyboard-open", keyboardLikelyOpen);
     };

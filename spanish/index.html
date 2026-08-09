@@ -418,9 +418,10 @@
 
   .falling-word.is-sentence {
     width: max-content;
-    max-width: calc(100% - 36px);
+    max-width: min(760px, calc(100% - 48px));
     white-space: normal;
     line-height: 1.25;
+    overflow-wrap: anywhere;
   }
 
   .game-vocabulary-section {
@@ -437,10 +438,11 @@
 
   @media (max-width: 640px) {
     .falling-word.is-sentence {
-      width: calc(100% - 28px);
-      max-width: calc(100% - 28px);
+      width: calc(100% - 32px);
+      max-width: calc(100% - 32px);
       white-space: normal;
       font-size: 1.02rem;
+      overflow-wrap: anywhere;
     }
 
     .vocabulary-table {
@@ -1093,6 +1095,13 @@ if (vocabFilter) {
   }
 
   function resetWordPosition() {
+    // Full sentences need predictable room so they never clip off-screen.
+    if (gameLevel === 3) {
+      wordEl.style.left = "50%";
+      wordEl.style.transform = "translate(-50%, 0)";
+      return;
+    }
+
     const safeWidth = Math.max(160, field.clientWidth - 150);
     const x = 75 + Math.random() * safeWidth;
     wordEl.style.left = `${x}px`;

@@ -4,24 +4,139 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>About Señor Rosa</title>
+  <title>About Señor Rosa | Projects & Experiments</title>
   <meta
     name="description"
-    content="A short introduction to Señor Rosa, the storytelling project, and the stories behind the comics."
+    content="About Señor Rosa: a personal creative lab for AI-assisted development, storytelling, practical technology projects, and small-business consulting."
   >
 
   <link rel="icon" href="assets/senorrosa2.png">
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .portfolio-stack {
+      display: grid;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .portfolio-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, .95fr);
+      gap: 2rem;
+      align-items: center;
+      padding: clamp(1.4rem, 3vw, 2.4rem);
+      border-radius: 24px;
+      background: var(--card-bg, rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 18px 45px rgba(0,0,0,.16);
+      overflow: hidden;
+    }
+
+    .portfolio-card:nth-child(odd) .portfolio-media {
+      order: -1;
+    }
+
+    .portfolio-number {
+      margin: 0 0 .4rem;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: .7;
+    }
+
+    .portfolio-card h2 {
+      margin: 0 0 .35rem;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+    }
+
+    .portfolio-subtitle {
+      margin: 0 0 1.2rem;
+      font-weight: 700;
+      opacity: .78;
+    }
+
+    .portfolio-card p {
+      line-height: 1.7;
+    }
+
+    .portfolio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin: 1.35rem 0 1.5rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .portfolio-tags li {
+      padding: .45rem .75rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+    }
+
+    .portfolio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .portfolio-link:hover {
+      text-decoration: underline;
+    }
+
+    .portfolio-media {
+      min-width: 0;
+    }
+
+    .portfolio-media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 14px 32px rgba(0,0,0,.2);
+    }
+
+    .portfolio-placeholder {
+      min-height: 260px;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,.2);
+      background: rgba(255,255,255,.035);
+      text-align: center;
+    }
+
+    .portfolio-placeholder strong {
+      display: block;
+      font-size: 1.45rem;
+      margin-bottom: .5rem;
+    }
+
+    @media (max-width: 760px) {
+      .portfolio-card {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-card:nth-child(odd) .portfolio-media {
+        order: initial;
+      }
+    }
+  </style>
 </head>
 
 <body id="top">
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Señor Rosa home">
-      <img
-        class="brand-logo"
-        src="assets/senorrosa2.png"
-        alt="Señor Rosa and Jake"
-      >
+      <img class="brand-logo" src="assets/senorrosa2.png" alt="Señor Rosa and Jake">
 
       <div class="brand-text">
         <span class="brand-name">Señor Rosa</span>
@@ -60,21 +175,10 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Comics</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="spanish/">Spanish</a>
-        </li>
-
-        <li class="nav-item is-active">
-          <a class="nav-link" href="about.html" aria-current="page">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link is-disabled" href="#" aria-disabled="true">Contact</a>
-        </li>
+        <li class="nav-item"><a class="nav-link" href="index.html">Comics</a></li>
+        <li class="nav-item"><a class="nav-link" href="spanish/">Spanish</a></li>
+        <li class="nav-item is-active"><a class="nav-link" href="about.html" aria-current="page">About</a></li>
+        <li class="nav-item"><a class="nav-link is-disabled" href="#" aria-disabled="true">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -82,39 +186,134 @@
   <main class="about-page">
     <section class="about-hero">
       <div class="about-copy">
-        <p class="eyebrow">About the project</p>
-        <h1>Meet Señor Rosa</h1>
+        <p class="eyebrow">About Señor Rosa</p>
+        <h1>I build things to learn how they work.</h1>
         <p>
-          Señor Rosa is my little corner of the internet,a place for stories, projects, adventures, and lifelong learning.
+          Señor Rosa is my little corner of the internet: part journal, part comic strip, part portfolio, and part laboratory for ideas that sounded interesting enough to try.
         </p>
         <p>
-          This website is my digital playground a place where curiosity, technology, creativity, and real life come together. It's equal parts portfolio, journal, comic strip, and laboratory for new ideas.
+          I work professionally in technology, but most of what you see here started with curiosity: learning a new tool, solving a real problem, telling a true story, or seeing whether AI could help turn an idea into something useful.
         </p>
         <a class="home-button" href="index.html">Back to the comics</a>
       </div>
 
       <div class="about-portrait-frame">
-        <img
-          class="about-portrait"
-          src="assets/senorrosa2.png"
-          alt="Portrait of Señor Rosa and Jake"
-        >
+        <img class="about-portrait" src="assets/senorrosa2.png" alt="Portrait of Señor Rosa and Jake">
       </div>
     </section>
 
-    <section class="about-grid" aria-label="About sections">
-      <article class="about-card about-card-wide">
-        <h2>Who I Am</h2>
-        <p>
-          I'm an IT engineer, Army veteran, gamer, gardener, traveler, musician, and lifelong student. I'm endlessly fascinated by what happens when curiosity meets technology. Whether I'm building software, learning Spanish, exploring Mexico, or creating comics with AI, I'm happiest when I'm learning something new.
-        </p>
+    <section class="portfolio-stack" aria-label="About and selected work">
+      <article class="portfolio-card">
+        <div class="portfolio-copy">
+          <p class="portfolio-number">01 · About</p>
+          <h2>Who I Am</h2>
+          <p class="portfolio-subtitle">IT engineer · Army veteran · Builder · Lifelong student</p>
+          <p>
+            I'm an IT engineer, Army veteran, gamer, gardener, traveler, musician, and lifelong student. I'm happiest when I'm learning something new and turning that learning into something I can actually see, use, share, or hand to somebody else.
+          </p>
+          <p>
+            Señor Rosa is where those threads meet: technology, creativity, travel, storytelling, experiments, and the occasional idea that gets a little out of hand.
+          </p>
+        </div>
+
+        <div class="portfolio-media">
+          <div class="portfolio-placeholder">
+            <div>
+              <strong>Curiosity → something real</strong>
+              <span>That is basically the operating system.</span>
+            </div>
+          </div>
+        </div>
       </article>
 
-      <article class="about-card about-card-wide">
-        <h2>What I’m Building</h2>
-        <p>
-          Señor Rosa is becoming the intersection of my work and my hobbies. It's where AI experiments become real projects, everyday moments become comics, travel becomes storytelling, and lifelong learning becomes something worth sharing. As the journey continues, this site will grow into both my creative portfolio and the future home of my consulting and travel business.
-        </p>
+      <article class="portfolio-card">
+        <div class="portfolio-copy">
+          <p class="portfolio-number">02 · Personal Project</p>
+          <h2>Señor Rosa</h2>
+          <p class="portfolio-subtitle">AI-assisted development · Storytelling · Web experiments</p>
+          <p>
+            I built Señor Rosa as a personal publishing platform for true stories, comics, travel, language learning, and small web experiments. It has become the place where I learn by shipping: working in VS Code, managing changes with Git, deploying through Netlify, building reusable content structures, and iterating quickly with AI as a development partner.
+          </p>
+          <p>
+            The point isn't pretending every experiment is a finished product. The point is taking an idea far enough that it becomes real, usable, and worth improving.
+          </p>
+          <ul class="portfolio-tags" aria-label="Señor Rosa technologies">
+            <li>HTML/CSS</li>
+            <li>JavaScript</li>
+            <li>Git</li>
+            <li>Netlify</li>
+            <li>AI-assisted development</li>
+            <li>Content design</li>
+          </ul>
+          <a class="portfolio-link" href="index.html">Explore Señor Rosa →</a>
+        </div>
+
+        <div class="portfolio-media">
+          <div class="portfolio-placeholder">
+            <div>
+              <strong>Señor Rosa</strong>
+              <span>This website is the case study.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="portfolio-card">
+        <div class="portfolio-copy">
+          <p class="portfolio-number">03 · Small Business Project</p>
+          <h2>8A Pro Services</h2>
+          <p class="portfolio-subtitle">Lead generation · Public data · AI training · Web support</p>
+          <p>
+            A local small-business owner told me their biggest challenge wasn't technology. It was finding leads. I started there.
+          </p>
+          <p>
+            I built a practical workflow around public procurement and contract-award data to identify larger contractors that could be worth approaching for subcontracting work. AI helped turn large tables of public information into a smaller, actionable list that a business owner could actually work from.
+          </p>
+          <p>
+            The project expanded into a simple training website and hands-on guidance for using AI, managing their web presence, and generating additional leads independently.
+          </p>
+          <ul class="portfolio-tags" aria-label="8A Pro project skills">
+            <li>Public data</li>
+            <li>Lead research</li>
+            <li>AI workflows</li>
+            <li>Small-business training</li>
+            <li>Web development</li>
+          </ul>
+          <a class="portfolio-link" href="https://gorgeous-cascaron-54d607.netlify.app/" target="_blank" rel="noopener noreferrer">View project site →</a>
+        </div>
+
+        <div class="portfolio-media">
+          <img src="assets/case2.png" alt="Anonymized sample of contract lead research produced for the 8A Pro Services project">
+        </div>
+      </article>
+
+      <article class="portfolio-card">
+        <div class="portfolio-copy">
+          <p class="portfolio-number">04 · By Day</p>
+          <h2>Identity & Access Management</h2>
+          <p class="portfolio-subtitle">Enterprise identity · Integrations · Governance · Automation</p>
+          <p>
+            Professionally, I work in Identity and Access Management: identity systems, integrations, access governance, authentication, automation, and the plumbing that helps the right people get the right access without turning everything into chaos.
+          </p>
+          <ul class="portfolio-tags" aria-label="Professional technologies">
+            <li>IAM</li>
+            <li>Microsoft Entra</li>
+            <li>Okta</li>
+            <li>Active Directory</li>
+            <li>SAML</li>
+            <li>SCIM</li>
+            <li>PowerShell</li>
+          </ul>
+        </div>
+
+        <div class="portfolio-media">
+          <div class="portfolio-placeholder">
+            <div>
+              <strong>Identity & Access</strong>
+              <span>The less glamorous plumbing that keeps everything working.</span>
+            </div>
+          </div>
+        </div>
       </article>
     </section>
   </main>

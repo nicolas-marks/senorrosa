@@ -33,10 +33,6 @@
       overflow: hidden;
     }
 
-    .portfolio-card:nth-child(odd) .portfolio-media {
-      order: -1;
-    }
-
     .portfolio-number {
       margin: 0 0 .4rem;
       font-size: .82rem;
@@ -91,7 +87,12 @@
       text-decoration: underline;
     }
 
+    .portfolio-copy {
+      order: 1;
+    }
+
     .portfolio-media {
+      order: 2;
       min-width: 0;
     }
 
@@ -119,6 +120,38 @@
       display: block;
       font-size: 1.45rem;
       margin-bottom: .5rem;
+    }
+
+
+
+    .iam-mark {
+      color: var(--accent, #d81b60);
+      border-style: solid;
+    }
+
+    .iam-icon {
+      width: min(180px, 62%);
+      height: auto;
+      display: block;
+      margin: 0 auto 1rem;
+    }
+
+    .iam-mark-copy {
+      display: grid;
+      gap: .35rem;
+      text-align: center;
+      color: inherit;
+    }
+
+    .iam-mark-copy strong {
+      margin: 0;
+      color: inherit;
+    }
+
+    .iam-mark-copy span {
+      color: inherit;
+      opacity: .8;
+      font-weight: 700;
     }
 
     @media (max-width: 760px) {
@@ -248,14 +281,6 @@
           <a class="portfolio-link" href="index.html">Explore Señor Rosa →</a>
         </div>
 
-        <div class="portfolio-media">
-          <div class="portfolio-placeholder">
-            <div>
-              <strong>Señor Rosa</strong>
-              <span>This website is the case study.</span>
-            </div>
-          </div>
-        </div>
       </article>
 
       <article class="portfolio-card">
@@ -307,10 +332,21 @@
         </div>
 
         <div class="portfolio-media">
-          <div class="portfolio-placeholder">
-            <div>
+          <div class="portfolio-placeholder iam-mark" aria-label="Identity and Access Management">
+            <svg class="iam-icon" viewBox="0 0 240 240" role="img" aria-labelledby="iam-icon-title">
+              <title id="iam-icon-title">Identity and Access Management shield icon</title>
+              <path d="M120 20 C92 48 65 58 36 56 V112 C36 164 69 201 120 222 C171 201 204 164 204 112 V56 C175 58 148 48 120 20 Z"
+                    fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="round"/>
+              <circle cx="111" cy="92" r="22" fill="currentColor"/>
+              <path d="M73 148 C79 124 94 113 111 113 C128 113 143 124 149 148 Z" fill="currentColor"/>
+              <rect x="143" y="139" width="56" height="48" rx="8" fill="currentColor"/>
+              <path d="M153 139 V127 C153 110 164 99 171 99 C184 99 190 110 190 127 V139"
+                    fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="171" cy="163" r="6" fill="var(--iam-cutout, #fffaf6)"/>
+            </svg>
+            <div class="iam-mark-copy">
               <strong>Identity & Access</strong>
-              <span>The less glamorous plumbing that keeps everything working.</span>
+              <span>Authentication · Governance · Automation</span>
             </div>
           </div>
         </div>

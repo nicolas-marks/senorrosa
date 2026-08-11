@@ -1,16 +1,16 @@
 ---
-id: 18
-slug: cenotes
-title: Cenotes of Homún
+id: 19
+slug: seattle-space-needle
+title: Seattle Space Needle
 version: 1
 
-date: 2025-12-21
-location: Homún, Yucatán, México
+date: 2024-08-06
+location: Space Needle, Seattle, Washington
 
 image: comic.png
-alt: Comic illustration of Nico, Gina, and Diana exploring the cenotes of Homún, Yucatán.
+alt: Comic illustration of Nico and Gina spending the day in Seattle at the Space Needle
 
-summary: Nico, Gina, and Diana spend a day exploring four unique cenotes around Homún, from crystal-clear pools and underground caves to the historic municipal cenote Tza Ujun Kat.
+summary: Nico and Gina go visit the Space Needle in downtown Seattle, and Gina realizes its pretty chilly.
 
 published: true
 featured: false
@@ -20,15 +20,12 @@ story_type: true-story
 characters:
   - Nico
   - Gina
-  - Diana
+  
 
 tags:
-  - mexico
-  - yucatan
-  - homun
-  - cenotes
-  - tza-ujun-kat
-  - swimming
-  - travel
-  - true-story
+  - seattle
+  - spaceneedle
+  - washington
+    - travel
+  
 ---

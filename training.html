@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Workshop Training Hub | Señor Rosa</title>
+  <meta name="description" content="Participant resources, exercises, prompts, and reference material for the Señor Rosa Small Business AI Workshop.">
+  <link rel="icon" href="../assets/senorrosa2.png">
+  <link rel="stylesheet" href="../styles.css">
+  
+<style>
+  .program-page {
+    width: min(calc(100% - 32px), 1100px);
+    margin: 0 auto;
+    padding: 54px 0 70px;
+  }
+  .program-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  .program-hero h1 {
+    margin: .25rem 0 1rem;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: .95;
+    letter-spacing: -.055em;
+  }
+  .program-hero p {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    max-width: 720px;
+  }
+  .program-kicker {
+    color: var(--pink-dark);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .78rem;
+  }
+  .program-card, .program-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(44,24,34,.08);
+  }
+  .program-card { padding: clamp(1.35rem, 3vw, 2.1rem); }
+  .program-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0 3rem;
+  }
+  .program-grid.two { grid-template-columns: 1fr; }
+  .program-card h2, .program-card h3 { margin-top: 0; }
+  .program-card p { line-height: 1.65; }
+  .program-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: 1.35rem;
+  }
+  .program-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: .8rem 1.15rem;
+    border-radius: 999px;
+    border: 1px solid var(--pink-dark);
+    background: var(--pink-dark);
+    color: white;
+    font-weight: 900;
+    text-decoration: none;
+  }
+  .program-button.secondary {
+    background: transparent;
+    color: var(--pink-dark);
+  }
+  .program-button:hover { color: white; background: var(--pink); }
+  .program-button.secondary:hover { color: var(--pink-dark); background: rgba(255,10,120,.08); }
+  .program-badge {
+    display: inline-block;
+    margin: .2rem .35rem .2rem 0;
+    padding: .42rem .7rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: .84rem;
+    font-weight: 800;
+    background: rgba(255,10,120,.05);
+  }
+  .program-price {
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -.05em;
+    color: var(--pink-dark);
+    margin: .4rem 0;
+  }
+  .program-note {
+    color: var(--muted);
+    font-size: .92rem;
+  }
+  .program-section {
+    margin-top: 3.5rem;
+  }
+  .program-section > h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: .5rem;
+  }
+  .program-list {
+    margin: 1rem 0 0;
+    padding-left: 1.25rem;
+    line-height: 1.75;
+  }
+  .program-steps {
+    counter-reset: steps;
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .program-step {
+    counter-increment: steps;
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.2rem;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+  }
+  .program-step::before {
+    content: counter(steps);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--pink-dark);
+    color: white;
+    font-weight: 950;
+  }
+  .program-step h3 { margin: .2rem 0 .35rem; }
+  .program-step p { margin: 0; line-height: 1.6; }
+  .program-placeholder {
+    border: 2px dashed var(--border);
+    border-radius: 18px;
+    padding: 1.2rem;
+    background: rgba(255,255,255,.42);
+  }
+  .program-placeholder strong { color: var(--pink-dark); }
+  .resource-list {
+    display: grid;
+    gap: .8rem;
+    margin-top: 1rem;
+  }
+  .resource-link {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--panel);
+    font-weight: 800;
+  }
+  .resource-link span:last-child { color: var(--pink-dark); }
+  .audience-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: 1rem;
+  }
+  @media (min-width: 781px) {
+    .program-hero { grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 2rem; }
+    .program-grid { grid-template-columns: repeat(3, 1fr); }
+    .program-grid.two { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+</head>
+<body id="top">
+
+<header class="site-header">
+  <a class="brand" href="../index.html" aria-label="Señor Rosa home">
+    <img class="brand-logo" src="../assets/senorrosa2.png" alt="Señor Rosa and Jake">
+    <div class="brand-text">
+      <span class="brand-name">Señor Rosa</span>
+      <span class="brand-tagline">True stories. Real life.</span>
+    </div>
+  </a>
+
+  <button id="mobile-nav-toggle" class="nav-toggle" type="button"
+    aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="site-nav" id="site-nav" aria-label="Site navigation">
+    <ul class="nav-list">
+      <li class="nav-item"><a class="nav-link" href="../index.html">Comics</a></li>
+      <li class="nav-item"><a class="nav-link" href="../spanish/">Spanish</a></li>
+      <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="program-page">
+  <section class="program-hero">
+    <div>
+      <p class="program-kicker">Small Business AI Workshop</p>
+      <h1>Training Hub</h1>
+      <p>
+        Keep this page open during class. Everything we use today lives here, and you can
+        come back after the workshop. We will practice first with Jake's completely fictional
+        business, then use safe working copies from your own business.
+      </p>
+      <div class="program-actions">
+        <a class="program-button" href="#get-ready">Get Ready</a>
+        <a class="program-button secondary" href="#materials">Class Materials</a>
+        <a class="program-button secondary" href="#workshop">Workshop</a>
+        <a class="program-button secondary" href="#resources">Resources</a>
+      </div>
+    </div>
+    <aside class="program-card">
+      <h2>Bring to class</h2>
+      <ul class="program-list">
+        <li>Laptop + charger</li>
+        <li>ChatGPT Plus account</li>
+        <li>Google account / Google Drive</li>
+        <li>Netlify account</li>
+        <li>Your logo, photos, documents or useful business data</li>
+        <li>One real business problem</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section id="get-ready" class="program-section">
+    <p class="program-kicker">Before class</p>
+    <h2>Get ready</h2>
+    <div class="program-card">
+      <ul class="program-list">
+        <li>Sign into ChatGPT Plus on the laptop you will bring.</li>
+        <li>Sign into your Google account and confirm you can use Google Drive.</li>
+        <li>Create and confirm your Netlify account.</li>
+        <li>Bring business materials you would actually like to work with.</li>
+        <li><strong>Use working copies.</strong> Do not bring your only copy of an important file.</li>
+        <li>Remove SSNs, passwords, payment-card data, private customer/employee data, tax records, medical information, credentials and other sensitive information from class materials.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="materials" class="program-section">
+    <p class="program-kicker">Training sandbox</p>
+    <h2>Jake's Home Services</h2>
+    <p>
+      Jake is our fictional pink-and-black Doberman entrepreneur. His business is intentionally
+      ridiculous; the files and workflows are not. We can safely copy, upload, edit, break and
+      rebuild Jake's business before touching real business material.
+    </p>
+
+    <div class="program-grid two">
+      <article class="program-card">
+        <h3>🐕 Jake's Branding Kit</h3>
+        <p><strong>Jake's Home Services</strong><br>Serious service. Good boy.</p>
+        <p>Pink-and-black Doberman logo direction, business information, brand colors, service catalog, pricing, sample customer request and intentionally mediocre starting invoice.</p>
+        <div class="program-actions"><a class="program-button secondary" href="#">Open Branding Kit →</a></div>
+      </article>
+
+      <article class="program-card">
+        <h3>🧾 Receipt Demo</h3>
+        <p>Fictional receipt photos used to demonstrate image → extracted information → CSV → Google Sheets.</p>
+        <div class="program-actions"><a class="program-button secondary" href="#">Open Receipt Photos →</a></div>
+      </article>
+
+      <article class="program-card">
+        <h3>📊 Public Contracting Data</h3>
+        <p>Public information used to demonstrate research, interpretation, identifying possible subcontracting leads and creating follow-up actions.</p>
+        <div class="program-actions"><a class="program-button secondary" href="#">Open Data Demo →</a></div>
+      </article>
+
+      <article class="program-card">
+        <h3>🌐 Jake's Sample Website</h3>
+        <p>Simple website files for the Netlify deployment exercise. The website address becomes the real Netlify URL created during class.</p>
+        <div class="program-actions"><a class="program-button secondary" href="#">Open Website Files →</a></div>
+      </article>
+    </div>
+
+    <div class="program-card">
+      <h3>Jake's fictional business identity</h3>
+      <p><strong>Business:</strong> Jake's Home Services</p>
+      <p><strong>Tagline:</strong> Serious service. Good boy.</p>
+      <p><strong>Alternate line:</strong> Protecting what matters. Eating what doesn't.</p>
+      <p><strong>Email:</strong> info@senorrosa.com</p>
+      <p><strong>Website:</strong> Assigned when Jake's site is published to Netlify during class.</p>
+      <p><strong>Brand:</strong> A stylized black Doberman with hot-pink accents. Primary colors: Jake Pink <code>#FF0A78</code>, Doberman Black <code>#171217</code>, Warm White <code>#FFF9FC</code>, Soft Pink <code>#FFE5F0</code>, Gray <code>#6F666C</code>.</p>
+      <h3>Services</h3>
+      <ul class="program-list">
+        <li><strong>Parcel Delivery Notifications</strong> — immediate notification of suspicious package-delivery activity.</li>
+        <li><strong>Squirrel Patrols</strong> — enthusiastic monitoring and pursuit of unauthorized squirrels.</li>
+        <li><strong>Cat Deterrence</strong> — perimeter monitoring, staring and strongly worded barking.</li>
+        <li><strong>Food Disappearance</strong> — rapid removal of unattended food. Market price.</li>
+      </ul>
+      <p class="program-note">Jake's Home Services is fictional workshop training data. No squirrels were meaningfully deterred.</p>
+    </div>
+  </section>
+
+  <section id="workshop" class="program-section">
+    <p class="program-kicker">Participant session · 1:15–4:00</p>
+    <h2>What we're doing today</h2>
+
+    <div class="program-steps">
+      <article class="program-step"><div>
+        <h3>1:15–1:30 · Welcome & get plugged in</h3>
+        <p><strong>TOGETHER</strong></p>
+        <p>Introductions, connect laptops, verify ChatGPT, Google and Netlify accounts, open the shared training files, and make sure you can find them again.</p>
+      </div></article>
+
+      <article class="program-step"><div>
+        <h3>1:30–2:00 · Create a branded business document</h3>
+        <p><strong>WATCH → ASK → DO</strong></p>
+        <p>Watch Jake's business material become a professional branded, fillable document. Ask questions. Then repeat the workflow yourself using Jake's training business.</p>
+        <p><strong>Pattern:</strong> source material → business context → request → refine → useful file → save it somewhere you understand.</p>
+        <p><strong>PRINT IT — mobile workflow:</strong> After creating your own invoice or quote, move/open the finished document on your phone. One participant at a time will connect their phone to the workshop Bluetooth printer and print their document. The goal is to practice the complete real-world workflow: create → save → find/open on phone → connect to a device → print/share. Ask for help if you get stuck, but you will do the steps on your own device.</p>
+        <p><strong>Why this matters:</strong> You can create or update a quote at a customer site, send the PDF immediately, or use a portable printer to hand them a physical copy without returning to an office.</p>
+      </div></article>
+
+      <article class="program-step"><div>
+        <h3>2:00–2:15 · Receipt photos to spreadsheet</h3>
+        <p><strong>WATCH → ASK</strong></p>
+        <p>Watch photographed receipts become structured information, CSV data and a usable Google Sheet.</p>
+        <p><strong>Pattern:</strong> messy visual information → structured data.</p>
+      </div></article>
+
+      <article class="program-step"><div>
+        <h3>2:15–2:35 · Public data to business leads</h3>
+        <p><strong>WATCH → ASK → DO</strong></p>
+        <p>Use public information to understand opportunities, identify useful leads and organize practical follow-up actions.</p>
+        <p><strong>Pattern:</strong> public information → interpretation → useful decision → next action.</p>
+      </div></article>
+
+      <article class="program-step"><div>
+        <h3>2:35–3:15 · Bring in your business</h3>
+        <p><strong>DO → ASK</strong></p>
+        <p>Create an <code>AI Workshop - Working Copy</code> folder with safe versions of your business materials, then build something useful for your actual business.</p>
+      </div></article>
+
+      <article class="program-step"><div>
+        <h3>3:15–3:50 · Put a website on the internet</h3>
+        <p><strong>WATCH → ASK → DO</strong></p>
+        <p>Watch simple website files get deployed to Netlify and become a real public website. Then deploy the training site or your own version.</p>
+        <p><strong>Pattern:</strong> files you control → Netlify → public URL.</p>
+      </div></article>
+
+      <article class="program-step"><div>
+        <h3>3:50–4:00 · Questions & wrap-up</h3>
+        <p><strong>ASK → KEEP GOING</strong></p>
+        <p>Final questions, troubleshooting and next steps. Keep this training page and the workshop resources after class.</p>
+      </div></article>
+    </div>
+  </section>
+
+  <section id="resources" class="program-section">
+    <p class="program-kicker">Keep this</p>
+    <h2>Workshop resources</h2>
+    <div class="program-grid two">
+      <article class="program-card">
+        <h3>Prompt patterns</h3>
+        <ul class="program-list">
+          <li>Goal + context + constraints + output format</li>
+          <li>“Ask me the questions you need before you begin.”</li>
+          <li>“Give me three approaches and explain the tradeoffs.”</li>
+          <li>“What assumptions are you making?”</li>
+          <li>“What should I verify before I act on this?”</li>
+        </ul>
+      </article>
+      <article class="program-card">
+        <h3>Three things to remember</h3>
+        <ul class="program-list">
+          <li><strong>Give AI context.</strong> Better source material usually produces better work.</li>
+          <li><strong>Understand your files.</strong> Know what they are, where they live and how to move them.</li>
+          <li><strong>Protect your business.</strong> Work from copies, protect sensitive information and verify important output.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="program-section">
+    <div class="program-placeholder">
+      <strong>Codex handoff:</strong>
+      Keep /training simple, static, unlisted, and student-facing: static navigation, anchor links, timestamps, clear WATCH → ASK → DO labels and links to the workshop assets. No login, password, encoded attendee token, access-activation function, student progress tracking, instructor mode, timers, synchronized classroom state or LMS features. This page should work cleanly on a laptop and phone. The URL is simply shared with registered attendees in their confirmation/onboarding message and should not be promoted in the public site navigation. This is lightweight obscurity for workshop resources, not a security boundary. The Jake branding kit, receipt demo, public contracting dataset and sample website may be generated as separate assets later; preserve obvious replaceable asset slots/paths instead of hard-coding temporary files. The page remains a lightweight class handout/workbench before, during, and after class.
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>© <span id="current-year"></span> Señor Rosa</p>
+</footer>
+<script src="../site.js"></script>
+
+</body>
+</html>

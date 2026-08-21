@@ -1,5 +1,4 @@
 .fields input:focus { outline: 2px solid #d81b604d; outline-offset: 1px; }
-.sandbox-label { display: none; }
 .workshop-availability { margin: 0 0 1rem; color: var(--pink-dark); font-weight: 900; }
 .form-card[data-registration-state="sold-out"] .workshop-availability { color: var(--ink); }
 .square-mount { padding: 0; border: 0; background: transparent; }

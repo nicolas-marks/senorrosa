@@ -8,7 +8,7 @@ exports.handler = async (event) => {
   const environment = process.env.SQUARE_ENV || process.env.SQUARE_ENVIRONMENT;
   const applicationId = process.env.SQUARE_APPLICATION_ID;
   const locationId = process.env.SQUARE_LOCATION_ID;
-  if (environment !== "sandbox" || !applicationId || !locationId) {
+  if (environment !== "production" || !applicationId || !locationId) {
     return { statusCode: 503, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }, body: JSON.stringify({ message: "Payment configuration is unavailable." }) };
   }
 

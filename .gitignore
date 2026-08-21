@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+service-account*.json
+google-service-account*.json
+
+# Local Netlify folder
+.netlify

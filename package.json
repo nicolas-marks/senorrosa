@@ -4,5 +4,8 @@
   "scripts": {
     "build-comics": "node scripts/build-comics.js",
     "watch-comics": "node scripts/build-comics.js --watch"
+  },
+  "dependencies": {
+    "google-auth-library": "^11.0.2"
   }
 }

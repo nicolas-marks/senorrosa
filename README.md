@@ -69,6 +69,12 @@ Copyright © Señor Rosa
 
 # Workshop production checklist
 
+The community pilot workshop registration is **$5.00**. The server-side charge is controlled by `WORKSHOP_EVENT.priceCents = 500` in `netlify/functions/workshop-event-config.js`, used by `create-workshop-payment.js` for Square's `amount_money`. There is no price environment-variable override or Square catalog price to update. Instructional time is volunteered; the fee helps offset the room cost and reserves a seat.
+
+ChatGPT Plus is required and billed separately by OpenAI at **$20/month** ([official pricing](https://learn.chatgpt.com/docs/pricing)). The initial cost is **$25** for a new Plus subscriber; existing Plus subscribers only pay the **$5** workshop registration. Señor Rosa receives no part of the subscription payment. The cancellation policy applies to the workshop registration fee.
+
+Run `node --test tests/*.test.js` for the workshop regression checks and `npm run build-comics` for the existing site build (`npm.cmd` in Windows PowerShell if script execution is restricted). Deploy the updated site files and `netlify/functions` together through the existing Netlify deployment workflow so the displayed price and server-side charge change together. Use a fresh build from source, not previously generated `.netlify/functions` bundles. Then verify `/workshop` shows `$5`, the checkout button shows `Pay $5.00`, and the paid confirmation shows `$5.00` for a new registration. Historical payment retries retain the amount actually paid.
+
 The `/workshop` payment flow uses the production Square Web Payments SDK only when the Netlify environment is configured with `SQUARE_ENV=production`. Before deployment, verify that `SQUARE_APPLICATION_ID`, `SQUARE_LOCATION_ID`, and `SQUARE_ACCESS_TOKEN` all belong to the same activated production Square account and location. Do not put the access token in browser code or local committed files.
 
 Also verify that the Google service account can append to the `Registrations` tab in `WORKSHOP_SHEET_ID`, and that the existing columns `A:N` remain in the order expected by `workshop-registration-ledger.js`. Confirm that `info@senorrosa.com` is a verified Resend sender/domain and can receive the organizer notification. Parking/arrival copy remains an owner-supplied launch item.

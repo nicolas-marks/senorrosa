@@ -47,7 +47,7 @@ Build the first production-ready Small Business AI Workshop flow for Señor Rosa
 
 ## Event defaults / known business rules
 
-- Price: `$50` workshop admission.
+- Price: `$5` workshop admission (`500` cents charged through Square). Instructional time is volunteered; the registration fee helps offset the room cost and reserves a seat.
 - Capacity: `10` paid attendees.
 - Confirmed venue: `Broadway Commons`, Room `403 Europe`, `1300 Broadway St NE, Salem, OR 97301`.
 - Confirmed date: `Saturday, September 26, 2026`.
@@ -57,15 +57,15 @@ Build the first production-ready Small Business AI Workshop flow for Señor Rosa
 - Participant instruction window: `1:15–4:00 PM` (2 hours 45 minutes).
 - Instructor/admin teardown/closeout: `4:00–4:15 PM`.
 - Public event copy should advertise `1:00 PM–4:00 PM`; the detailed agenda may show instruction beginning at 1:15 PM after arrival/check-in.
-- ChatGPT Plus is required and purchased separately from OpenAI.
+- ChatGPT Plus is required: `$20/month`, purchased separately from OpenAI. A new subscriber’s initial cost is `$25` (`$5` workshop + first month of Plus); existing Plus subscribers only pay the `$5` workshop fee. Señor Rosa receives no part of the subscription payment.
 - Attendees also need a Google account, Google Drive access, a Netlify account, laptop, and charger.
-- Cancellation >48 hours before workshop: refund available.
+- Cancellation >48 hours before workshop: workshop registration fee refund available.
 - Cancellation <=48 hours before workshop: no refund.
-- If Señor Rosa cancels: full refund and registered attendees still receive/retain training materials.
+- If Señor Rosa cancels: full workshop registration fee refund and registered attendees still receive/retain training materials. The separate ChatGPT Plus subscription is managed through OpenAI.
 
 ## Registration, payment, and confirmation — simplified V1
 
-The first workshop is a 10-seat, $50 pilot. The website should automate only what is needed to register a buyer, take a Square-secured payment, record the paid registration, and confirm the transaction to both the attendee and the organizer. Do not build a ticketing platform, CRM, LMS, or automated training-access system.
+The first workshop is a 10-seat, $5 community digital-literacy pilot with volunteered instructional time. The website should automate only what is needed to register a buyer, take a Square-secured payment, record the paid registration, and confirm the transaction to both the attendee and the organizer. Do not build a ticketing platform, CRM, LMS, or automated training-access system.
 
 ### Minimal registration data
 
@@ -114,7 +114,7 @@ Square Developer setup has been created for this project.
 - Sandbox Application ID: already issued in the Square Developer Console. Treat it as configuration and copy the exact current value directly from Square when wiring the site; do not invent or transcribe a truncated screenshot value.
 - Sandbox Access Token: already issued in the Square Developer Console. It is a secret; never write it into this file, source code, client-side JavaScript, ChatGPT/Codex prompts, screenshots, or Git. Put it directly into a Netlify environment variable.
 - Production Application ID, Production Location ID, and Production Access Token are intentionally not configured in this document yet. Switch to production only after the complete Sandbox payment flow succeeds.
-- No Square catalog item, inventory object, invoice, or manually pre-created payment object is required for V1. The site/backend creates the $50 payment through Square's supported payment flow when the attendee registers.
+- No Square catalog item, inventory object, invoice, or manually pre-created payment object is required for V1. The site/backend creates the $5 payment through Square's supported payment flow when the attendee registers.
 
 Recommended environment/config names for implementation:
 
@@ -129,7 +129,7 @@ Recommended environment/config names for implementation:
 `/workshop` must speak to the buyer, not describe the implementation.
 
 Participant-facing registration copy should be simple:
-- `$50`
+- `$5`
 - `10 seats`
 - short contact form
 - secure Square payment

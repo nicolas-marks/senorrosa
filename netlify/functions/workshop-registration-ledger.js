@@ -29,7 +29,10 @@ function valuesUrl(sheetId, range) {
 
 async function getRegistrationRows(client) {
   const sheetsClient = client || await createSheetsClient();
-  const response = await sheetsClient.request({ url: valuesUrl(getSheetId(), REGISTRATIONS_RANGE), method: "GET" });
+  const response = await sheetsClient.request({
+    url: `${valuesUrl(getSheetId(), REGISTRATIONS_RANGE)}?valueRenderOption=UNFORMATTED_VALUE`,
+    method: "GET"
+  });
   return Array.isArray(response.data?.values) ? response.data.values : [];
 }
 
@@ -50,7 +53,13 @@ async function getWorkshopCapacity({ client, paymentAttemptId } = {}) {
   const existingRow = rows.find((row) => row[2] === WORKSHOP_ID && row[6] === "COMPLETED" && String(row[13] || "").split(" | ").includes(marker));
   return existingRow ? {
     ...capacity,
-    existingRegistration: { paymentId: existingRow[7], receiptUrl: existingRow[8], emailStatus: existingRow[11] }
+    existingRegistration: {
+      paymentId: existingRow[7],
+      receiptUrl: existingRow[8],
+      amountCents: Math.round(Number(existingRow[9]) * 100),
+      currency: existingRow[10],
+      emailStatus: existingRow[11]
+    }
   } : capacity;
 }
 
@@ -67,8 +76,8 @@ function buildRegistrationRow({ payment, paymentAttemptId, name, email, business
     "COMPLETED",
     paymentId,
     payment.receipt_url || "",
-    WORKSHOP_EVENT.priceCents / 100,
-    WORKSHOP_EVENT.currency,
+    payment.amount_money.amount / 100,
+    payment.amount_money.currency,
     emailStatus,
     resendEmailId || "",
     [paymentAttemptId && `attempt:${paymentAttemptId}`, notes].filter(Boolean).join(" | ")

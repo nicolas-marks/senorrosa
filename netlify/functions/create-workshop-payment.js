@@ -5,7 +5,7 @@ const { sendWorkshopConfirmation } = require("./workshop-confirmation-email");
 const { getWorkshopCapacity, recordRegistration } = require("./workshop-registration-ledger");
 const { WORKSHOP_EVENT } = require("./workshop-event-config");
 
-// Square amounts use the smallest currency denomination: 5000 cents is $50.00 USD.
+// Square amounts use the smallest currency denomination: 500 cents is $5.00 USD.
 const SQUARE_API_VERSION = "2026-07-15";
 const SQUARE_PRODUCTION_PAYMENTS_URL = "https://connect.squareup.com/v2/payments";
 
@@ -53,13 +53,17 @@ exports.handler = async (event) => {
   try {
     const availability = await getWorkshopCapacity({ paymentAttemptId });
     if (availability.existingRegistration) {
+      const amountCents = availability.existingRegistration.amountCents;
+      const currency = availability.existingRegistration.currency;
       let recoveredEmail = { status: availability.existingRegistration.emailStatus || "failed" };
       try {
         recoveredEmail = await sendWorkshopConfirmation({
           paymentId: availability.existingRegistration.paymentId,
           name,
           email,
-          receiptUrl: safeReceiptUrl(availability.existingRegistration.receiptUrl)
+          receiptUrl: safeReceiptUrl(availability.existingRegistration.receiptUrl),
+          amountCents,
+          currency
         });
       } catch {
         console.error("Workshop confirmation recovery failed", { paymentId: availability.existingRegistration.paymentId });
@@ -68,6 +72,8 @@ exports.handler = async (event) => {
         success: true,
         paymentId: availability.existingRegistration.paymentId,
         paymentStatus: "COMPLETED",
+        paymentAmountCents: amountCents,
+        paymentCurrency: currency,
         ...(safeReceiptUrl(availability.existingRegistration.receiptUrl) && { receiptUrl: safeReceiptUrl(availability.existingRegistration.receiptUrl) }),
         emailStatus: recoveredEmail.status,
         storageStatus: "stored",
@@ -105,9 +111,10 @@ exports.handler = async (event) => {
     }
     const paymentId = squareResult.payment.id;
     const receiptUrl = safeReceiptUrl(squareResult.payment.receipt_url);
+    const { amount: amountCents, currency } = squareResult.payment.amount_money;
     let emailResult = { status: "failed" };
     try {
-      emailResult = await sendWorkshopConfirmation({ paymentId, name, email, receiptUrl });
+      emailResult = await sendWorkshopConfirmation({ paymentId, name, email, receiptUrl, amountCents, currency });
     } catch {
       console.error("Workshop confirmation email failed", { paymentId });
     }
@@ -133,6 +140,8 @@ exports.handler = async (event) => {
       success: true,
       paymentId,
       paymentStatus: "COMPLETED",
+      paymentAmountCents: amountCents,
+      paymentCurrency: currency,
       ...(receiptUrl && { receiptUrl }),
       emailStatus: emailResult.status,
       storageStatus

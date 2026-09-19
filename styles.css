@@ -486,6 +486,17 @@ a:focus-visible {
   line-height: 1.7;
 }
 
+/* Keep the full navigation comfortable between desktop and mobile layouts. */
+@media (min-width: 821px) and (max-width: 1100px) {
+  .site-header { gap: 1rem; padding-inline: 1rem; }
+  .nav-list { gap: 0; }
+  .nav-link { padding-inline: .65rem; font-size: .9rem; white-space: nowrap; }
+  .brand { gap: .65rem; }
+  .brand-logo { width: 64px; height: 64px; }
+  .brand-name { font-size: 1.4rem; }
+  .brand-tagline { font-size: .8rem; }
+}
+
 /* Mobile */
 
 @media (max-width: 820px) {

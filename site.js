@@ -44,7 +44,7 @@ if (navToggle && siteNav) {
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 520) {
+    if (window.innerWidth > 1000) {
       closeMobileMenu();
     }
   });

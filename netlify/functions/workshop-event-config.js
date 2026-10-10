@@ -4,6 +4,7 @@ const WORKSHOP_EVENT = Object.freeze({
   id: "2026-09-26-broadway-commons",
   priceCents: 500,
   currency: "USD",
+  registrationStatus: "closed",
   capacity: 10
 });
 

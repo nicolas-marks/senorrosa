@@ -25,7 +25,7 @@ function paymentHarness({ availability = { soldOut: false }, declined = false } 
     console,
     require(moduleName) {
       if (moduleName === "node:crypto") return require(moduleName);
-      if (moduleName === "./workshop-event-config") return { WORKSHOP_EVENT };
+      if (moduleName === "./workshop-event-config") return { WORKSHOP_EVENT: { ...WORKSHOP_EVENT, registrationStatus: "production" } };
       if (moduleName === "./workshop-confirmation-email") return {
         async sendWorkshopConfirmation(confirmation) {
           confirmations.push(confirmation);
@@ -216,4 +216,25 @@ test("confirmation emails preserve the amount paid on a historical registration"
   assert.match(attendeeRequest.payload.text, /\$7\.50 payment/);
   assert.match(attendeeRequest.payload.html, /\$7\.50 payment/);
   assert.match(organizerRequest.payload.text, /Amount: \$7\.50 USD/);
+});
+
+ test("closed workshop rejects payment before contacting Square or storage", async () => {
+  const handler = require("../netlify/functions/create-workshop-payment").handler;
+  const originalFetch = global.fetch;
+  global.fetch = () => { throw new Error("Closed workshop must not contact external services"); };
+  try {
+    const response = await handler(registrationRequest());
+    assert.equal(response.statusCode, 410);
+    assert.equal(JSON.parse(response.body).code, "REGISTRATION_CLOSED");
+  } finally { global.fetch = originalFetch; }
+});
+
+test("closed workshop withholds payment configuration and reports closed availability", async () => {
+  const config = await require("../netlify/functions/workshop-payment-config").handler({ httpMethod: "GET" });
+  assert.equal(config.statusCode, 410);
+  assert.equal(JSON.parse(config.body).applicationId, undefined);
+  const availability = await require("../netlify/functions/workshop-capacity").handler({ httpMethod: "GET" });
+  assert.equal(availability.statusCode, 200);
+  assert.equal(JSON.parse(availability.body).registrationClosed, true);
+  assert.equal(JSON.parse(availability.body).seatsRemaining, 0);
 });

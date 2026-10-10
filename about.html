@@ -124,6 +124,19 @@
 
 
 
+    .madness-preview {
+      padding: 2rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(145deg, #ffe6f0, var(--paper));
+      text-align: center;
+    }
+    .madness-heroes { display: flex; justify-content: center; gap: .65rem; margin-bottom: 1.5rem; }
+    .madness-heroes img { width: 28%; max-width: 110px; aspect-ratio: 1; object-fit: contain; background: #eadedc; border: 0; border-radius: 14px; box-shadow: none; }
+    .madness-heroes img:nth-child(2) { transform: translateY(-8px); }
+    .madness-preview strong { display: block; color: var(--pink-dark); font-size: 1.5rem; margin-bottom: .5rem; }
+    .madness-preview > span { color: var(--muted); }
+
     .iam-mark {
       color: var(--accent, #d81b60);
       border-style: solid;
@@ -163,6 +176,17 @@
         order: initial;
       }
     }
+    .archived-project {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .archived-project summary { cursor: pointer; font-weight: 700; }
+    .archived-project summary span { margin-left: .5rem; font-size: .85rem; font-weight: 400; }
+    .archived-project summary:focus-visible { outline: 3px solid var(--pink); outline-offset: 5px; border-radius: 4px; }
+    .archived-project-content { padding: .5rem 0 0 1rem; font-size: .9rem; }
+    .archived-project-content p { line-height: 1.6; }
+
   </style>
 </head>
 
@@ -210,8 +234,9 @@
 
         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="index.html#comics">Comics</a></li>
-        <li class="nav-item"><a class="nav-link" href="spanish/">Spanish</a></li>
-        <li class="nav-item"><a class="nav-link" href="/workshop">Digital Literacy</a></li>
+        
+        
+        <li class="nav-item"><a class="nav-link" href="/gaming/mystery-madness/">Mystery Madness</a></li>
         <li class="nav-item is-active"><a class="nav-link" href="about.html" aria-current="page">About</a></li>
         <li class="nav-item"><a class="nav-link" href="mailto:info@senorrosa.com">Contact</a></li>
       </ul>
@@ -286,38 +311,53 @@
 
       </article>
 
-      <article class="portfolio-card">
+      <article class="portfolio-card" aria-labelledby="digital-literacy-title">
         <div class="portfolio-copy">
-          <p class="portfolio-number">03 · Small Business Project</p>
-          <h2>8A Pro Services</h2>
-          <p class="portfolio-subtitle">Lead generation · Public data · AI training · Web support</p>
-          <p>
-            A local small-business owner told me their biggest challenge wasn't technology. It was finding leads. I started there.
-          </p>
-          <p>
-            I built a practical workflow around public procurement and contract-award data to identify larger contractors that could be worth approaching for subcontracting work. AI helped turn large tables of public information into a smaller, actionable list that a business owner could actually work from.
-          </p>
-          <p>
-            The project expanded into a simple training website and hands-on guidance for using AI, managing their web presence, and generating additional leads independently.
-          </p>
-          <ul class="portfolio-tags" aria-label="8A Pro project skills">
-            <li>Public data</li>
-            <li>Lead research</li>
-            <li>AI workflows</li>
-            <li>Small-business training</li>
-            <li>Web development</li>
-          </ul>
-          <a class="portfolio-link" href="https://gorgeous-cascaron-54d607.netlify.app/" target="_blank" rel="noopener noreferrer">View project site →</a>
+          <p class="portfolio-number">03 &middot; Community Training</p>
+          <h2 id="digital-literacy-title">Digital Literacy</h2>
+          <p class="portfolio-subtitle">Practical technology &middot; AI workshops &middot; Community learning</p>
+          <p>A volunteer community program that helps people build confidence with technology through practical, hands-on training.</p>
+          <p>The September 26 workshop has ended, but you can still invite me to bring training to your community, business, or organization. Reach out to discuss what your group would like to learn.</p>
+          <a class="portfolio-link" href="/workshop">Explore Digital Literacy <span aria-hidden="true">&rarr;</span></a>
         </div>
-
         <div class="portfolio-media">
-          <img src="assets/case2.png" alt="Anonymized sample of contract lead research produced for the 8A Pro Services project">
+          <div class="portfolio-placeholder">
+            <div><strong>Bring your questions.</strong><span>Practical training for your community.</span></div>
+          </div>
         </div>
       </article>
 
+      <article class="portfolio-card" aria-labelledby="mystery-madness-title">
+        <div class="portfolio-copy">
+          <p class="portfolio-number">04 &middot; Gaming Project</p>
+          <h2 id="mystery-madness-title">Mystery Madness</h2>
+          <p class="portfolio-subtitle">Overwatch &middot; Hero powers &middot; Build planning</p>
+          <p>Overwatch's seasonal Mystery Madness mode didn't have readily available data, so I used AI to organize and present that information in an accessible way.</p>
+          <p>The result is a hero explorer and build planner that makes the mode's powers easier to browse, understand, and experiment with.</p>
+          <ul class="portfolio-tags" aria-label="Mystery Madness features">
+            <li>Overwatch</li>
+            <li>Hero explorer</li>
+            <li>Build planner</li>
+            <li>Shareable builds</li>
+          </ul>
+          <a class="portfolio-link" href="/gaming/mystery-madness/">Explore Mystery Madness <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <div class="portfolio-media madness-preview" aria-hidden="true">
+          <div class="madness-heroes">
+            <img src="/gaming/mystery-madness/assets/heroes/brigitte.png" alt="" loading="lazy">
+            <img src="/gaming/mystery-madness/assets/heroes/reaper.png" alt="" loading="lazy">
+            <img src="/gaming/mystery-madness/assets/heroes/mercy.png" alt="" loading="lazy">
+          </div>
+          <strong>Plan for the chaos.</strong>
+          <span>Your hero. Your next experiment.</span>
+        </div>
+      </article>
+
+
+
       <article class="portfolio-card">
         <div class="portfolio-copy">
-          <p class="portfolio-number">04 · By Day</p>
+          <p class="portfolio-number">05 · By Day</p>
           <h2>Identity & Access Management</h2>
           <p class="portfolio-subtitle">Enterprise identity · Integrations · Governance · Automation</p>
           <p>
@@ -354,6 +394,20 @@
           </div>
         </div>
       </article>
+      <details class="archived-project">
+        <summary>8A Pro Services <span>Small-business project</span></summary>
+        <div class="archived-project-content">
+          <p>Public-data lead research, AI training, and web support for a local small business.</p>
+          <a class="portfolio-link" href="https://gorgeous-cascaron-54d607.netlify.app/" target="_blank" rel="noopener noreferrer">View project site <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </details>
+      <details class="archived-project">
+        <summary>Spanish <span>Language-learning project</span></summary>
+        <div class="archived-project-content">
+          <p>A Spanish verb reference and typing game for practicing common verbs and present-tense conjugations.</p>
+          <a class="portfolio-link" href="/spanish/">View project site <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </details>
     </section>
   </main>
 

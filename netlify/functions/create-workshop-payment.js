@@ -30,6 +30,8 @@ function safeReceiptUrl(value) {
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") return json(405, { success: false, message: "Method not allowed." }, { Allow: "POST" });
 
+  if (WORKSHOP_EVENT.registrationStatus === "closed") return json(410, { success: false, code: "REGISTRATION_CLOSED", message: "This workshop has ended. Registration and payment are closed." });
+
   const environment = process.env.SQUARE_ENV || process.env.SQUARE_ENVIRONMENT;
   const accessToken = process.env.SQUARE_ACCESS_TOKEN;
   const locationId = process.env.SQUARE_LOCATION_ID;

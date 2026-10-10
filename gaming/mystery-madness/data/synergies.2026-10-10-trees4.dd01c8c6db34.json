@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "2026-10-10-trees4",
+  "updatedAt": "2026-10-10",
+  "records": [
+    {
+      "heroId": "soldier-76",
+      "id": "rocket-field-transfer",
+      "type": "conditional",
+      "requiredPowerIds": [
+        "biotic-impact",
+        "biotic-accelerator"
+      ],
+      "explanation": "Biotic Impact names a generated field and Biotic Accelerator names field utility. Whether the generated field grants that utility, and at what effectiveness, is unverified.",
+      "weight": 0,
+      "blueprintId": null,
+      "verificationStatus": "unverified",
+      "sourceUrl": null,
+      "rationale": "Compare the two preserved descriptions; no stacking, proc transfer or in-game validation is assumed."
+    },
+    {
+      "heroId": "emre",
+      "id": "override-duration-sustain",
+      "type": "synergy",
+      "requiredPowerIds": [
+        "repair-protocol",
+        "recursion-protocol"
+      ],
+      "explanation": "Both descriptions target Override Protocol: one sustain, one elimination-triggered duration. This is a shared-window experiment, with no verified stacking claim.",
+      "weight": 5,
+      "blueprintId": null,
+      "verificationStatus": "unverified",
+      "sourceUrl": null,
+      "rationale": "Compare the two preserved descriptions; no stacking, proc transfer or in-game validation is assumed."
+    },
+    {
+      "heroId": "genji",
+      "id": "blade-window",
+      "type": "conditional",
+      "requiredPowerIds": [
+        "genji-pocket-nano",
+        "genji-dragon-strike"
+      ],
+      "explanation": "The Nano trigger says spending Ultimate Charge; the strike trigger says using Dragonblade. Check trigger alignment in-game before assuming one buffs the other.",
+      "weight": 0,
+      "blueprintId": null,
+      "verificationStatus": "unverified",
+      "sourceUrl": null,
+      "rationale": "Compare the two preserved descriptions; no stacking, proc transfer or in-game validation is assumed."
+    },
+    {
+      "heroId": "genji",
+      "id": "dash-contact-tradeoff",
+      "type": "conflict",
+      "requiredPowerIds": [
+        "genji-traversal-kinetics",
+        "genji-clean-sweep"
+      ],
+      "explanation": "The cooldown condition requires Swift Strike to deal no damage, while increased width can make avoiding contact harder. Choose a travel or contact goal.",
+      "weight": -8,
+      "blueprintId": null,
+      "verificationStatus": "unverified",
+      "sourceUrl": null,
+      "rationale": "Compare the two preserved descriptions; no stacking, proc transfer or in-game validation is assumed."
+    },
+    {
+      "heroId": "mei",
+      "id": "blizzard-dual-purpose",
+      "type": "synergy",
+      "requiredPowerIds": [
+        "icy-pain",
+        "frosting"
+      ],
+      "explanation": "These descriptions give Blizzard offensive and ally-support purposes in the same area. This says nothing about numeric stacking.",
+      "weight": 5,
+      "blueprintId": null,
+      "verificationStatus": "unverified",
+      "sourceUrl": null,
+      "rationale": "Compare the two preserved descriptions; no stacking, proc transfer or in-game validation is assumed."
+    },
+    {
+      "heroId": "mei",
+      "id": "primary-contact",
+      "type": "conditional",
+      "requiredPowerIds": [
+        "extendothermics",
+        "deep-chills"
+      ],
+      "explanation": "Longer primary-fire reach may help maintain the continuous-hit condition. Range alone does not guarantee a freeze.",
+      "weight": 0,
+      "blueprintId": null,
+      "verificationStatus": "unverified",
+      "sourceUrl": null,
+      "rationale": "Compare the two preserved descriptions; no stacking, proc transfer or in-game validation is assumed."
+    },
+    {
+      "heroId": "kiriko",
+      "id": "ofuda-delivery",
+      "type": "synergy",
+      "requiredPowerIds": [
+        "ofuda-glide",
+        "bouncing-ofuda"
+      ],
+      "explanation": "Both descriptions refer to Ofuda, with delivery speed and ally bounces as different objectives. Do not infer increased heal rate or proc transfer.",
+      "weight": 5,
+      "blueprintId": null,
+      "verificationStatus": "unverified",
+      "sourceUrl": null,
+      "rationale": "Compare the two preserved descriptions; no stacking, proc transfer or in-game validation is assumed."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "dataVersion": "2026-10-10-wiki1",
+  "updatedAt": "2026-10-10",
+  "rosterComplete": false,
+  "currentHotfixReviewComplete": false,
+  "catalogSource": "saved-community-wiki",
+  "sourceUrl": "https://overwatch.weirdgloop.org/w/Mystery_Madness:_Graveyard_Games",
+  "wikiHeroSections": 20,
+  "files": {
+    "heroes": "./heroes.2026-10-10-wiki1.af0b644fafde.json",
+    "powers": "./powers.2026-10-10-wiki1.6306c45224f9.json",
+    "eventRules": "./event-rules.2026-10-10-wiki1.05ee3371ff1c.json"
+  }
+}

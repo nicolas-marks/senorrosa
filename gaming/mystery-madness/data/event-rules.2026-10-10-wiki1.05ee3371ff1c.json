@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "dataVersion": "2026-10-10-wiki1",
+  "updatedAt": "2026-10-10",
+  "records": [
+    {
+      "id": "format",
+      "playersPerTeam": 5,
+      "roleComposition": [
+        1,
+        2,
+        2
+      ],
+      "bestOf": 3,
+      "mapMode": "Control",
+      "queue": "Open Queue",
+      "verificationStatus": "verified",
+      "sourceUrl": "https://us.forums.blizzard.com/en/overwatch/t/overwatch-retail-patch-notes-%E2%80%93-october-6-2026/1041373",
+      "observedAt": "2026-10-10",
+      "scope": "release-source snapshot; current hotfix review incomplete"
+    },
+    {
+      "id": "hero-choice",
+      "choices": 3,
+      "scope": "release-source snapshot; current hotfix review incomplete",
+      "randomSelectionBoost": null,
+      "verificationStatus": "verified",
+      "sourceUrl": "https://us.forums.blizzard.com/en/overwatch/t/overwatch-retail-patch-notes-%E2%80%93-october-6-2026/1041373",
+      "observedAt": "2026-10-10"
+    },
+    {
+      "id": "power-choice",
+      "choicesPerOffer": 2,
+      "earnedChoices": "Levels accumulated since last death",
+      "triggers": [
+        "death",
+        "round transition"
+      ],
+      "experienceSources": [
+        "passive",
+        "eliminations",
+        "assists"
+      ],
+      "rarities": [
+        "Common",
+        "Epic",
+        "Legendary"
+      ],
+      "maximumPowers": null,
+      "verificationStatus": "verified",
+      "sourceUrl": "https://us.forums.blizzard.com/en/overwatch/t/overwatch-retail-patch-notes-%E2%80%93-october-6-2026/1041373",
+      "observedAt": "2026-10-10",
+      "scope": "release-source snapshot; current hotfix review incomplete"
+    },
+    {
+      "id": "death-ultimate-charge",
+      "value": 10,
+      "unit": "percent",
+      "trigger": "death",
+      "selectable": false,
+      "verificationStatus": "verified",
+      "sourceUrl": "https://us.forums.blizzard.com/en/overwatch/t/overwatch-retail-patch-notes-%E2%80%93-october-6-2026/1041373",
+      "observedAt": "2026-10-10",
+      "scope": "release-source snapshot; current hotfix review incomplete"
+    },
+    {
+      "id": "respawn-overhealth",
+      "value": 40,
+      "unit": "percent maximum life",
+      "trigger": "respawn",
+      "selectable": false,
+      "verificationStatus": "verified",
+      "sourceUrl": "https://us.forums.blizzard.com/en/overwatch/t/overwatch-retail-patch-notes-%E2%80%93-october-6-2026/1041373",
+      "observedAt": "2026-10-10",
+      "scope": "release-source snapshot; current hotfix review incomplete"
+    },
+    {
+      "id": "respawn-movement",
+      "value": 30,
+      "unit": "percent move speed",
+      "trigger": "respawn",
+      "condition": "out of combat",
+      "selectable": false,
+      "verificationStatus": "verified",
+      "sourceUrl": "https://us.forums.blizzard.com/en/overwatch/t/overwatch-retail-patch-notes-%E2%80%93-october-6-2026/1041373",
+      "observedAt": "2026-10-10",
+      "scope": "release-source snapshot; current hotfix review incomplete"
+    },
+    {
+      "id": "disabled-powers",
+      "names": [
+        "Saddle Up",
+        "Eye of Horus",
+        "Pogo Bonker",
+        "Magnifier Scope"
+      ],
+      "verificationStatus": "verified",
+      "sourceUrl": "https://us.forums.blizzard.com/en/overwatch/t/overwatch-known-issues-october-6-2026/942905/5",
+      "observedAt": "2026-10-10",
+      "scope": "release-source snapshot; current hotfix review incomplete"
+    }
+  ]
+}

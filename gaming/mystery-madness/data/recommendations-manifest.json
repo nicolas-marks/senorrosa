@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "2026-10-10-trees4",
+  "updatedAt": "2026-10-10",
+  "files": {
+    "archetypes": "./archetypes.2026-10-10-trees4.06bc72ed1673.json",
+    "synergies": "./synergies.2026-10-10-trees4.dd01c8c6db34.json"
+  }
+}

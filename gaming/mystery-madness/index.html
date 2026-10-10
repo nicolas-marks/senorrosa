@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Graveyard Build Lab · Mystery Madness</title><meta name="description" content="Explore hero powers, experiment with a Mystery Madness build, and share the chaos. Independent fan companion with transparent data confidence.">
+<link rel="stylesheet" href="css/tokens.d648745ec904.css"><link rel="stylesheet" href="css/layout.353a149de8d9.css"><link rel="stylesheet" href="css/components.f97188c006ed.css"><link rel="stylesheet" href="css/site-theme.css"><link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website"><meta property="og:title" content="Graveyard Build Lab · Plan for the chaos">
+<meta property="og:description" content="Explore Mystery Madness powers, try experimental builds and share your wish list. Independent fan-project review beta.">
+<meta property="og:url" content="https://senorrosa.com/gaming/mystery-madness/">
+<meta property="og:image" content="https://senorrosa.com/gaming/mystery-madness/assets/icons/share-preview.png">
+<meta name="twitter:card" content="summary_large_image"></head>
+<body id="top"><a class="skip-link" href="#hero-explorer">Skip to hero explorer</a>
+<header class="global-header">
+    
+    <a class="brand" href="/" aria-label="Señor Rosa home">
+      <img
+        class="brand-logo"
+        src="/assets/senorrosa2.png"
+        alt="Señor Rosa and Jake"
+      >
+
+      <div class="brand-text">
+        <span class="brand-name">Señor Rosa</span>
+        <span class="brand-tagline">True stories. Real life.</span>
+      </div>
+    </a>
+
+    <button
+      id="mobile-nav-toggle"
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Toggle navigation"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Site navigation">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a
+            class="nav-link social-link"
+            href="https://instagram.com/senorrosa_comics"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+              <circle cx="12" cy="12" r="4.25"></circle>
+              <circle cx="17.5" cy="6.5" r="1.1"></circle>
+            </svg>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#comics">Comics</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/spanish/">Spanish</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/workshop">Digital Literacy</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/about.html">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="mailto:info@senorrosa.com">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+<header class="lab-header"><div class="brand-row"><span class="lab-brand">☠ Graveyard Build Lab</span><span class="overline">SEÑOR ROSA GAMING</span></div>
+<div class="overline">MYSTERY MADNESS · GRAVEYARD GAMES · REVIEW BETA</div><h1>RNG and Organized Chaos</h1><p class="intro">Explore powers, experiment with a crazy build, and know what to hope for when RNG has other plans.</p></header>
+<main class="page-shell"><section id="hero-explorer" class="hero-explorer" aria-labelledby="explorer-title"><div class="section-heading"><h2 id="explorer-title">Who are you playing?</h2><span id="heroResults" class="subtle" role="status"></span></div>
+<details class="roster-notes"><summary>Roster and source notes</summary><p class="subtle" id="coverage">Catalog loading…</p><p class="subtle">Announced additions: Ashe, Moira and Winston. Current unlocks are not yet verified.</p>
+</details><div class="explorer-toolbar"><label><span>Find a hero</span><input id="heroSearch" type="search" placeholder="Search hero names" autocomplete="off"></label><label><span>Role</span><select id="roleFilter"><option value="All">All roles</option><option>Tank</option><option>Damage</option><option>Support</option></select></label></div>
+<div id="roster" class="hero-gallery"></div></section>
+<section class="panel chaos-area" id="chaosArea" hidden><div class="chaos-title-row"><h2>Choose your chaos</h2><section id="buildAnalysis" hidden aria-label="Explainable build analysis"></section></div><section id="pathNavigation" aria-label="Playstyle selection"></section><section id="perfectBlueprintFit" aria-label="Ideal Level 8 blueprint"><aside id="idealHeroSummary" class="condensed-summary ideal-summary" aria-label="Recommended hero summary"></aside></section><section class="panel" id="progression" aria-label="Match pace and four path comparisons"></section><section id="myBuildFit" aria-label="My active build score"><aside id="myHeroSummary" class="condensed-summary player-summary" aria-label="Your hero build summary"></aside></section><section id="powerSelection" aria-label="Select eligible powers"></section><details class="optional-pathway"><summary>Detailed progression tree and customization</summary><section id="buildExplorer" aria-label="Build directions and target paths" tabindex="-1"></section></details><section class="panel compact-build-header"><div class="section-heading"><h2 id="workshopTitle" tabindex="-1" class="workshop-title">Build workshop</h2><button id="startCustom">Start a fresh build</button></div><div id="heroCard" class="hero-card"></div><details class="compact-details"><summary>Catalog confidence & build settings</summary><p class="notice" id="heroConfidence"></p><label class="field-label" for="evidenceMode">Build evidence</label><select id="evidenceMode"><option value="experimental">Experimental previews · legacy evidence</option><option value="verified">Verified recommendations only</option></select><label class="field-label" for="archetype">Build direction</label><select id="archetype"><option value="">Custom wish list</option></select></details></section></section>
+<section class="saved-section" aria-labelledby="saved-title"><details><summary id="saved-title">Your saved builds on this device</summary><div id="savedBuilds" class="saved-grid"></div></details></section><div id="startHint" class="starting-note"><strong>Your next experiment starts with a hero.</strong><p>Choose a card to explore its catalog and start a custom build. Try a labelled experimental blueprint, then modify it as your offerings change. Verified recommendations stay separate until the evidence is ready.</p></div>
+<div class="workshop" id="workshop" hidden><div class="leftcol">
+
+<section class="panel" aria-labelledby="library-title"><details><summary id="library-title">Browse all power cards</summary><div class="section-heading"><h2>Find your powers <span class="counter" id="count"></span></h2></div>
+<p class="subtle">Read a card, add it to your build, and explore combinations. Offerings in-game are random; this is a wish list.</p>
+<div class="toolbar"><select id="hero" aria-label="Workshop hero"><option value="All">Choose a hero</option></select><select id="rarity" aria-label="Power rarity"><option value="All">All rarities</option><option>Common</option><option>Epic</option><option>Legendary</option><option>Unknown</option></select><select id="abilityFilter" aria-label="Ability mentioned in description"><option value="All">All ability mentions</option></select><select id="tagFilter" aria-label="Power theme"><option value="All">All themes</option></select><input id="search" type="search" aria-label="Search powers" placeholder="Search powers, effects, tags…"></div>
+<div class="cards" id="cards"></div></details></section></div>
+<aside class="panel sidebar compact-build-tools" aria-label="Your custom build"><section><h2>Build tools <span class="counter" id="selectedCount">0</span></h2><input id="buildName" maxlength="120" value="Untitled Madness Build" aria-label="Build name"><div class="footnote" id="currentHero">Choose a hero</div><details><summary>Selected powers</summary><div class="stack" id="slots"></div></details><div class="actions"><button class="primary" id="share">Copy build link</button><button id="copy">Copy summary</button><button id="saveBuild">Save build</button><button id="duplicate">Duplicate</button><button id="reset">Clear powers</button></div></section>
+<details class="compact-details"><summary>Build focus & other analysis</summary><section><h2>Build focus</h2><p class="subtle">Counts of themes in your selected descriptions, not measured performance.</p><div class="profile-bars" id="profileBars"></div></section><section><h2>Power themes</h2><div class="chip-wrap" id="abilityFocus"></div></section>
+<section><h2>Other tag overlaps</h2><div id="synergies" class="synergy-list"></div></section><section><div id="metrics"></div></section></details></aside></div>
+<section class="panel data-tools" aria-label="Data and build status"><p id="status" role="status" aria-live="polite" class="footnote">Loading versioned data…</p><textarea id="copyFallback" hidden aria-label="Copy build text" class="copy-fallback"></textarea><details><summary>How the mode works</summary><p class="footnote">Release rules: 5v5 Open Queue with a 1–2–2 role composition, best-of-3 Control. Your assigned role offers three hero choices. Levels earn choices between two random powers on death or round transition; no fixed power capacity is documented here.</p><p class="footnote">Death grants 10% Ultimate Charge. Respawning grants 40% maximum-life Overhealth and 30% movement speed while out of combat. These are baseline mechanics, not selectable powers. Current hotfix verification is incomplete.</p><a href="https://us.forums.blizzard.com/en/overwatch/t/overwatch-retail-patch-notes-%E2%80%93-october-6-2026/1041373" target="_blank" rel="noopener noreferrer">Read the release rules</a></details><details><summary>Power data tools</summary><p class="footnote">Import a reviewed CSV to experiment with a replacement catalog for this visit. Export preserves the original CSV format. Shared links include IDs, not the CSV itself.</p><label for="file">Import CSV</label><input type="file" id="file" accept=".csv,text/csv"><div class="actions"><button id="download">Export CSV</button></div></details></section></main>
+<aside id="powerDetailPanel" class="power-detail-panel" aria-label="Power information" hidden></aside><footer><p class="footnote">Review beta · Community wiki catalog; completeness and current unlocks unconfirmed. Independent fan project. Not affiliated with Blizzard Entertainment.</p><p class="footnote" id="dataVersion"></p></footer><script type="module" src="js/app.7ef68c5045aa.js"></script><script src="/site.js"></script></body></html>
